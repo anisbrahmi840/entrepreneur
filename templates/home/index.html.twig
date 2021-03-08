@@ -1,0 +1,351 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}
+{% endblock %}
+
+{% block body %}
+	<section class="hero-area">
+		<div
+			class="slider-one">
+			<!-- Single Slider -->
+			<div class="single-slider" style="background-image:url({{asset('images/slider-bg1.jpg')}})">
+				<div class="container">
+					<div class="row">
+						<div
+							class="col-md-7 col-sm-12 col-xs-12">
+							<!-- Slider Text -->
+							<div class="slide-text">
+								<h1>
+									<span class="short">Je veux devenir
+									</span>Auto-entrepreneur</h1>
+								<p>Déclaration, Fiscalité, Démarches Administratives : Trouvez les réponses à vos questions</p>
+								<div class="slide-btn">
+									<a href="https://www.youtube.com/watch?v=FZQPhrdKjow" class="btn primary video-play video-popup mfp-fade">Découvrir le statut auto-entrepreneur<i class="fa fa-play"></i>
+										<div class="waves-block">
+											<div class="waves wave-1"></div>
+											<div class="waves wave-2"></div>
+											<div class="waves wave-3"></div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<!--/ End SLider Text -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Single Slider -->
+			<!-- Single Slider -->
+			<div class="single-slider" style="background-image:url({{asset('images/slider-bg3.jpg')}})">
+				<div class="container">
+					<div class="row">
+						<div
+							class="col-md-7 col-sm-12 col-xs-12">
+							<!-- Slider Text -->
+							<div class="slide-text">
+								<h1>
+									<span class="short">Je suis</span>Auto-entrepreneur</h1>
+								<p>Gérer votre espace facilement</p>
+								<div class="slide-btn">
+									<a href="#projects" class="btn primary">Gérer mon espace<i class="fa fa-long-arrow-down"></i>
+									</a>
+								</div>
+							</div>
+							<!--/ End SLider Text -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Single Slider -->
+		</div>
+	</section>
+	<section class="features">
+		<div class="container">
+			<div
+				class="row">
+				<!-- Features Single -->
+				<div class="col-md-4 col-sm-4 col-xs-12 features-single">
+					<i class="fa fa-question"></i>
+					<h2>
+						<a href="#faq" class="text-white">
+							Qui est l’Auto-entrepreneur</a>
+					</h2>
+				</div>
+				<!--/ End Features Single -->
+				<!-- Features Single -->
+				<div class="col-md-4 col-sm-4 col-xs-12 features-single active">
+					<i class="fa fa-check-circle"></i>
+					<h2>
+						<a href="#services" class="text-white">Avantage</a>
+					</h2>
+				</div>
+				<!--/ End Features Single -->
+				<!-- Features Single -->
+				<div class="col-md-4 col-sm-4 col-xs-12 features-single">
+					<i class="fa fa-flag"></i>
+					<h2>
+						<a href="https://paie-tunisie.com/docs/relatedInfo/decret-loi-2020-33du-10juin2020-131550.pdf#pagemode=bookmarks&navpanes=0" class="text-white" target="_blank">Décret-loi</a>
+					</h2>
+				</div>
+				<!--/ End Features Single -->
+			</div>
+		</div>
+	</section>
+	<!-- Start Faq -->
+	<section id="faq" class="faq section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="section-title">
+						<h1>Statut de l’Auto-Entrepreneur en Tunisie</h1>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-md-offset-1 col-sm-12 col-xs-12">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div
+							class="panel panel-default">
+							<!-- Single Faq -->
+							<div class="faq-heading" id="FaqTitle2">
+								<h4 class="faq-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq2">Qui peut devenir auto-entrepreneur ?</a>
+								</h4>
+							</div>
+							<div id="faq2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle2">
+								<div class="faq-body">Toute personne physique exerçant, à titre individuel, une activité industrielle, commerciale ou artisanale, ou prestataire de service, dont le chiffre d’affaires annuel (TND) encaissé ne dépasse pas le montant:
+									<b>75 000 TND</b>
+								</div>
+							</div>
+							<!--/ End Single Faq -->
+						</div>
+						<div
+							class="panel panel-default">
+							<!-- Single Faq -->
+							<div class="faq-heading" id="FaqTitle4">
+								<h4 class="faq-title">
+									<a class="collapsed" href="#services">quelles sont les avantages ?</a>
+								</h4>
+							</div>
+							<!--/ End Single Faq -->
+						</div>
+						<div
+							class="panel panel-default">
+							<!-- Single Faq -->
+							<div class="faq-heading" id="FaqTitle3">
+								<h4 class="faq-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq3">quelles sont les obligations ?</a>
+								</h4>
+							</div>
+							<div id="faq3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle3">
+								<div class="faq-body">-Vous êtes une personne physique, de nationalité tunisienne<br>-Vous exercez individuellement dans le secteur industriel, commercial, agricole, des services ,de l’artisanat ou des métiers.<br>-Votre chiffre d'affaires annuel ne dépasse pas 75 000 dinars<br>-Vous avez une adresse (domicile)<br>-Vous ne disposez pas déjà d’une déclaration d’existence fiscale</div>
+							</div>
+							<!--/ End Single Faq -->
+						</div>
+						<div
+							class="panel panel-default">
+							<!-- Single Faq -->
+							<div class="faq-heading" id="FaqTitle5">
+								<h4 class="faq-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq5">Quelles sont Les obligations comptables et juridiques ?</a>
+								</h4>
+							</div>
+							<div id="faq5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle5">
+								<div class="faq-body">-Disposer d’une carte d’auto-entrepreneur<br>-Respecter les règles relatives à la concurrence, à la protection du consommateur, à la santé, à la sécurité et aux droits et procédures fiscaux et sociaux conformément à la législation en vigueur<br>-Fournir des données exactes, complètes et actualisées relatives à sa situation et à l’exercice de son activité<br>-Déclarer le chiffre d’affaires réalisé dans les délais<br>-Tenir un registre numéroté et paraphé par les autorités fiscales compétentes, sur lequel sont enregistrées quotidiennement les dépenses et recettes sur la base des documents justificatifs</div>
+							</div>
+							<!--/ End Single Faq -->
+						</div>
+						<div
+							class="panel panel-default">
+							<!-- Single Faq -->
+							<div class="faq-heading" id="FaqTitle6">
+								<h4 class="faq-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq6">Quelles sont Les catégories des activités concernées ?</a>
+								</h4>
+							</div>
+							<div id="faq6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle6">
+								<div class="faq-body">Les professions exercées en auto-entreprise se répartissent en 5 catégories. Les activités dans le secteur de l'<b>industrie</b>, de l'<b>agriculture</b>, du
+									<b>commerce</b>, des
+									<b>services</b>, de l’<b>artisanat</b>
+									ou des métiers</div>
+							</div>
+							<!--/ End Single Faq -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="services" class="services section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="section-title">
+						<h1>Avantage</h1>
+					</div>
+				</div>
+			</div>
+			<div
+				class="row">
+				<!-- Single Service -->
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="single-services">
+						<div class="icon">
+							<i class="fa fa-edit"></i>
+						</div>
+						<div class="icon two">
+							<i class="fa fa-edit"></i>
+						</div>
+						<h2>
+							<a href="service-single.html">Procédure de création radiation simplifiée</a>
+						</h2>
+						<p>Toutes vos démarches administratives en quelques minutes</p>
+					</div>
+				</div>
+				<!--/ End Single Service -->
+				<!-- Single Service -->
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="single-services">
+						<div class="icon">
+							<i class="fa fa-home"></i>
+						</div>
+						<div class="icon two">
+							<i class="fa fa-home"></i>
+						</div>
+						<h2>
+							<a href="service-single.html">Possibilité d’exercice de l’activité à domicile</a>
+						</h2>
+						<p>Plus besoin d’avoir un local professionnel pour créer votre entreprise.</p>
+					</div>
+				</div>
+				<!--/ End Single Service -->
+				<!-- Single Service -->
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="single-services">
+						<div class="icon">
+							<i class="fa fa-money"></i>
+						</div>
+						<div class="icon two">
+							<i class="fa fa-money"></i>
+						</div>
+						<h2>
+							<a href="service-single.html">Pas de chiffre d’affaires, pas d’impôt sur le revenu
+							</a>
+						</h2>
+						<p>Vous n’aurez pas à payer l’impôt sur le revenu pendant l’année d’inscription</p>
+					</div>
+				</div>
+				<!--/ End Single Service -->
+				<!-- Single Service -->
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="single-services">
+						<div class="icon">
+							<i class="fa fa-file-text-o"></i>
+						</div>
+						<div class="icon two">
+							<i class="fa fa-file-text-o"></i>
+						</div>
+						<h2>
+							<a href="service-single.html">Possibilité de facturation</a>
+						</h2>
+						<p>Vous pouvez désormais facturer vos prestations à vos clients.</p>
+					</div>
+				</div>
+				<!--/ End Single Service -->
+				<!-- Single Service -->
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="single-services">
+						<div class="icon">
+							<i class="fa fa-folder-open"></i>
+						</div>
+						<div class="icon two">
+							<i class="fa fa-folder-open"></i>
+						</div>
+						<h2>
+							<a href="service-single.html">Fiscalité réduite</a>
+						</h2>
+						<p>
+							<b>0,5%</b>
+							du chiffre d'affaires annuel<br><b>7.5%</b>
+							pour les prestations de services</p>
+					</div>
+				</div>
+				<!--/ End Single Service -->
+				<!-- Single Service -->
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="single-services">
+						<div class="icon">
+							<i class="fa fa-files-o"></i>
+						</div>
+						<div class="icon two">
+							<i class="fa fa-files-o"></i>
+						</div>
+						<h2>
+							<a href="service-single.html">Dispense de comptabilité</a>
+						</h2>
+						<p>Plus besoin de présenter votre bilan comptable à l’administration fiscale.</p>
+					</div>
+				</div>
+				<!--/ End Single Service -->
+			</div>
+		</div>
+	</section>
+	<!-- Why Choose Us -->
+	<section id="why-choose" class="why-choose section">
+		<div class="container-fluid fix">
+			<div class="row fix">
+				<div class="col-md-4 col-sm-12 col-xs-12 fix">
+					<div class="working-process">
+						<h2>Demande carte entrepreneur</h2>
+						<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
+						<a href="about-us.html" class="btn">
+							Read More</a>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-12 col-xs-12 fix">
+					<div
+						class="choose-main">
+						<!-- Single Choose -->
+						<div class="single-choose">
+							<i class="fa fa-check"></i>
+							<h4>inscrivez vous !</h4>
+							<p>notare quam littera gothica, quam nunc putamus parum claram</p>
+						</div>
+						<!-- End Single Choose -->
+						<!-- Single Choose -->
+						<div class="single-choose">
+							<i class="fa fa-support"></i>
+							<h4>remplir le formulaire d'inscription</h4>
+							<p>notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas</p>
+						</div>
+						<!-- End Single Choose -->
+						<!-- Single Choose -->
+						<div class="single-choose">
+							<i class="fa fa-optin-monster"></i>
+							<h4>demandez votre carte</h4>
+							<p>notare quam littera gothica, quam nunc putamus parum claram</p>
+						</div>
+						<!-- End Single Choose -->
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-12 col-xs-12 fix">
+					<div
+						class="why-video">
+						<!-- Video Animation -->
+						<div class="promo-video">
+							<div class="waves-block">
+								<div class="waves wave-1"></div>
+								<div class="waves wave-2"></div>
+								<div class="waves wave-3"></div>
+							</div>
+						</div>
+						<!--/ End Video Animation -->
+						<!-- Promo Video -->
+						<div class="image"><img src="{{asset('images/carte.png')}}"/></div>
+						<!--/ End Promo Video -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
