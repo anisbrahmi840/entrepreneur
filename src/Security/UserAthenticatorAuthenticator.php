@@ -24,7 +24,7 @@ class UserAthenticatorAuthenticator extends AbstractFormLoginAuthenticator imple
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'users_login';
 
     private $entityManager;
     private $urlGenerator;
