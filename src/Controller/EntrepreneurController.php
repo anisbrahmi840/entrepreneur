@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Entrepreneur;
+use App\Form\EntrepreneurEditPasswordType;
+use App\Form\EntrepreneurEditType;
 use App\Form\EntrepreneurType;
 use App\Repository\EntrepreneurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/entrepreneur")
@@ -66,7 +70,7 @@ class EntrepreneurController extends AbstractController
      */
     public function edit(Request $request, Entrepreneur $entrepreneur): Response
     {
-        $form = $this->createForm(EntrepreneurType::class, $entrepreneur);
+        $form = $this->createForm(EntrepreneurEditType::class, $entrepreneur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,6 +80,33 @@ class EntrepreneurController extends AbstractController
         }
 
         return $this->render('entrepreneur/edit.html.twig', [
+            'entrepreneur' => $entrepreneur,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/editpassword", name="entrepreneur_editpassword", methods={"GET","POST"})
+     */
+    public function editPassword(Request $request, Entrepreneur $entrepreneur, UserPasswordEncoderInterface $encoder): Response
+    {
+        $oldPasswordBd = $entrepreneur->getPassword();
+        $form = $this->createForm(EntrepreneurEditPasswordType::class, $entrepreneur);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {     
+        
+            $oldPassword = $request->request->get('entrepreneur_edit_password')['oldPassword'];
+            if(!password_verify($oldPassword, $oldPasswordBd)){
+                $form->get('oldPassword')->addError(new FormError('Mot de passe incorrect!'));
+            }else{
+                $entrepreneur->setPassword($encoder->encodePassword($entrepreneur, $entrepreneur->getPassword()) );
+                
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('entrepreneur_show', ['id' => $entrepreneur->getId()]);
+            }
+        }
+
+        return $this->render('entrepreneur/editPassword.html.twig', [
             'entrepreneur' => $entrepreneur,
             'form' => $form->createView(),
         ]);

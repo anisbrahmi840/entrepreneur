@@ -296,7 +296,7 @@ input:-webkit-autofill:focus {
 }
 /*Bread Crumbs */
 .breadcrumbs {
-	background: url('http://via.placeholder.com/1500x700');
+	background: url('../images/bread.jpg');
 	background-position: 100%;
 	position: relative;
 	background-repeat: no-repeat;

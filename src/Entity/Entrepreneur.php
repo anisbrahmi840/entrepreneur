@@ -138,7 +138,18 @@ class Entrepreneur implements UserInterface
         return (string) $this->password;
     }
 
+    public function getPassword2(): string
+    {
+        return (string) $this->password;
+    }
+
     public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+    public function setPassword2(string $password): self
     {
         $this->password = $password;
 

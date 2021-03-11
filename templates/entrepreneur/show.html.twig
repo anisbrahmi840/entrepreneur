@@ -3,32 +3,126 @@
 {% block title %}Entrepreneur{% endblock %}
 
 {% block body %}
-    <h1>Entrepreneur</h1>
+<section class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h2>{{ entrepreneur.nom }} {{ entrepreneur.prenom }}</h2>
+                <ul class="bread-list">
+                    <li><a href="#">Etat<i class="fa fa-angle-right"></i></a></li>
+                    <li class="active"><a href="#">{% if entrepreneur.etat %} Activé {% else %} non activé
+                            {% endif %}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Start Pricing Table -->
+<section id="pricing-table" class="pricing-table section">
+    <div class="container">
+        <div class="row">
+            <!-- Single Table -->
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="single-table">
+                    <div class="bg-icon"><i class="fa fa-file"></i></div>
+                    <!-- Table Head -->
+                    <div class="table-head">
+                        <h2 class="title">Informations personnelles</h2>
+                    </div>
+                    <!-- Table List -->
+                    <ul class="table-list">
+                        <li><h6>CIN: {{ entrepreneur.cin }} </h6></li>
+                    </ul>
+                    <ul class="table-list">
+                        <li><h6>Téléphone: {{ entrepreneur.tel }} </h6></li>
+                    </ul>
+                    <ul class="table-list">
+                        <li><h6>Genre: {{ entrepreneur.genre }} </h6></li>
+                    </ul>
+                    <ul class="table-list">
+                        <li><h6>Date de naissance: {{ entrepreneur.datenais | date('d-m-Y') }} </h6></li>
+                    </ul>
+                    <ul class="table-list">
+                        <li><h6>Pays: Tunisie </h6></li>
+                    </ul>
+                    <ul class="table-list">
+                        <li><h6>Ville: {{entrepreneur.villenais}} </h6></li>
+                    </ul>
+                    <!-- Table Bottom -->
+                    <div class="table-bottom">
+                        <a class="btn primary" href="{{ path('entrepreneur_edit', {id: entrepreneur.id}) }}"><i class="fa fa-edit"></i>Modifier</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Single Table-->
+            <!-- Single Table -->
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="single-table active">
+                    <div class="bg-icon"><i class="fa fa-truck"></i></div>
+                    <!-- Table Head -->
+                    <div class="table-head">
+                        <h2 class="title">Informations d'activité</h2>
+                    </div>
+                    <!-- Table List -->
+                    <ul class="table-list">
+                        <li>...</li>
+                    </ul>
+                    <!-- Table Bottom -->
+                    <div class="table-bottom">
+                        <a class="btn primary" href="contact.html"><i class="fa fa-shopping-cart"></i>Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Single Table-->
+            <!-- Single Table -->
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="single-table">
+                    <div class="bg-icon"><i class="fa fa-key"></i></div>
+                    <!-- Table Head -->
+                    <div class="table-head">
+                        <h2 class="title">Modifier mot de passe</h2>
+                    </div>
+                    <!-- Table List -->
+                    <ul class="table-list">
+                        <li></li><li></li>
+                    </ul>
+                    <!-- Table Bottom -->
+                    <div class="table-bottom">
+                        <a class="btn primary" href="{{ path('entrepreneur_editpassword', {id: entrepreneur.id}) }}"><i class="fa fa-edit"></i>modifer</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Single Table-->
+        </div>
+    </div>
+</section>
+<!--/ End Pricing Table -->
+<h1>Entrepreneur</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entrepreneur.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entrepreneur.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ entrepreneur.roles ? entrepreneur.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ entrepreneur.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entrepreneur.id }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entrepreneur.email }}</td>
+        </tr>
+        <tr>
+            <th>Roles</th>
+            <td>{{ entrepreneur.roles ? entrepreneur.roles|json_encode : '' }}</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>{{ entrepreneur.password }}</td>
+        </tr>
+    </tbody>
+</table>
 
-    <a href="{{ path('entrepreneur_index') }}">back to list</a>
+<a href="{{ path('entrepreneur_index') }}">back to list</a>
 
-    <a href="{{ path('entrepreneur_edit', {'id': entrepreneur.id}) }}">edit</a>
+<a href="{{ path('entrepreneur_edit', {'id': entrepreneur.id}) }}">edit</a>
 
-    {{ include('entrepreneur/_delete_form.html.twig') }}
+{{ include('entrepreneur/_delete_form.html.twig') }}
 {% endblock %}
