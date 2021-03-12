@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Agent;
 use App\Form\AdminType;
+use App\Form\AgentType;
 use App\Repository\AdminRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -93,5 +95,29 @@ class AdminController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_index');
+    }
+
+    /**
+     * @Route("/agent/new", name="agent_new", methods={"GET","POST"})
+     */
+    public function newAgent(Request $request, UserPasswordEncoderInterface $encoder): Response
+    {
+        $agent = new Agent();
+        $form = $this->createForm(AgentType::class, $agent);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $agent->setPassword($encoder->encodePassword($agent, $agent->getPassword()));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($agent);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('agent_index');
+        }
+
+        return $this->render('agent/new.html.twig', [
+            'agent' => $agent,
+            'form' => $form->createView(),
+        ]);
     }
 }

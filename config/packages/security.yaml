@@ -4,7 +4,8 @@ security:
             algorithm: auto
         App\Entity\Admin:
             algorithm: auto
-
+        App\Entity\Agent:
+            algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -17,9 +18,13 @@ security:
             entity:
                 class: App\Entity\Admin
                 property: email
+        app_agent_provider:
+            entity:
+                class: App\Entity\Agent
+                property: email
         all_users:
             chain:
-                providers: ['app_admin_provider', 'app_user_provider']
+                providers: ['app_admin_provider', 'app_user_provider', 'app_agent_provider']
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
@@ -32,6 +37,7 @@ security:
                 authenticators:
                     - App\Security\UserAthenticatorAuthenticator
                     - App\Security\AdminAuthenticator
+                    - App\Security\AgentAuthenticator
                 entry_point: App\Security\UserAthenticatorAuthenticator
             logout:
                 path: app_logout

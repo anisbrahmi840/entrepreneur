@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Admin;
+use App\Entity\Agent;
 use App\Entity\Entrepreneur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -28,11 +30,11 @@ class AppFixtures extends Fixture
                 ->setNom($faker->name)
                 ->setPrenom($faker->lastName)
                 ->setEmail($faker->email)
-                ->setCin($faker->biasedNumberBetween($min = 8, $max = 8))
+                ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
                 ->setGenre($faker->randomElement($array = array('femme', 'homme')))
                 ->setDatenais(new \DateTime())
                 ->setPaynais('Tunisie')
-                ->setTel($faker->biasedNumberBetween($min = 8, $max = 8))
+                ->setTel($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
                 ->setDateexpcin(new \DateTime())
                 ->setVillenais($faker->randomElement($array = array('Ariana',
                                                                     'Béja',
@@ -64,6 +66,26 @@ class AppFixtures extends Fixture
                 ;
             $manager->persist($entrepreneur);
         }
+
+        // admin fixture
+        $admin = new Admin();
+        $admin->setNom('Anis')
+            ->setPrenom('Brahmi')
+            ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
+            ->setEmail('admin@gmail.com')
+            ->setPassword($this->encoder->encodePassword($admin, 'admin'))
+            ;
+        $manager->persist($admin);
+
+        // agent fixture
+        $agent = new Agent();
+        $agent->setNom($faker->name)
+            ->setPrenom($faker->lastName)
+            ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
+            ->setEmail('agent@gmail.com')
+            ->setPassword($this->encoder->encodePassword($agent, 'agent'))
+            ;
+        $manager->persist($agent);
 
         $manager->flush();
     }
