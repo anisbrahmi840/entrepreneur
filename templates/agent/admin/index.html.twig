@@ -1,17 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
-{% block title %}Agent index{% endblock %}
+{% block title %}Liste d'agents{% endblock %}
 
 {% block body %}
-    <h1>Agent index</h1>
+    <h1>Liste d'agents</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Cin</th>
@@ -23,23 +21,21 @@
             <tr>
                 <td>{{ agent.id }}</td>
                 <td>{{ agent.email }}</td>
-                <td>{{ agent.roles ? agent.roles|json_encode : '' }}</td>
-                <td>{{ agent.password }}</td>
                 <td>{{ agent.nom }}</td>
                 <td>{{ agent.prenom }}</td>
                 <td>{{ agent.cin }}</td>
                 <td>
-                    <a href="{{ path('agent_show', {'id': agent.id}) }}">show</a>
-                    <a href="{{ path('agent_edit', {'id': agent.id}) }}">edit</a>
+                    <a href="{{ path('agent_show_admin', {'id': agent.id}) }}"><span class="fa fa-eye text-info"/>&nbsp;&nbsp;</a>
+                    <a href="{{ path('agent_edit_admin', {'id': agent.id}) }}"><span class="fa fa-edit text-success"/></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('agent_new') }}">Create new</a>
+    <a href="{{ path('agent_new_admin') }}" class="btn btn-primary">Ajouter agent</a>
 {% endblock %}

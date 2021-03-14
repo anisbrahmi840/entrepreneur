@@ -5,28 +5,16 @@ namespace App\Controller;
 use App\Entity\Agent;
 use App\Form\AgentType;
 use App\Repository\AgentRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * @Route("/agent")
- */
 class AgentController extends AbstractController
 {
     /**
-     * @Route("/", name="agent_index", methods={"GET"})
-     */
-    public function index(AgentRepository $agentRepository): Response
-    {
-        return $this->render('agent/index.html.twig', [
-            'agents' => $agentRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="agent_show", methods={"GET"})
+     * @Route("/agent/{id}", name="agent_show", methods={"GET"})
      */
     public function show(Agent $agent): Response
     {
@@ -36,7 +24,7 @@ class AgentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="agent_edit", methods={"GET","POST"})
+     * @Route("/agent/{id}/edit", name="agent_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Agent $agent): Response
     {
@@ -56,7 +44,7 @@ class AgentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="agent_delete", methods={"DELETE"})
+     * @Route("/agent/{id}", name="agent_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Agent $agent): Response
     {

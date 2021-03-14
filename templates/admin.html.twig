@@ -63,8 +63,10 @@
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="{{ path('agent_new') }}">Agent</a>
-						<a class="collapse-item" href="cards.html">Cards</a>
+						{% if is_granted("ROLE_Admin") %}
+						<a class="collapse-item" href="{{ path('agent_index_admin') }}">Agents</a>
+						{% endif %}
+						<a class="collapse-item" href="{{ path('entrepreneur_index') }}">Entrepreneurs</a>
 					</div>
 				</div>
 			</li>

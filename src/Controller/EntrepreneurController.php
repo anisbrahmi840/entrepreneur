@@ -21,16 +21,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class EntrepreneurController extends AbstractController
 {
     /**
-     * @Route("/", name="entrepreneur_index", methods={"GET"})
-     */
-    public function index(EntrepreneurRepository $entrepreneurRepository): Response
-    {
-        return $this->render('entrepreneur/index.html.twig', [
-            'entrepreneurs' => $entrepreneurRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="entrepreneur_new", methods={"GET","POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response

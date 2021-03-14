@@ -6,7 +6,11 @@ use App\Entity\Admin;
 use App\Entity\Agent;
 use App\Form\AdminType;
 use App\Form\AgentType;
+use App\Entity\Entrepreneur;
+use App\Form\EntrepreneurAdminType;
 use App\Repository\AdminRepository;
+use App\Repository\AgentRepository;
+use App\Repository\EntrepreneurRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,8 +101,72 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_index');
     }
 
+// ------------Controle Entrepreneur -----------
+
     /**
-     * @Route("/agent/new", name="agent_new", methods={"GET","POST"})
+     * @Route("/entrepreneurs/liste", name="entrepreneur_index", methods={"GET"})
+     */
+    public function indexEntrepreneur(EntrepreneurRepository $entrepreneurRepository): Response
+    {
+        return $this->render('entrepreneur/admin/index.html.twig', [
+            'entrepreneurs' => $entrepreneurRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/entrepreneur/{id}", name="entrepreneur_show_admin", methods={"GET"})
+     */
+    public function showEntrepreneur(Entrepreneur $entrepreneur): Response
+    {
+        return $this->render('entrepreneur/admin/show.html.twig', [
+            'entrepreneur' => $entrepreneur,
+        ]);
+    }
+
+    /**
+     * @Route("/entrepreneur/{id}/edit", name="entrepreneur_edit_admin", methods={"GET","POST"})
+     */
+    public function editEntrepreneur(Request $request, Entrepreneur $entrepreneur): Response
+    {
+        $form = $this->createForm(EntrepreneurAdminType::class, $entrepreneur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('entrepreneur_index');
+        }
+
+        return $this->render('entrepreneur/admin/editAdmin.html.twig', [
+            'entrepreneur' => $entrepreneur,
+            'form' => $form->createView(),
+        ]);
+    }
+
+// ----------Controle Agnet ------------
+
+    /**
+     * @Route("/agents/liste", name="agent_index_admin", methods={"GET"})
+     */
+    public function indexAgent(AgentRepository $agentRepository): Response
+    {
+        return $this->render('agent/admin/index.html.twig', [
+            'agents' => $agentRepository->findAll(),
+        ]);
+    }
+
+     /**
+     * @Route("/agent/{id}", name="agent_show_admin", methods={"GET"})
+     */
+    public function showAgent(Agent $agent): Response
+    {
+        return $this->render('agent/admin/show.html.twig', [
+            'agent' => $agent,
+        ]);
+    }
+
+    /**
+     * @Route("/agent/new", name="agent_new_admin", methods={"GET","POST"})
      */
     public function newAgent(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
@@ -115,9 +183,30 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('agent_index');
         }
 
-        return $this->render('agent/new.html.twig', [
+        return $this->render('agent/admin/new.html.twig', [
             'agent' => $agent,
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/agent/{id}/edit", name="agent_edit_admin", methods={"GET","POST"})
+     */
+    public function editAgent(Request $request, Agent $agent): Response
+    {
+        $form = $this->createForm(AgentType::class, $agent);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('agent_index');
+        }
+
+        return $this->render('agent/admin/edit.html.twig', [
+            'agent' => $agent,
+            'form' => $form->createView(),
+        ]);
+    }
+
 }
