@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EntrepreneurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -83,6 +85,16 @@ class Entrepreneur implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $etat = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Facture::class, mappedBy="entrepreneur")
+     */
+    private $factures;
+
+    public function __construct()
+    {
+        $this->factures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -292,6 +304,36 @@ class Entrepreneur implements UserInterface
     public function setEtat(bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Facture[]
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): self
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures[] = $facture;
+            $facture->setEntrepreneur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): self
+    {
+        if ($this->factures->removeElement($facture)) {
+            // set the owning side to null (unless already changed)
+            if ($facture->getEntrepreneur() === $this) {
+                $facture->setEntrepreneur(null);
+            }
+        }
 
         return $this;
     }

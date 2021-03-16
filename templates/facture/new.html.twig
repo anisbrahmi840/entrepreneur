@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Facture{% endblock %}
+{% form_theme form _self %}
+{% block body %}
+    <div class="row justify-content-center">        
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <h1 class="text-center">Ajouter Facture</h1>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+        </div>
+    </div>
+        <div class="row justify-content-center">        
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <button class="btn btn-primary">{{ button_label|default('Ajouter facture') }}</button>
+        </div>
+    </div>    
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block _facture_produits_widget %}
+    <p>Ajouter vos produits</p>
+    {{ form_widget(form) }}
+
+    <div class="form-group">
+        <button type="button" id="add-produit" class="btn btn-primary"> Ajouter un produit</button>
+    </div>
+{% endblock %}
+
+{% block _facture_produits_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+ 
+{% block _facture_produits_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.nom) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.nb) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.prixUnitaire) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+            </div>        
+        </div>    
+    </div>        
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#add-produit').click(function(){
+            const index = $('#facture_produits div.form-group').length;
+            const tmpl = $('#facture_produits').data('prototype').replace(/__name__/g, index);
+            $('#facture_produits').append(tmpl);
+            handleDelete();
+        });
+
+        function handleDelete() {
+            $('button[data-action="delete"]').click(function(){
+                const target = this.dataset.target;
+                $(target).remove();
+            });
+        }
+        handleDelete();
+    </script>
+    
+{% endblock %}
