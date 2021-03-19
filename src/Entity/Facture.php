@@ -59,6 +59,16 @@ class Facture
      */
     private $entrepreneur;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ref;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -179,6 +189,30 @@ class Facture
     public function setEntrepreneur(?Entrepreneur $entrepreneur): self
     {
         $this->entrepreneur = $entrepreneur;
+
+        return $this;
+    }
+
+    public function getRef(): ?string
+    {
+        return $this->ref;
+    }
+
+    public function setRef(string $ref): self
+    {
+        $this->ref = $ref;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

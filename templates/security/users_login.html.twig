@@ -12,9 +12,9 @@
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center ">
             <!-- Contact Form -->
-            <div class="col-md-8 col-sm-6 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12  header-inner">
                 <form class="form" method="post">
                     {% if error %}
                     <div class="alert alert-danger">Vérifiez votre e-mail ou votre mot de passe</div>
@@ -28,24 +28,24 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                                placeholder="Email" class="form-control" required autofocus> </div>
+                                placeholder="Email" class="form-control" autofocus> </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <input type="password" name="password" id="inputPassword" class="form-control"
-                                placeholder="mot de passe" required>
+                                placeholder="mot de passe" >
                         </div>
                     </div>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <button type="submit" class="btn primary">Connecter</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="single-widget">
+        <div class="single-widget mt-4 bg-light">
             <h4>Je n'ai pas encore de compte</h4>
             <p>Créez votre compte en quelques clics et bénéficiez de services en ligne dédiés.</p>
             <a class="text-info" href="{{ path('entrepreneur_new') }}">Inscription</a>

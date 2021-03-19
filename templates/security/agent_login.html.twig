@@ -28,12 +28,12 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                                placeholder="Email" class="form-control" required autofocus> </div>
+                                placeholder="Email" class="form-control" autofocus> </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <input type="password" name="password" id="inputPassword" class="form-control"
-                                placeholder="mot de passe" required>
+                                placeholder="mot de passe">
                         </div>
                     </div>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

@@ -5,10 +5,9 @@
 {% block body %}
     <h1>Liste d'entrepreneurs</h1>
 
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Email</th>
                 <th>Nom</th>
                 <th>Prenom</th>
@@ -19,14 +18,12 @@
         <tbody>
         {% for entrepreneur in entrepreneurs %}
             <tr>
-                <td>{{ entrepreneur.id }}</td>
                 <td>{{ entrepreneur.email }}</td>
                 <td>{{ entrepreneur.nom }}</td>
                 <td>{{ entrepreneur.prenom }}</td>
                 <td>{% if entrepreneur.etat %} <span class="fa fa-check-square text-success"></span> {% else %} <span class="fa fa-user-times text-danger"></span> {% endif %} </td>
-                <td>
-                    <a href="{{ path('entrepreneur_show_admin', {'id': entrepreneur.id}) }}"><span class="fa fa-eye text-info"/>&nbsp;&nbsp;</a>
-                    <a href="{{ path('entrepreneur_edit_admin', {'id': entrepreneur.id}) }}"><span class="fa fa-edit text-success"/></a>
+                <td class="text-center">
+                    <a href="{{ path('entrepreneur_show_admin', {'id': entrepreneur.id}) }}"><span class="fa fa-eye text-info"/>
                 </td>
             </tr>
         {% else %}

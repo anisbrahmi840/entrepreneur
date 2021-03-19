@@ -21,6 +21,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class EntrepreneurController extends AbstractController
 {
     /**
+     * Undocumented function
+     *
+     * @param Entrepreneur $entrepreneur
+     * @return void
+     * @Route("/dashboard/", name="entrepreneur_dashboard")
+     */
+    public function dashboard(){
+        return $this->render('entrepreneur/dashboard.html.twig', [
+            'entrepreneur' => $this->getUser()
+        ]);
+    }
+    /**
      * @Route("/new", name="entrepreneur_new", methods={"GET","POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response

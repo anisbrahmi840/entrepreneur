@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\EntrepreneurRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EntrepreneurRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=EntrepreneurRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Entrepreneur implements UserInterface
 {
@@ -69,7 +71,7 @@ class Entrepreneur implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $paynais;
+    private $paynais = 'Tunisie';
 
     /**
      * @ORM\Column(type="date")
@@ -90,6 +92,11 @@ class Entrepreneur implements UserInterface
      * @ORM\OneToMany(targetEntity=Facture::class, mappedBy="entrepreneur")
      */
     private $factures;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -155,7 +162,7 @@ class Entrepreneur implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
@@ -236,12 +243,12 @@ class Entrepreneur implements UserInterface
         return $this;
     }
 
-    public function getDatenais(): ?\DateTimeInterface
+    public function getDatenais()
     {
         return $this->datenais;
     }
 
-    public function setDatenais(\DateTimeInterface $datenais): self
+    public function setDatenais($datenais): self
     {
         $this->datenais = $datenais;
 
@@ -272,12 +279,12 @@ class Entrepreneur implements UserInterface
         return $this;
     }
 
-    public function getDateexpcin(): ?\DateTimeInterface
+    public function getDateexpcin()
     {
         return $this->dateexpcin;
     }
 
-    public function setDateexpcin(\DateTimeInterface $dateexpcin): self
+    public function setDateexpcin($dateexpcin): self
     {
         $this->dateexpcin = $dateexpcin;
 
@@ -336,5 +343,21 @@ class Entrepreneur implements UserInterface
         }
 
         return $this;
+    }
+
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setSlug(): string
+    {
+        $slug = new Slugify();
+        return $this->slug = $slug->slugify($this->prenom.$this->nom.date("dis"));
     }
 }

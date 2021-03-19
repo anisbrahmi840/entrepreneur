@@ -92,8 +92,14 @@ class AppFixtures extends Fixture
                         }
                     $facture
                         ->setPrixTTC($nbT)
-                        ->setPrixHT(($nbT*100)/(100 + $facture->getTva()))
+                        ->setPrixHT(($nbT*100)/(100 + $facture->getTva()))                        
+                        ->setType($faker->randomElement($array = array ('facture','devis')))
                     ;
+                    if ($facture->getType() == 'facture') {
+                        $facture->setRef(uniqid('Fac-'));
+                    }else{
+                        $facture->setRef(uniqid('Dev-'));
+                    }
 
                     $manager->persist($facture);
                 }           

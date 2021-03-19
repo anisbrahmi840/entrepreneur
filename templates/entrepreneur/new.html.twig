@@ -6,13 +6,13 @@
 <section id="contact-us" class="contact-us section">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12  ">
                 <div class="section-title">
                     <h1>Inscription</h1>
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center bg-light">
             <!-- Contact Form -->
             <div class="col-md-8 col-sm-6 col-xs-12">
                 {{ form_start(form) }}
@@ -39,7 +39,6 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            {{ form_label(form.password)}}
                             {{form_widget(form.password)}}
                         </div>
                     </div>
@@ -75,18 +74,14 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            {{ form_label(form.paynais)}}
-                            {{form_widget(form.paynais)}}
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
                             {{ form_label(form.tel)}}
                             {{form_widget(form.tel)}}
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn primary">Créez votre compte</button>
+                <div class="text-center">
+                    <button type="submit" class="btn primary">Créez votre compte</button>
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>

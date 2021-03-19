@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrepreneur{% endblock %}
+
+{% block body %}
+<section class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h2>{{ entrepreneur.nom }} {{ entrepreneur.prenom }}</h2>
+                <ul class="bread-list">
+                    <li><a href="#">Etat<i class="fa fa-angle-right"></i></a></li>
+                    <li class="active"><a href="#">{% if entrepreneur.etat %} Activé {% else %} non activé
+                            {% endif %}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="services" class="services section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Single Service -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="single-services">
+                    <div class="icon"><i class="fa fa-money"></i></div>
+                    <div class="icon two"><i class="fa fa-money"></i></div>
+                    <h2><a href="#">Déclarer et payer</a></h2>
+                    <p><a class="text-secondary" href="#">Mon échéance en cours</a></p>
+                    <p><a class="text-secondary" href="#">Mes échéances à régulariser</a><p>
+                </div>
+            </div>
+            <!--/ End Single Service -->
+            <!-- Single Service -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="single-services">
+                    <div class="icon"><i class="fa fa-files-o"></i></div>
+                    <div class="icon two"><i class="fa fa-files-o"></i></div>
+                    <h2><a href="#">Mes documents</a></h2>
+                    <p><a class="text-secondary" href="#">Demande de document</a></p>
+                    <p><a class="text-secondary" href="#">mes déclarations</a></p>
+                </div>
+            </div>
+            <!--/ End Single Service -->
+            <!-- Single Service -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="single-services">
+                    <div class="icon"><i class="fa fa-edit"></i></div>
+                    <div class="icon two"><i class="fa fa-edit"></i></div>
+                    <h2><a href="#">Mon compte</a></h2>
+                    <p><a class="text-secondary" href="#">Information personnelle</a></p>
+                    <p><a class="text-secondary" href="#">Information professionnelle</a></p>
+                </div>
+            </div>
+            <!--/ End Single Service -->
+            <!-- Single Service -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="single-services">
+                    <div class="icon"><i class="fa fa-file"></i></div>
+                    <div class="icon two"><i class="fa fa-file"></i></div>
+                    <h2><a href="#">Facturation</a></h2>
+                    <p><a class="text-secondary" href="{{ path('facture_index') }}">Facture</a></p>
+                    <p><a class="text-secondary" href="{{ path('devis_index') }}">Devis</a></p>
+                </div>
+            </div>
+            <!--/ End Single Service -->
+            <!-- Single Service -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="single-services">
+                    <div class="icon"><i class="fa fa-credit-card-alt"></i></div>
+                    <div class="icon two"><i class="fa fa-credit-card-alt"></i></div>
+                    <h2><a href="#">Mes paiements</a></h2>
+                    <p><a class="text-secondary" href="#">Versements</a></p>
+                    <p><a class="text-secondary" href="#">Solde</a></p>
+                </div>
+            </div>
+            <!--/ End Single Service -->
+            <!-- Single Service -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="single-services">
+                    <div class="icon"><i class="fa fa-clock-o"></i></div>
+                    <div class="icon two"><i class="fa fa-clock-o"></i></div>
+                    <h2><a href="#">Rendez Vous</a></h2>
+                    <p><a class="text-secondary" href="#">Demander une carte</a></p>
+                    <p><a class="text-secondary" href="#">Demander un rendez-vous</a></p>
+                </div>
+            </div>
+            <!--/ End Single Service -->
+        </div>
+    </div>
+</section>
+<!--/ End Pricing Table -->
+{% endblock %}

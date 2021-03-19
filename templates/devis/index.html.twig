@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de factures
+{% block title %}Liste des devis
 {% endblock %}
 
 {% block body %}
@@ -9,9 +9,9 @@
         <div class="row text-center">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="section-title">
-                    <h1>Liste des factutres</h1>
+                    <h1>Liste des devis</h1>
                 </div>
-                <a href="{{ path('facture_new') }}" class="btn btn-primary mb-2">Ajouter une facture</a>
+                <a href="{{ path('devis_new') }}" class="btn btn-primary mb-2">Ajouter un devis</a>
             </div>
         </div>
 
@@ -20,25 +20,21 @@
                 <tr class="text-center">
                     <th>Ref</th>
                     <th>Client</th>
-                    <th>Date facturation</th>
+                    <th>Date</th>
                     <th>Mf</th>
                     <th>PrixTTC</th>
-                    <th>PrixHT</th>
                 </tr>
             </thead>
             <tbody>
-                {% for facture in factures %}
+                {% for devi in devis %}
                 <tr class="">
-                    <td>{{ facture.ref }}</td>
-                    <td>{{ facture.client }}</td>
-                    <td>{{ facture.dateFact ? facture.dateFact|date('Y-m-d') : '' }}</td>
-                    <td>{{ facture.mf }}</td>
-                    <td>{{ facture.prixTTC }}
-                        DT</td>
-                    <td>{{ facture.prixHT }}
-                        DT</td>
+                    <td>{{ devi.ref }}</td>
+                    <td>{{ devi.client }}</td>
+                    <td>{{ devi.dateFact ? devi.dateFact|date('Y-m-d') : '' }}</td>
+                    <td>{{ devi.mf }}</td>
+                    <td>{{ devi.prixTTC }}DT</td>
                     <td>
-                        <a href="{{ path('facture_show', {'id': facture.id}) }}">
+                        <a href="{{ path('devis_show', {'id': devi.id}) }}">
                             <i class="fa fa-file"></i>
                         </a>
                     </td>
