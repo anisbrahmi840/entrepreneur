@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="section-title">
-                    <h1>Inscription</h1>
+                    <h1>Modifier mon compte</h1>
                 </div>
             </div>
         </div>
@@ -35,6 +35,12 @@
                         <div class="form-group">
                             {{ form_label(form.cin)}}
                             {{form_widget(form.cin)}}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_label(form.dateexpcin)}}
+                            {{form_widget(form.dateexpcin)}}
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -69,5 +75,4 @@
         <!--/ End Contact Form -->
     </div>
 </section>
-    {{ include('entrepreneur/_delete_form.html.twig') }}
 {% endblock %}

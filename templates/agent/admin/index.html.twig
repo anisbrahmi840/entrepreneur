@@ -1,14 +1,13 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Liste d'agents{% endblock %}
+{% block title %}Liste des agents{% endblock %}
 
 {% block body %}
-    <h1>Liste d'agents</h1>
+    <h1>Liste des agents</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Email</th>
                 <th>Nom</th>
                 <th>Prenom</th>
@@ -19,14 +18,13 @@
         <tbody>
         {% for agent in agents %}
             <tr>
-                <td>{{ agent.id }}</td>
                 <td>{{ agent.email }}</td>
                 <td>{{ agent.nom }}</td>
                 <td>{{ agent.prenom }}</td>
                 <td>{{ agent.cin }}</td>
                 <td>
-                    <a href="{{ path('agent_show_admin', {'id': agent.id}) }}"><span class="fa fa-eye text-info"/>&nbsp;&nbsp;</a>
-                    <a href="{{ path('agent_edit_admin', {'id': agent.id}) }}"><span class="fa fa-edit text-success"/></a>
+                    <a href="{{ path('agent_show_admin', {'slug': agent.slug}) }}"><span class="fa fa-eye text-info"/>&nbsp;&nbsp;</a>
+                    <a href="{{ path('agent_edit_admin', {'slug': agent.slug}) }}"><span class="fa fa-edit text-success"/></a>
                 </td>
             </tr>
         {% else %}
@@ -36,6 +34,8 @@
         {% endfor %}
         </tbody>
     </table>
-
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(agents) }}
+</div>
     <a href="{{ path('agent_new_admin') }}" class="btn btn-primary">Ajouter agent</a>
 {% endblock %}

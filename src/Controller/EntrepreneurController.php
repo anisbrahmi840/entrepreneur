@@ -58,17 +58,17 @@ class EntrepreneurController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="entrepreneur_show", methods={"GET"})
+     * @Route("/{slug}", name="entrepreneur_show", methods={"GET"})
      */
-    public function show(Entrepreneur $entrepreneur): Response
+    public function show(EntrepreneurRepository $entrepreneurRepository, string $slug): Response
     {
         return $this->render('entrepreneur/show.html.twig', [
-            'entrepreneur' => $entrepreneur,
+            'entrepreneur' => $entrepreneurRepository->findOneBy(['slug' => $slug]),
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="entrepreneur_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="entrepreneur_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Entrepreneur $entrepreneur): Response
     {
@@ -78,7 +78,7 @@ class EntrepreneurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('entrepreneur_index');
+            return $this->redirectToRoute('entrepreneur_show', ['slug' => $entrepreneur->getSlug()]);
         }
 
         return $this->render('entrepreneur/edit.html.twig', [

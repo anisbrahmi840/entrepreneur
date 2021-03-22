@@ -11,6 +11,7 @@ use App\Form\EntrepreneurAdminType;
 use App\Repository\AdminRepository;
 use App\Repository\AgentRepository;
 use App\Repository\EntrepreneurRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,10 +26,11 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin_index", methods={"GET"})
      */
-    public function index(AdminRepository $adminRepository): Response
+    public function index(AdminRepository $adminRepository, EntrepreneurRepository $entrepreneurRepository): Response
     {
         return $this->render('admin/index.html.twig', [
             'admins' => $adminRepository->findAll(),
+            'nbEntrepreneurs' => count($entrepreneurRepository->findAll())
         ]);
     }
 
@@ -106,15 +108,18 @@ class AdminController extends AbstractController
     /**
      * @Route("/entrepreneurs/liste", name="entrepreneur_index", methods={"GET"})
      */
-    public function indexEntrepreneur(EntrepreneurRepository $entrepreneurRepository): Response
+    public function indexEntrepreneur(Request $request, EntrepreneurRepository $entrepreneurRepository, PaginatorInterface $paginator): Response
     {
+        $entrepreneurs = $paginator->paginate($entrepreneurRepository->findAll(),
+        $request->query->getInt('page', 1),
+        10);
         return $this->render('entrepreneur/admin/index.html.twig', [
-            'entrepreneurs' => $entrepreneurRepository->findAll(),
+            'entrepreneurs' => $entrepreneurs
         ]);
     }
 
     /**
-     * @Route("/entrepreneur/{id}", name="entrepreneur_show_admin", methods={"GET"})
+     * @Route("/entrepreneur/{slug}", name="entrepreneur_show_admin", methods={"GET"})
      */
     public function showEntrepreneur(Entrepreneur $entrepreneur): Response
     {
@@ -124,7 +129,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/entrepreneur/{id}/edit", name="entrepreneur_edit_admin", methods={"GET","POST"})
+     * @Route("/entrepreneur/{slug}/edit", name="entrepreneur_edit_admin", methods={"GET","POST"})
      */
     public function editEntrepreneur(Request $request, Entrepreneur $entrepreneur): Response
     {
@@ -143,25 +148,18 @@ class AdminController extends AbstractController
         ]);
     }
 
-// ----------Controle Agnet ------------
+// -----------------------------Controle Agnet --------------------------------------------------------------
 
     /**
      * @Route("/agents/liste", name="agent_index_admin", methods={"GET"})
      */
-    public function indexAgent(AgentRepository $agentRepository): Response
+    public function indexAgent( Request $request, PaginatorInterface $paginator, AgentRepository $agentRepository): Response
     {
+        $agents = $paginator->paginate($agentRepository->findAll(),
+        $request->query->getInt('page', 1),
+        10);
         return $this->render('agent/admin/index.html.twig', [
-            'agents' => $agentRepository->findAll(),
-        ]);
-    }
-
-     /**
-     * @Route("/agent/{id}", name="agent_show_admin", methods={"GET"})
-     */
-    public function showAgent(Agent $agent): Response
-    {
-        return $this->render('agent/admin/show.html.twig', [
-            'agent' => $agent,
+            'agents' => $agents,
         ]);
     }
 
@@ -180,7 +178,7 @@ class AdminController extends AbstractController
             $entityManager->persist($agent);
             $entityManager->flush();
 
-            return $this->redirectToRoute('agent_index');
+            return $this->redirectToRoute('agent_index_admin');
         }
 
         return $this->render('agent/admin/new.html.twig', [
@@ -189,8 +187,18 @@ class AdminController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/agent/{slug}", name="agent_show_admin", methods={"GET"})
+     */
+    public function showAgent(Agent $agent): Response
+    {
+        return $this->render('agent/admin/show.html.twig', [
+            'agent' => $agent,
+        ]);
+    }
+
     /**
-     * @Route("/agent/{id}/edit", name="agent_edit_admin", methods={"GET","POST"})
+     * @Route("/agent/{slug}/edit", name="agent_edit_admin", methods={"GET","POST"})
      */
     public function editAgent(Request $request, Agent $agent): Response
     {

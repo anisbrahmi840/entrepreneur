@@ -1,0 +1,62 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Modifier le rendez-vous{% endblock %}
+
+{% block body %}
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <!-- Contact Form -->
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <h1>Rendez-vous</h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Entrepreneur</th>
+                            <td>{{ rendezvou.entrepreneur.prenom }} {{ rendezvou.entrepreneur.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Objet</th>
+                            <td>{{ rendezvou.objet }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de création</th>
+                            <td>{{ rendezvou.createdAt ? rendezvou.createdAt|date('d-m-Y H:i') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de rendez-vous</th>
+                            <td>{{ rendezvou.daterendezvous ? rendezvou.daterendezvous|date('d-m-Y H:i') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    {{ form_start(form) }}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_label(form.observation)}}
+                            {{ form_widget(form.observation)}}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_label(form.etat)}}
+                            {{ form_widget(form.etat)}}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Modifer le rendez-vous</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <!--/ End Contact Form -->
+    </div>
+</section>
+{% endblock %}

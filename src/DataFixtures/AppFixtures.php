@@ -118,14 +118,16 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         // agent fixture
-        $agent = new Agent();
-        $agent->setNom($faker->name)
-            ->setPrenom($faker->lastName)
-            ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
-            ->setEmail('agent@gmail.com')
-            ->setPassword($this->encoder->encodePassword($agent, 'agent'))
-            ;
-        $manager->persist($agent);
+        for ($i=0; $i < 20; $i++) { 
+            $agent = new Agent();
+            $agent->setNom($faker->name)
+                ->setPrenom($faker->lastName)
+                ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
+                ->setEmail($faker->email)
+                ->setPassword($this->encoder->encodePassword($agent, 'agent'))
+                ;
+            $manager->persist($agent);
+        }
 
         $manager->flush();
     }

@@ -70,6 +70,19 @@
 					</div>
 				</div>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwocalendar"
+					aria-expanded="true" aria-controls="collapseTwocalendar">
+					<i class="fas fa-fw fa-calendar-alt"></i>
+					<span>Rendez-vous</span>
+				</a>
+				<div id="collapseTwocalendar" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="{{ path('agent_rendezvous_index') }}">Liste des rendez-vous</a>
+						<a class="collapse-item" href="{{ path('agent_rendezvous_mesrendezvous', {slug: app.user.slug}) }}">Mes rendez-vous</a>
+					</div>
+				</div>
+			</li>
 
 
 		</ul>

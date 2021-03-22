@@ -55,7 +55,7 @@
                     <div class="icon"><i class="fa fa-edit"></i></div>
                     <div class="icon two"><i class="fa fa-edit"></i></div>
                     <h2><a href="#">Mon compte</a></h2>
-                    <p><a class="text-secondary" href="#">Information personnelle</a></p>
+                    <p><a class="text-secondary" href="{{ path('entrepreneur_show', {slug: app.user.slug}) }}">Information personnelle</a></p>
                     <p><a class="text-secondary" href="#">Information professionnelle</a></p>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                     <div class="icon two"><i class="fa fa-clock-o"></i></div>
                     <h2><a href="#">Rendez Vous</a></h2>
                     <p><a class="text-secondary" href="#">Demander une carte</a></p>
-                    <p><a class="text-secondary" href="#">Demander un rendez-vous</a></p>
+                    <p><a class="text-secondary" href="{{path('rendezvous_index')}}">Demander un rendez-vous</a></p>
                 </div>
             </div>
             <!--/ End Single Service -->

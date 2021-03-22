@@ -23,24 +23,28 @@ class EntrepreneurAdminType extends AbstractType
         $builder
             ->add('email', EmailType::class, [                
                 'required' => false,
+                'disabled' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Saisir votre Email']),
                 ],
             ])
             ->add('nom', TextType::class, [
                 'required' => false,
+                'disabled' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Saisir votre nom']),
                 ],
             ])
             ->add('prenom', TextType::class, [
                 'required' => false,
+                'disabled' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Saisir votre prenom']),
                 ],
             ])
             ->add('cin', IntegerType::class, [                
                 'required' => false,
+                'disabled' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Saisir votre mot de passe']),
                     new Length(['min' => 8,'minMessage' => "mot de passe minimum 8 caractères"]),
@@ -48,6 +52,7 @@ class EntrepreneurAdminType extends AbstractType
             ])
             ->add('genre', ChoiceType::class, [
                 'required' => false,
+                'disabled' => true,
                 'choices'  => [
                     'Femme' => 'femme',
                     'Homme' => 'homme'
@@ -55,15 +60,18 @@ class EntrepreneurAdminType extends AbstractType
             ])
             ->add('datenais', DateType::class, [
                 'required' => false,
+                'disabled' => true,
                 'label' => 'Date de naissance',
                 'widget' => 'single_text',
             ])
             ->add('villenais', TextType::class, [
                 'required' => false,
+                'disabled' => true,
                 'label' => 'Ville de naissance'
             ])
             ->add('tel', IntegerType::class, [
                 'required' => false,
+                'disabled' => true,
                 'label' => 'Téléphone'
             ])
             ->add('etat', CheckboxType::class,[

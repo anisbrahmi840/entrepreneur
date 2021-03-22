@@ -98,9 +98,15 @@ class Entrepreneur implements UserInterface
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rendezvous::class, mappedBy="entrepreneur")
+     */
+    private $rendezvouses;
+
     public function __construct()
     {
         $this->factures = new ArrayCollection();
+        $this->rendezvouses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -359,5 +365,35 @@ class Entrepreneur implements UserInterface
     {
         $slug = new Slugify();
         return $this->slug = $slug->slugify($this->prenom.$this->nom.date("dis"));
+    }
+
+    /**
+     * @return Collection|Rendezvous[]
+     */
+    public function getRendezvouses(): Collection
+    {
+        return $this->rendezvouses;
+    }
+
+    public function addRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if (!$this->rendezvouses->contains($rendezvouse)) {
+            $this->rendezvouses[] = $rendezvouse;
+            $rendezvouse->setEntrepreneur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if ($this->rendezvouses->removeElement($rendezvouse)) {
+            // set the owning side to null (unless already changed)
+            if ($rendezvouse->getEntrepreneur() === $this) {
+                $rendezvouse->setEntrepreneur(null);
+            }
+        }
+
+        return $this;
     }
 }

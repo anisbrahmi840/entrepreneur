@@ -9,6 +9,7 @@ use App\Entity\Facture;
 use App\Entity\Produit;
 use App\Form\FactureType;
 use App\Repository\FactureRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,10 +22,13 @@ class DevisController extends AbstractController
     /**
      * @Route("/liste", name="devis_index", methods={"GET"})
      */
-    public function index(FactureRepository $factureRepository): Response
+    public function index(FactureRepository $factureRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $devis = $paginator->paginate($factureRepository->findBy(['entrepreneur' => $this->getUser(), 'type' => 'devis']),
+        $request->query->getInt('page', 1),
+        5);
         return $this->render('devis/index.html.twig', [
-            'devis' => $factureRepository->findBy(['entrepreneur' => $this->getUser(), 'type' => 'devis']),
+            'devis' => $devis
         ]);
     }
 

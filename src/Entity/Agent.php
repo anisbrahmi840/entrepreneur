@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use App\Repository\AgentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=AgentRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Agent implements UserInterface
 {
@@ -48,6 +52,21 @@ class Agent implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $cin;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rendezvous::class, mappedBy="agent")
+     */
+    private $rendezvouses;
+
+    public function __construct()
+    {
+        $this->rendezvouses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -162,6 +181,51 @@ class Agent implements UserInterface
     public function setCin(int $cin): self
     {
         $this->cin = $cin;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setSlug(): string
+    {
+        $slug = new Slugify();
+        return $this->slug = $slug->slugify($this->prenom.$this->nom.date("dis"));
+    }
+
+    /**
+     * @return Collection|Rendezvous[]
+     */
+    public function getRendezvouses(): Collection
+    {
+        return $this->rendezvouses;
+    }
+
+    public function addRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if (!$this->rendezvouses->contains($rendezvouse)) {
+            $this->rendezvouses[] = $rendezvouse;
+            $rendezvouse->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if ($this->rendezvouses->removeElement($rendezvouse)) {
+            // set the owning side to null (unless already changed)
+            if ($rendezvouse->getAgent() === $this) {
+                $rendezvouse->setAgent(null);
+            }
+        }
 
         return $this;
     }
