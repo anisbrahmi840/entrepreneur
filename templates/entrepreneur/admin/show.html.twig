@@ -18,10 +18,6 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <th>Id:</th>
-                        <td>{{ entrepreneur.id }}</td>
-                    </tr>
-                    <tr>
                         <th>Nom:</th>
                         <td>{{ entrepreneur.nom }}</td>
                     </tr>
@@ -54,6 +50,10 @@
                     <tr>
                         <th>Etat</th>
                         <td>{% if entrepreneur.etat %} Vérifié {% else %} Non vérifié {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Numéro de carte</th>
+                        <td>{{ entrepreneur.carte }}</td>
                     </tr>
                 </tbody>
             </table>

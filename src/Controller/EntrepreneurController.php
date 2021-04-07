@@ -58,6 +58,16 @@ class EntrepreneurController extends AbstractController
     }
 
     /**
+     * @Route("/carte/{slug}", name="entrepreneur_carte", methods={"GET"})
+     */
+    public function carte(EntrepreneurRepository $entrepreneurRepository, string $slug): Response
+    {
+        return $this->render('entrepreneur/carte.html.twig', [
+            'entrepreneur' => $entrepreneurRepository->findOneBy(['slug' => $slug]),
+        ]);
+    }
+
+    /**
      * @Route("/{slug}", name="entrepreneur_show", methods={"GET"})
      */
     public function show(EntrepreneurRepository $entrepreneurRepository, string $slug): Response
@@ -66,6 +76,7 @@ class EntrepreneurController extends AbstractController
             'entrepreneur' => $entrepreneurRepository->findOneBy(['slug' => $slug]),
         ]);
     }
+
 
     /**
      * @Route("/{slug}/edit", name="entrepreneur_edit", methods={"GET","POST"})

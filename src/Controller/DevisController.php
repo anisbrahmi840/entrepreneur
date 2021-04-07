@@ -24,7 +24,7 @@ class DevisController extends AbstractController
      */
     public function index(FactureRepository $factureRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $devis = $paginator->paginate($factureRepository->findBy(['entrepreneur' => $this->getUser(), 'type' => 'devis']),
+        $devis = $paginator->paginate($factureRepository->findBy(['entrepreneur' => $this->getUser(), 'type' => 'devis'], array('dateFact' => 'DESC')),
         $request->query->getInt('page', 1),
         5);
         return $this->render('devis/index.html.twig', [

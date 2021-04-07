@@ -4,9 +4,14 @@ namespace App\Form;
 
 use App\Entity\Rendezvous;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RendezvousType extends AbstractType
 {
@@ -16,12 +21,18 @@ class RendezvousType extends AbstractType
             ->add('daterendezvous', DateTimeType::class, [
                 'widget' => 'single_text',
                 'time_label' => 'Starts On',
-                'input_format' => 'Y/m/Y H',
-                'hours' => ['08','09','10','11','13','14','15','16'],
-                'minutes' => ['00','30'],
-                'input' => 'datetime',
+                'required' => false,
+                'constraints' => [
+                    new NotNull(['message' => 'Saisir votre date de naissance']),
+                    new DateTime(['message' => "Saisir votre date de naissance"]),
+                ],
             ])
-            ->add('objet')
+            ->add('objet', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new NotBlank(['message' => "Saisir votre objet"]),
+                ],
+            ])
         ;
     }
 

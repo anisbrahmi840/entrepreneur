@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\Agent;
+use App\Entity\Declaration;
 use App\Form\AdminType;
 use App\Form\AgentType;
 use App\Entity\Entrepreneur;
+use App\Form\DeclarationAdminType;
 use App\Form\EntrepreneurAdminType;
 use App\Repository\AdminRepository;
 use App\Repository\AgentRepository;
@@ -103,7 +105,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_index');
     }
 
-// ------------Controle Entrepreneur -----------
+// ------------Controle Entrepreneur -----------------------------------------------------------------
 
     /**
      * @Route("/entrepreneurs/liste", name="entrepreneur_index", methods={"GET"})
@@ -147,6 +149,42 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+// -----------------------------Controle Déclarations --------------------------------------------------------------
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param EntrepreneurRepository $entrepreneurRepository
+     * @return void
+     * @Route("/declaration/new", name="admin_declaration_new")
+     */
+    public function newDeclaratiolAll(Request $request, EntrepreneurRepository $entrepreneurRepository){
+        $entrepreneurs = $entrepreneurRepository->findAll();
+        foreach ($entrepreneurs as $index => $entrepreneur) {
+            $declaration = new Declaration();
+            $form = $this->createForm(DeclarationAdminType::class, $declaration);
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $declaration
+                    ->setEntrepreneur($entrepreneur)                    
+                    ->setRef(uniqid('Dec-'))
+                    ;
+                $em->persist($declaration);
+            }
+            if ($index === array_key_last($entrepreneurs)){   
+                $em->flush();
+                $this->redirectToRoute('admin_index');
+            }
+        }        
+    return $this->render('declaration/admin/new.html.twig', [
+        'form' => $form->createView(),
+    ]);
+    }
+
+
+
 
 // -----------------------------Controle Agnet --------------------------------------------------------------
 

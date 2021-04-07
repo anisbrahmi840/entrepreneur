@@ -82,7 +82,7 @@ class Rendezvous
         return $this->daterendezvous;
     }
 
-    public function setDaterendezvous(\DateTimeInterface $daterendezvous): self
+    public function setDaterendezvous($daterendezvous): self
     {
         $this->daterendezvous = $daterendezvous;
 

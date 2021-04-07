@@ -20,7 +20,7 @@ class RendezvousController extends AbstractController
     public function index(Request $request, RendezvousRepository $rendezvousRepository, PaginatorInterface $paginator): Response
     {
         $entrepreneur = $this->getUser();
-        $rendezvous = $paginator->paginate($rendezvousRepository->findBy(['entrepreneur' => $entrepreneur]),
+        $rendezvous = $paginator->paginate($rendezvousRepository->findBy(['entrepreneur' => $entrepreneur], array('createdAt' => 'DESC')),
         $request->query->getInt('page', 1,
         10));
         return $this->render('rendezvous/index.html.twig', [

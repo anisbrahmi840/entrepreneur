@@ -2,8 +2,10 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Activite;
 use App\Entity\Admin;
 use App\Entity\Agent;
+use App\Entity\Declaration;
 use App\Entity\Entrepreneur;
 use App\Entity\Facture;
 use App\Entity\Produit;
@@ -105,6 +107,40 @@ class AppFixtures extends Fixture
                 }           
 
             $manager->persist($entrepreneur);
+            $declaration1 = new Declaration();
+            $declaration1
+                ->setEntrepreneur($entrepreneur)
+                ->setDateCr(new \DateTime('yesterday'))
+                ->setDateEx(date_add(new \DateTime('yesterday'), date_interval_create_from_date_string('14 days')))
+                ->setRef(uniqid('Dec-'))
+                ;
+            $manager->persist($declaration1);
+
+            for ($d=0; $d <= 10; $d++) { 
+                $declaration = new Declaration();
+                if((bool) mt_rand(0, 1)){
+                    $declaration
+                    ->setEntrepreneur($entrepreneur)
+                    ->setChiffre($faker->randomFloat())
+                    ->setDateDec($faker->dateTime())
+                    ->setDateEx($faker->dateTime())
+                    ->setDateCr($faker->dateTime())
+                    ->setPenalite($faker->randomFloat())
+                    ->setCotisation($faker->randomFloat())
+                    ->setEtat(true)
+                    ->setTotalapayer($declaration->getPenalite()+$declaration->getCotisation())
+                    ->setRef(uniqid('Dec-'))
+                    ;
+                }else{
+                    $declaration
+                    ->setEntrepreneur($entrepreneur)
+                    ->setDateEx($faker->dateTime())
+                    ->setDateCr($faker->dateTime())
+                    ->setRef(uniqid('Dec-'))
+                    ;
+                }                
+                $manager->persist($declaration);
+            }
         }
 
         // admin fixture
@@ -117,7 +153,39 @@ class AppFixtures extends Fixture
             ;
         $manager->persist($admin);
 
-        // agent fixture
+        //secteur
+        $acitvite = new Activite();
+        $activite2 = new Activite();
+        $activite3= new Activite();
+        $activite4= new Activite();
+        $activite5 = new Activite();
+        
+        $acitvite
+            ->setNom("Secteur de l'industrie")
+            ->setTaux(0.5)
+            ;
+        $activite2
+            ->setNom("Secteur de l'agriculture")
+            ->setTaux(0.5)
+            ;
+        $activite3
+            ->setNom("Secteur du commerce")
+            ->setTaux(0.5)
+            ;
+        $activite4
+            ->setNom("Secteur des services")
+            ->setTaux(0.5)
+            ;
+        $activite5
+            ->setNom("Secteur de l’artisanat ou des métiers")
+            ->setTaux(0.5)
+            ;
+            $manager->persist($acitvite);
+            $manager->persist($activite2);
+            $manager->persist($activite3);
+            $manager->persist($activite4);
+            $manager->persist($activite5);
+            // agent fixture
         for ($i=0; $i < 20; $i++) { 
             $agent = new Agent();
             $agent->setNom($faker->name)

@@ -30,27 +30,38 @@
                         <h2 class="title">Informations personnelles</h2>
                     </div>
                     <!-- Table List -->
-                    <ul class="table-list">
-                        <li><h6>CIN: {{ entrepreneur.cin }} </h6></li>
-                    </ul>
-                    <ul class="table-list">
-                        <li><h6>Téléphone: {{ entrepreneur.tel }} </h6></li>
-                    </ul>
-                    <ul class="table-list">
-                        <li><h6>Genre: {{ entrepreneur.genre }} </h6></li>
-                    </ul>
-                    <ul class="table-list">
-                        <li><h6>Date de naissance: {{ entrepreneur.datenais | date('d-m-Y') }} </h6></li>
-                    </ul>
-                    <ul class="table-list">
-                        <li><h6>Pays: Tunisie </h6></li>
-                    </ul>
-                    <ul class="table-list">
-                        <li><h6>Ville: {{entrepreneur.villenais}} </h6></li>
-                    </ul>
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th>CIN:</th>
+                                <td>{{ entrepreneur.cin }}</td>
+                            </tr>
+                            <tr>
+                                <th>Téléphone:</th>
+                                <td>{{ entrepreneur.tel }} </td>
+                            </tr>
+                            <tr>
+                                <th>Genre:</th>
+                                <td>{{ entrepreneur.genre }}d</td>
+                            </tr>
+                            <tr>
+                                <th>Date de naissance:</th>
+                                <td>{{ entrepreneur.datenais | date('d-m-Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pays:</th>
+                                <td>Tunisie</td>
+                            </tr>
+                            <tr>
+                                <th>Ville:</th>
+                                <td>{{entrepreneur.villenais}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <!-- Table Bottom -->
                     <div class="table-bottom">
-                        <a class="btn primary" href="{{ path('entrepreneur_edit', {slug: entrepreneur.slug}) }}"><i class="fa fa-edit"></i>Modifier</a>
+                        <a class="btn primary" href="{{ path('entrepreneur_edit', {slug: entrepreneur.slug}) }}"><i
+                                class="fa fa-edit"></i>Modifier</a>
                     </div>
                 </div>
             </div>
@@ -58,19 +69,36 @@
             <!-- Single Table -->
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="single-table active">
-                    <div class="bg-icon"><i class="fa fa-truck"></i></div>
+                    <div class="bg-icon"><i class="fa fa-address-book"></i></div>
                     <!-- Table Head -->
                     <div class="table-head">
                         <h2 class="title">Informations d'activité</h2>
                     </div>
                     <!-- Table List -->
-                    <ul class="table-list">
-                        <li>...</li>
-                    </ul>
-                    <!-- Table Bottom -->
-                    <div class="table-bottom">
-                        <a class="btn primary" href="contact.html"><i class="fa fa-shopping-cart"></i>Order Now</a>
-                    </div>
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>{{ entrepreneur.categorie.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <th>Codepostale</th>
+                                <td>{{ entrepreneur.categorie.codepostale }}</td>
+                            </tr>
+                            <tr>
+                                <th>Secteur d'activité</th>
+                                <td>{{ entrepreneur.categorie.activite.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Taux</th>
+                                <td>{{ entrepreneur.categorie.activite.taux }}%</td>
+                            </tr>
+                            <tr>
+                                <th>Domicile</th>
+                                <td>{{ entrepreneur.categorie.domicile ? 'Non' : 'Oui' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- End Single Table-->
@@ -84,11 +112,13 @@
                     </div>
                     <!-- Table List -->
                     <ul class="table-list">
-                        <li></li><li></li>
+                        <li></li>
+                        <li></li>
                     </ul>
                     <!-- Table Bottom -->
                     <div class="table-bottom">
-                        <a class="btn primary" href="{{ path('entrepreneur_editpassword', {id: entrepreneur.id}) }}"><i class="fa fa-edit"></i>modifer</a>
+                        <a class="btn primary" href="{{ path('entrepreneur_editpassword', {id: entrepreneur.id}) }}"><i
+                                class="fa fa-edit"></i>modifer</a>
                     </div>
                 </div>
             </div>

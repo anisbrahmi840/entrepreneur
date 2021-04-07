@@ -19,7 +19,6 @@
                     <th>Date de création</th>
                     <th>Date de rendez-vous</th>
                     <th>Objet</th>
-                    <th>Etat</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -29,7 +28,6 @@
                     <td>{{ rendezvou.createdAt ? rendezvou.createdAt|date('Y-m-d H:i') : '' }}</td>
                     <td>{{ rendezvou.daterendezvous ? rendezvou.daterendezvous|date('Y-m-d H:i') : '' }}</td>
                     <td>{{ rendezvou.objet }}</td>
-                    <td>{{ rendezvou.etat ? 'Confirmé' : 'Non confirmé' }}</td>
                     <td> 
                         <a href="{{ path('agent_rendezvous_edit', {'slug': rendezvou.slug}) }}">
                             <i class="fa fa-edit"></i>

@@ -96,8 +96,8 @@ class EntrepreneurEditType extends AbstractType
             'label' => 'Date de création',
             'widget' => 'single_text',
             'constraints' => [
-                new NotNull(['message' => 'Saisir votre date de naissance']),
-                new Date(['message' => "Saisir votre date de naissance"]),
+                new NotNull(['message' => 'Saisir votre date de creation cin']),
+                new Date(['message' => "Saisir date de creation cin"]),
             ],
         ])
         ->add('tel', IntegerType::class, [

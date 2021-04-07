@@ -24,7 +24,7 @@ class FactureController extends AbstractController
      */
     public function index(FactureRepository $factureRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $factures = $paginator->paginate($factureRepository->findBy(['entrepreneur' => $this->getUser(), 'type' => 'facture']),
+        $factures = $paginator->paginate($factureRepository->findBy(['entrepreneur' => $this->getUser(), 'type' => 'facture'], array('dateFact' => 'DESC')),
         $request->query->getInt('page', 1),
         5);
         return $this->render('facture/index.html.twig', [

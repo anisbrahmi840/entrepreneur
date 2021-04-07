@@ -1,0 +1,50 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Admin-Declaration{% endblock %}
+
+{% block body %}
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>Ajouter déclaration pour les entrepreneurs</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12 col-xs-12 bg-light">
+                {{ form_start(form) }}
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.date_cr)}}
+                        {{form_widget(form.date_cr)}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.date_ex)}}
+                        {{form_widget(form.date_ex)}}
+                    </div>
+                </div>
+                {{ form_widget(form) }}
+                <div class="justify-content-center text-center">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <button class="btn btn-primary">{{ button_label|default('Déclarer') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+{{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $('#declaration_chiffre').change(function () {
+      document.getElementById("declaration_cotisation").value = (document.getElementById("declaration_chiffre").value * document.getElementById("taux").value)/100;
+      document.getElementById("declaration_totalapayer").value = parseFloat(document.getElementById("declaration_penalite").value) + parseFloat(document.getElementById("declaration_cotisation").value);
+    });
+</script>
+
+{% endblock %}

@@ -78,6 +78,10 @@ class EntrepreneurAdminType extends AbstractType
                 'label' => "Etat de compte",
                 'required' => false
             ])
+            ->add('carte', IntegerType::class,[
+                'label' => "Numéro de carte",
+                'required' => false
+            ])
         ;
     }
 

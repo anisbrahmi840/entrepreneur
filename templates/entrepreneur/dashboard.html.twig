@@ -33,8 +33,8 @@
                     <div class="icon"><i class="fa fa-money"></i></div>
                     <div class="icon two"><i class="fa fa-money"></i></div>
                     <h2><a href="#">Déclarer et payer</a></h2>
-                    <p><a class="text-secondary" href="#">Mon échéance en cours</a></p>
-                    <p><a class="text-secondary" href="#">Mes échéances à régulariser</a><p>
+                    <p><a class="text-secondary" href="{{ path('declaration_encours') }}">Mon déclaration en cours</a></p>
+                    <p><a class="text-secondary" href="{{ path('declaration_regulariser') }}">Mes déclarations à régulariser</a><p>
                 </div>
             </div>
             <!--/ End Single Service -->
@@ -45,7 +45,7 @@
                     <div class="icon two"><i class="fa fa-files-o"></i></div>
                     <h2><a href="#">Mes documents</a></h2>
                     <p><a class="text-secondary" href="#">Demande de document</a></p>
-                    <p><a class="text-secondary" href="#">mes déclarations</a></p>
+                    <p><a class="text-secondary" href="{{ path('declaration_index') }}">mes déclarations</a></p>
                 </div>
             </div>
             <!--/ End Single Service -->
@@ -56,7 +56,11 @@
                     <div class="icon two"><i class="fa fa-edit"></i></div>
                     <h2><a href="#">Mon compte</a></h2>
                     <p><a class="text-secondary" href="{{ path('entrepreneur_show', {slug: app.user.slug}) }}">Information personnelle</a></p>
-                    <p><a class="text-secondary" href="#">Information professionnelle</a></p>
+                    {% if app.user.categorie %}
+                        <p><a class="text-secondary" href="{{ path('categorie_show', {slug: app.user.categorie.slug}) }}">Information professionnelle</a></p>
+                    {% else %}
+                        <p><a class="text-secondary" href="{{ path('categorie_new') }}"><u>Ajouter Votre secteur d'activité</u> <span class="badge badge-info"> Important</span></a></p>   
+                    {% endif %}
                 </div>
             </div>
             <!--/ End Single Service -->
@@ -88,8 +92,8 @@
                     <div class="icon"><i class="fa fa-clock-o"></i></div>
                     <div class="icon two"><i class="fa fa-clock-o"></i></div>
                     <h2><a href="#">Rendez Vous</a></h2>
-                    <p><a class="text-secondary" href="#">Demander une carte</a></p>
-                    <p><a class="text-secondary" href="{{path('rendezvous_index')}}">Demander un rendez-vous</a></p>
+                    <p><a class="text-secondary" href="{{path('entrepreneur_carte', {slug:app.user.slug})}}">Mon carte entrepreneur</a></p>
+                    <p><a class="text-secondary" href="{{path('rendezvous_index')}}">Mes rendez-vous</a></p>
                 </div>
             </div>
             <!--/ End Single Service -->

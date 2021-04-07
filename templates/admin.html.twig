@@ -79,7 +79,9 @@
 				<div id="collapseTwocalendar" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="{{ path('agent_rendezvous_index') }}">Liste des rendez-vous</a>
+						{% if is_granted("ROLE_AGENT") %}
 						<a class="collapse-item" href="{{ path('agent_rendezvous_mesrendezvous', {slug: app.user.slug}) }}">Mes rendez-vous</a>
+						{% endif %}
 					</div>
 				</div>
 			</li>

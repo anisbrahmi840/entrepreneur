@@ -29,7 +29,7 @@
                     <td>{{ rendezvou.createdAt ? rendezvou.createdAt|date('Y-m-d H:i') : '' }}</td>
                     <td>{{ rendezvou.daterendezvous ? rendezvou.daterendezvous|date('Y-m-d H:i') : '' }}</td>
                     <td>{{ rendezvou.objet }}</td>
-                    <td>{{ rendezvou.etat ? 'Confirmé' : 'Non confirmé' }}</td>
+                    <td>{{ rendezvou.observation }}</td>
                 </tr>
                 {% else %}
                 <tr>

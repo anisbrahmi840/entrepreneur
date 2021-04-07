@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rendez-vous index{% endblock %}
+
+{% block body %}
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>mon carte entrepreneur</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <table class="table table-striped table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Numéro de carte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if entrepreneur.carte %}
+                        <tr>
+                            <td>{{ entrepreneur.carte }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8">Aucun enregistrement trouvé, <a href="{{ path('rendezvous_new') }}">cliquez
+                                    ici pour demander votre carte et prendre rendez-vous</a></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

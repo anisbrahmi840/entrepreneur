@@ -103,10 +103,26 @@ class Entrepreneur implements UserInterface
      */
     private $rendezvouses;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Categorie::class, mappedBy="entrepreneur", cascade={"persist", "remove"})
+     */
+    private $categorie;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $carte;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Declaration::class, mappedBy="entrepreneur")
+     */
+    private $declarations;
+
     public function __construct()
     {
         $this->factures = new ArrayCollection();
         $this->rendezvouses = new ArrayCollection();
+        $this->declarations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -206,7 +222,7 @@ class Entrepreneur implements UserInterface
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -218,7 +234,7 @@ class Entrepreneur implements UserInterface
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
 
@@ -230,7 +246,7 @@ class Entrepreneur implements UserInterface
         return $this->cin;
     }
 
-    public function setCin(int $cin): self
+    public function setCin(?int $cin): self
     {
         $this->cin = $cin;
 
@@ -242,7 +258,7 @@ class Entrepreneur implements UserInterface
         return $this->genre;
     }
 
-    public function setGenre(string $genre): self
+    public function setGenre(?string $genre): self
     {
         $this->genre = $genre;
 
@@ -266,7 +282,7 @@ class Entrepreneur implements UserInterface
         return $this->villenais;
     }
 
-    public function setVillenais(string $villenais): self
+    public function setVillenais(?string $villenais): self
     {
         $this->villenais = $villenais;
 
@@ -278,7 +294,7 @@ class Entrepreneur implements UserInterface
         return $this->paynais;
     }
 
-    public function setPaynais(string $paynais): self
+    public function setPaynais(?string $paynais): self
     {
         $this->paynais = $paynais;
 
@@ -302,7 +318,7 @@ class Entrepreneur implements UserInterface
         return $this->tel;
     }
 
-    public function setTel(int $tel): self
+    public function setTel(?int $tel): self
     {
         $this->tel = $tel;
 
@@ -391,6 +407,70 @@ class Entrepreneur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($rendezvouse->getEntrepreneur() === $this) {
                 $rendezvouse->setEntrepreneur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($categorie === null && $this->categorie !== null) {
+            $this->categorie->setEntrepreneur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($categorie !== null && $categorie->getEntrepreneur() !== $this) {
+            $categorie->setEntrepreneur($this);
+        }
+
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getCarte(): ?int
+    {
+        return $this->carte;
+    }
+
+    public function setCarte(?int $carte): self
+    {
+        $this->carte = $carte;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Declaration[]
+     */
+    public function getDeclarations(): Collection
+    {
+        return $this->declarations;
+    }
+
+    public function addDeclaration(Declaration $declaration): self
+    {
+        if (!$this->declarations->contains($declaration)) {
+            $this->declarations[] = $declaration;
+            $declaration->setEntrepreneur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeclaration(Declaration $declaration): self
+    {
+        if ($this->declarations->removeElement($declaration)) {
+            // set the owning side to null (unless already changed)
+            if ($declaration->getEntrepreneur() === $this) {
+                $declaration->setEntrepreneur(null);
             }
         }
 
