@@ -1,43 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Paiement index{% endblock %}
+{% block title %}Declaration index{% endblock %}
+
 
 {% block body %}
-    <h1>Paiement index</h1>
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>Mes Versements</h1>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead class="text-center">
+                <tr>
+                    <th>Réf déclaration</th>
+                    <th>Réf paiement</th>
+                    <th>Date de paiement</th>
+                    <th>Total à payer</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">            
+                {% set nb = false %}
+                {% for declaration in declarations %}
+                {% if declaration.paiement %}
+                {% set nb = true %}
+                <tr>
+                    <td>{{ declaration.ref }}</td>
+                    <td>{{ declaration.paiement.ref }}</td>
+                    <td>{{ declaration.paiement.datePai ? declaration.paiement.datePai|date('d-m-Y') : '' }}</td>
+                    <td>{{ declaration.totalapayer }}</td>
+                    <td>
+                        <a href="{{ path('declaration_show', {'id': declaration.id}) }}"><i class="fa fa-file"></i></a>
+                        {% if not declaration.paiement %}
+                        <a href="{{ path('paiement_new', {'ref': declaration.ref}) }}"><i class="fa fa-money"
+                                style="color:green;" aria-label="Open thi"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date_pai</th>
-                <th>Type</th>
-                <th>Image</th>
-                <th>Etat_ent</th>
-                <th>Etat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for paiement in paiements %}
-            <tr>
-                <td>{{ paiement.id }}</td>
-                <td>{{ paiement.datePai ? paiement.datePai|date('Y-m-d') : '' }}</td>
-                <td>{{ paiement.type }}</td>
-                <td>{{ paiement.image }}</td>
-                <td>{{ paiement.etatEnt ? 'Yes' : 'No' }}</td>
-                <td>{{ paiement.etat ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('paiement_show', {'id': paiement.id}) }}">show</a>
-                    <a href="{{ path('paiement_edit', {'id': paiement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('paiement_new') }}">Create new</a>
+                {% else %}
+                <tr>
+                    <td colspan="9">Pas de versement</td>
+                </tr>
+                {% endfor %}
+                {% if not nb %}
+                <tr>
+                    <td colspan="9">Pas de versement</td>
+                </tr>
+                {% endif %}
+                
+            </tbody>
+        </table>
+        <div class="navigation d-flex justify-content-center">
+            {{ knp_pagination_render(declarations) }}
+        </div>
+    </div>
+</section>
 {% endblock %}

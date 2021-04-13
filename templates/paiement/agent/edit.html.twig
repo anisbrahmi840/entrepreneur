@@ -1,0 +1,56 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit Paiement{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-title">
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <!-- Contact Form -->
+        <div class="col-md-8 col-sm-6 col-xs-12">
+            <h1>Modifier le Paiement</h1>
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Réf de paiement</th>
+                        <td>{{ paiement.ref }}</td>
+                    </tr>                    <tr>
+                        <th>Réf de déclaration</th>
+                        <td>{{ paiement.declaration.ref }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de paiement</th>
+                        <td>{{ paiement.datePai ? paiement.datePai|date('d-m-Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ paiement.type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total à payer</th>
+                        <td>{{ paiement.declaration.totalapayer }} DT</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><img width="600" height="400" src="{{ vich_uploader_asset(paiement) }}" alt="{{ paiement.image }}" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            {{ form_start(form) }}
+                 {{ form_widget(form) }}
+                <button class="btn btn-primary">{{ button_label|default('Vérifier le versement') }}</button>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

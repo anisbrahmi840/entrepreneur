@@ -21,7 +21,7 @@ class PaiementType extends AbstractType
             ->add('date_pai', DateType::class, [
                 'label' => 'Date de paiement',
             ])
-            ->add('image', FileType::class, [
+            ->add('imageFile', VichImageType::class, [
                 'label' => "Preuve de paiement",
                 'required' => false,
                 'constraints' => [

@@ -85,6 +85,36 @@
 					</div>
 				</div>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoPaiements"
+					aria-expanded="true" aria-controls="collapseTwoPaiements">
+					<i class="fas fa-fw fa-euro-sign"></i>
+					<span>Paiements</span>
+				</a>
+				<div id="collapseTwoPaiements" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="{{ path('agent_rendezvous_index') }}">Liste des Paiements</a>
+						{% if is_granted("ROLE_AGENT") %}
+						<a class="collapse-item" href="{{ path('agent_rendezvous_mesrendezvous', {slug: app.user.slug}) }}">Paiements a régulariser</a>
+						{% endif %}
+					</div>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoVersement"
+					aria-expanded="true" aria-controls="collapseTwoVersement">
+					<i class="fas fa-fw fa-money-bill-alt"></i>
+					<span>Versement</span>
+				</a>
+				<div id="collapseTwoVersement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="{{ path('paiement_agent_liste') }}">Liste des Versements</a>
+						{% if is_granted("ROLE_AGENT") %}
+						<a class="collapse-item" href="{{ path('paiement_agent_regulariser') }}">Versements a régulariser</a>
+						{% endif %}
+					</div>
+				</div>
+			</li>
 
 
 		</ul>

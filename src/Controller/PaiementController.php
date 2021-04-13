@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Declaration;
 use App\Entity\Paiement;
 use App\Form\PaiementType;
+use App\Entity\Declaration;
 use App\Repository\PaiementRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\DeclarationRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/entrepreneur/declaration/paiement")
@@ -17,13 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class PaiementController extends AbstractController
 {
     /**
-     * @Route("/", name="paiement_index", methods={"GET"})
+     * @Route("/liste", name="paiement_index", methods={"GET"})
      */
-    public function index(PaiementRepository $paiementRepository): Response
+    public function index(DeclarationRepository $declarationRepository, PaginatorInterface $paginator, Request $request): Response
     {
+
         return $this->render('paiement/index.html.twig', [
-            'paiements' => $paiementRepository->findAll(),
-        ]);
+            'declarations' => $paginator->paginate($declarationRepository->findBy(['entrepreneur' => $this->getUser(), 'etat' => true], array('date_dec' => 'DESC')),
+                                $request->query->getInt('page', 1),
+                                5),]);
     }
 
     /**
@@ -41,6 +45,7 @@ class PaiementController extends AbstractController
                 ->setDeclaration($declaration)
                 ->settype('versement')
                 ->setEtatEnt(true)
+                ->setRef(uniqid('Pai-'))
                 ;
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($paiement);
