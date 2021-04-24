@@ -7,8 +7,17 @@
 	<title>
 		{% block title %}{% endblock %}
 	</title>
+	<style>
+		.page-link{
+			Color: #ED1C24
+		}
+		.page-item.active .page-link {
+			background-color: #ED1C24;
+			border-color: #ED1C24;
+		}
+	</style>
 	{% block stylesheets %}
-	{#{{ encore_entry_link_tags('app') }}#}
+
 	{% endblock %}
 	<style>
 		nav.navbar {
@@ -103,22 +112,19 @@
 									<div class="">
 										<ul class="nav navbar-nav">
 											<li class="active">
-												<a href="#">Home</a>
+												<a href="{{ path('app_home') }}"><i class="fa fa-home" style="font-size:24px"></i> </a>
 											</li>
 											<li class="">
-												<a href="#">FAQ</a>
+												<a href="{{ path('apropos_index') }}">Qui sommes-nous</a>
 											</li>
 											<li class="">
-												<a href="#">Témoignages</a>
+												<a href="{{ path('temoignage_index_entrepreneur') }}">Témoignages</a>
 											</li>
 											<li class="">
-												<a href="#">actualités</a>
+												<a href="{{ path('actualite_index_entrepreneur') }}">actualités</a>
 											</li>
 											<li class="">
-												<a href="#">À PROPOS</a>
-											</li>
-											<li class="">
-												<a href="#">CONTACT</a>
+												<a href="{{ path('contactus_index') }}">CONTACT</a>
 											</li>
 										</ul>
 									</div>
@@ -161,19 +167,19 @@
 											<a href="#"> HOME</a>
 										</li>
 										<li>
-											<a href="#"> FAQ</a>
+											<a href="{{ path('faq_index') }}"> FAQ</a>
 										</li>
 										<li>
-											<a href="#"> TÉMOIGNAGES</a>
+											<a href="{{ path('temoignage_index_entrepreneur') }}"> TÉMOIGNAGES</a>
 										</li>
 										<li>
-											<a href="#"> ACTUALITÉS</a>
+											<a href="{{ path('actualite_index_entrepreneur') }}"> ACTUALITÉS</a>
 										</li>
 										<li>
-											<a href="#"> À PROPOS</a>
+											<a href="{{ path('apropos_index') }}"> À PROPOS</a>
 										</li>
 										<li>
-											<a href="#"> CONTACT</a>
+											<a href="{{ path('contactus_index') }}"> CONTACT</a>
 										</li>
 									</ul>
 								</div>

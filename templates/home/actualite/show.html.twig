@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actualite{% endblock %}
+
+{% block body %}
+<!-- Start Services -->
+<section class="services single section">
+	<div class="container">
+		<div class="row justify-content-center">
+			{% if actualite %}
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="services-main">
+					<!-- Service Slider -->
+					<div class="services-slider">
+						<!-- Single Slide -->
+						<div class="single-slide">
+							<img src="{{actualite.image}}" alt="" />
+						</div>
+						<!-- End Single Slide -->
+						<!-- Single Slide -->
+						<div class="single-slide">
+							<img src="{{actualite.image}}" alt="" />
+						</div>
+						<!-- End Single Slide -->
+					</div>
+					<!-- End Service Slider -->
+					<!-- Service Content -->
+					<div class="blog-info">
+						<div class="meta">
+							<span><i class="fa fa-calendar-o"></i>{{actualite.createdAt | date('d-m-Y H:i:s')}}</span>
+						</div>
+					</div>
+					<div class="services-content">
+						<h2>{{actualite.title}}</h2>
+						<p>{{actualite.description }}</p>
+					</div>
+					<!--/ End Service Content -->
+				</div>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+</section>
+
+{% endblock %}

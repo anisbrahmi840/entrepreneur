@@ -57,7 +57,7 @@
                     <h2><a href="#">Mon compte</a></h2>
                     <p><a class="text-secondary" href="{{ path('entrepreneur_show', {slug: app.user.slug}) }}">Information personnelle</a></p>
                     {% if app.user.categorie %}
-                        <p><a class="text-secondary" href="{{ path('categorie_show', {slug: app.user.categorie.slug}) }}">Information professionnelle</a></p>
+                        <p><a class="text-secondary" href="{{ path('entrepreneur_show_info_activite', {slug: app.user.slug}) }}">Information professionnelle</a></p>
                     {% else %}
                         <p><a class="text-secondary" href="{{ path('categorie_new') }}"><u>Ajouter Votre secteur d'activité</u> <span class="badge badge-info"> Important</span></a></p>   
                     {% endif %}

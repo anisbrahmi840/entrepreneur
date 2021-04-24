@@ -19,22 +19,18 @@ class ActualiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Actualite::class);
     }
 
-    // /**
-    //  * @return Actualite[] Returns an array of Actualite objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Actualite[] Returns an array of Actualite objects
+    */
+    public function getActualites()
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('a.createdAt', 'ASC')
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Actualite

@@ -476,4 +476,8 @@ class Entrepreneur implements UserInterface
 
         return $this;
     }
+
+    public function getFullName(){
+        return "$this->nom $this->prenom";
+    }
 }

@@ -1,0 +1,40 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Temoignage index{% endblock %}
+
+{% block body %}
+<h1>Temoignage index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ref</th>
+            <th>Entrepreneur</th>
+            <th>Titre</th>
+            <th>Crée le</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for temoignage in temoignages %}
+        <tr>
+            <td>{{ temoignage.ref }}</td>
+            <td>{{ temoignage.entrepreneur.getFullName }}</td>
+            <td>{{ temoignage.title }}</td>
+            <td>{{ temoignage.createdAt ? temoignage.createdAt|date('d-m-Y') : '' }}</td>
+            <td>
+                <a href="{{ path('temoignage_show', {'ref': temoignage.ref}) }}"><i class="fa fa-eye"></i></a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">Aucun enregistrement trouvé</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(temoignages) }}
+</div>
+<a class="btn btn-primary" href="{{ path('temoignage_new') }}">Ajouter témoignage</a>
+{% endblock %}

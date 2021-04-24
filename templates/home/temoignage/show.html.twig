@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Témoignages
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+<section id="projects" class="projects section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>Témoignages</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div id="project-item-2" class="cbp">
+                    {% for temoignage in temoignages %}
+                    <div class="cbp-item  webdesign development video branding package text-center">
+                        <!-- Single Project -->
+                        <h5>{{ temoignage.title }}</h5>
+                        <p><strong>Entrepreneur</strong>: {{temoignage.entrepreneur.getFullName}}<br>
+                        <p><strong>Secteur</strong>: {{temoignage.entrepreneur.Categorie.activite.nom}}<br>
+                        <span><i class="fa fa-calendar-o"></i>{{temoignage.createdAt| date('d-m-Y')}}</span>
+
+                        <div class="project-single">
+                            <div class="project-inner">
+                                <div class="project-heagd">
+                                    <iframe width="700" height="520" src="{{temoignage.url}}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ End Single Project -->
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!--/ End Load More -->
+            </div>
+        </div>
+    </div>
+            <div class="navigation d-flex justify-content-center">
+            {{ knp_pagination_render(temoignages) }}
+        </div>
+</section>
+<!--/ End Project -->
+
+{% endblock %}

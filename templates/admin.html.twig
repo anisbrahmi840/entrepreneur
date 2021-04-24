@@ -71,31 +71,35 @@
 				</div>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwocalendar"
-					aria-expanded="true" aria-controls="collapseTwocalendar">
-					<i class="fas fa-fw fa-calendar-alt"></i>
-					<span>Rendez-vous</span>
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoDeclaration"
+					aria-expanded="true" aria-controls="collapseTwoDeclaration">
+					<i class="fas fa-fw fa-file"></i>
+					<span>Déclarations</span>
 				</a>
-				<div id="collapseTwocalendar" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div id="collapseTwoDeclaration" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="{{ path('agent_rendezvous_index') }}">Liste des rendez-vous</a>
-						{% if is_granted("ROLE_AGENT") %}
-						<a class="collapse-item" href="{{ path('agent_rendezvous_mesrendezvous', {slug: app.user.slug}) }}">Mes rendez-vous</a>
+						<a class="collapse-item" href="{{ path('admin_declaration_index') }}">Liste des Déclarations</a>
+						{% if is_granted("ROLE_ADMIN") %}
+						<a class="collapse-item" href="{{ path('admin_declaration_new') }}">Ajouter Déclaration</a>
 						{% endif %}
 					</div>
 				</div>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoPaiements"
-					aria-expanded="true" aria-controls="collapseTwoPaiements">
-					<i class="fas fa-fw fa-euro-sign"></i>
-					<span>Paiements</span>
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwocalendar"
+					aria-expanded="true" aria-controls="collapseTwocalendar">
+					<i class="fas fa-fw fa-calendar-alt"></i>
+					<span>Rendez-vous</span>
 				</a>
-				<div id="collapseTwoPaiements" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div id="collapseTwocalendar" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="{{ path('agent_rendezvous_index') }}">Liste des Paiements</a>
+						<a class="collapse-item" href="{{ path('agent_rendezvous_index') }}">Liste des rendez-vous</a>
 						{% if is_granted("ROLE_AGENT") %}
-						<a class="collapse-item" href="{{ path('agent_rendezvous_mesrendezvous', {slug: app.user.slug}) }}">Paiements a régulariser</a>
+						<a class="collapse-item"
+							href="{{ path('agent_rendezvous_mesrendezvous', {slug: app.user.slug}) }}">Mes
+							rendez-vous</a>
 						{% endif %}
 					</div>
 				</div>
@@ -104,19 +108,51 @@
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoVersement"
 					aria-expanded="true" aria-controls="collapseTwoVersement">
 					<i class="fas fa-fw fa-money-bill-alt"></i>
-					<span>Versement</span>
+					<span>Versements</span>
 				</a>
-				<div id="collapseTwoVersement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div id="collapseTwoVersement" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="{{ path('paiement_agent_liste') }}">Liste des Versements</a>
+						<a class="collapse-item" href="{{ path('paiement_agent_liste') }}">Liste des versements</a>
 						{% if is_granted("ROLE_AGENT") %}
-						<a class="collapse-item" href="{{ path('paiement_agent_regulariser') }}">Versements a régulariser</a>
+						<a class="collapse-item" href="{{ path('paiement_agent_regulariser') }}">Versements a
+							régulariser</a>
 						{% endif %}
 					</div>
 				</div>
 			</li>
-
-
+			{% if is_granted("ROLE_ADMIN") %}
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoActualite"
+					aria-expanded="true" aria-controls="collapseTwoActualite">
+					<i class="fas fa-fw fa-sticky-note"></i>
+					<span>Actualités</span>
+				</a>
+				<div id="collapseTwoActualite" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="{{ path('actualite_index') }}">Liste des actualités</a>
+						<a class="collapse-item" href="{{ path('actualite_new') }}">Ajouter actualité</a>
+					</div>
+				</div>
+			</li>
+			{% endif %}
+			{% if is_granted("ROLE_ADMIN") %}
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoTemoignage"
+					aria-expanded="true" aria-controls="collapseTwoTemoignage">
+					<i class="fas fa-fw fa-play"></i>
+					<span>Témoignages</span>
+				</a>
+				<div id="collapseTwoTemoignage" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="{{ path('temoignage_index') }}">Liste des témoignage</a>
+						<a class="collapse-item" href="{{ path('temoignage_new') }}">Ajouter témoignage</a>
+					</div>
+				</div>
+			</li>
+			{% endif %}
 		</ul>
 		<!-- End of Sidebar -->
 
@@ -197,7 +233,7 @@
 				<!-- End of Topbar -->
 
 				<!-- Begin Body -->
-				
+
 				<div class="container-fluid">
 					{% block body %}
 					{% endblock %}

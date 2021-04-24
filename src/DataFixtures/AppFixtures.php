@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Activite;
+use App\Entity\Actualite;
 use App\Entity\Admin;
 use App\Entity\Agent;
 use App\Entity\Declaration;
@@ -185,8 +186,9 @@ class AppFixtures extends Fixture
             $manager->persist($activite3);
             $manager->persist($activite4);
             $manager->persist($activite5);
-            // agent fixture
-        for ($i=0; $i < 20; $i++) { 
+
+        //agent fixture
+        for ($ag=0; $ag < 20; $ag++) { 
             $agent = new Agent();
             $agent->setNom($faker->name)
                 ->setPrenom($faker->lastName)
@@ -195,6 +197,18 @@ class AppFixtures extends Fixture
                 ->setPassword($this->encoder->encodePassword($agent, 'agent'))
                 ;
             $manager->persist($agent);
+        }
+
+        //ajouter actualités
+        for ($a=0; $a < 5; $a++) { 
+            $actualite = new Actualite();
+            $actualite
+                ->setTitle($faker->title)
+                ->setDescription($faker->paragraph)
+                ->setRef(uniqid('Act-'))
+                ->setImage($faker->imageUrl())
+                ;
+            $manager->persist($actualite);
         }
 
         $manager->flush();

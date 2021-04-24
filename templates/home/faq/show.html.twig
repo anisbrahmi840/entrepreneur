@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FAQ
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+<!-- Start Faq -->
+			<section id="faq" class="faq section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="section-title">
+								<h1>Frequently Asked Questions</h1>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-7 col-sm-12 col-xs-12">
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+								<div class="panel panel-default active">
+									<!-- Single Faq -->
+									<div class="faq-heading"  id="FaqTitle1">
+									  <h4 class="faq-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#faq1">Qui Peut Devenir Auto-Entrepreneur ?</a>
+									  </h4>
+									</div>
+									<div id="faq1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="FaqTitle1">
+									  <div class="faq-body">Toute personne physique exerçant, à titre individuel, une activité industrielle, commerciale ou artisanale, ou prestataire de service, dont le chiffre d’affaires annuel (TND) encaissé ne dépasse pas le montant: 75 000 TND</div>
+									</div>
+									<!--/ End Single Faq -->
+								</div>
+								<div class="panel panel-default">
+									<!-- Single Faq -->
+									<div class="faq-heading"  id="FaqTitle2">
+									  <h4 class="faq-title">
+										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq2">Quelles Sont Les Avantages ?</a>
+									  </h4>
+									</div>
+									<div id="faq2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle2">
+									  <div class="faq-body">Procédure De Création Radiation Simplifiée</div>
+									  <div class="faq-body">Possibilité D’exercice De L’activité À Domicile</div>
+									  <div class="faq-body">Pas De Chiffre D’affaires, Pas D’impôt Sur Le Revenu</div>
+									  <div class="faq-body">Possibilité De Facturation</div>
+									  <div class="faq-body">Fiscalité Réduite</div>
+									  <div class="faq-body">Dispense De Comptabilité</div>
+									</div>
+									<!--/ End Single Faq -->
+								</div>
+								<div class="panel panel-default">
+									<!-- Single Faq -->
+									<div class="faq-heading"  id="FaqTitle3">
+									  <h4 class="faq-title">
+										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq3">Quelles Sont Les Obligations ?</a>
+									  </h4>
+									</div>
+									<div id="faq3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle3">
+									  <div class="faq-body">Vous êtes une personne physique, de nationalité tunisienne</div>
+									  <div class="faq-body">Vous exercez individuellement dans le secteur industriel, commercial, agricole, des services ,de l’artisanat ou des métiers.</div>
+									  <div class="faq-body">Votre chiffre d'affaires annuel ne dépasse pas 75 000 dinars</div>
+									  <div class="faq-body">Vous avez une adresse (domicile)</div>
+									  <div class="faq-body">Vous ne disposez pas déjà d’une déclaration d’existence fiscale</div>
+									</div>
+									<!--/ End Single Faq -->
+								</div>
+								<div class="panel panel-default">
+									<!-- Single Faq -->
+									<div class="faq-heading"  id="FaqTitle4">
+									  <h4 class="faq-title">
+										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq4">Quelles Sont Les Obligations Compta Et Juridiques ?</a>
+									  </h4>
+									</div>
+									<div id="faq4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle4">
+									 <div class="faq-body">Disposer d’une carte d’auto-entrepreneur</div>
+									 <div class="faq-body">Respecter les règles relatives à la concurrence, à la protection du consommateur, à la santé, à la sécurité et aux droits et procédures fiscaux et sociaux conformément à la législation en vigueur</div>
+									 <div class="faq-body">Fournir des données exactes, complètes et actualisées relatives à sa situation et à l’exercice de son activité</div>
+									 <div class="faq-body">Déclarer le chiffre d’affaires réalisé dans les délais</div>
+									 <div class="faq-body">Tenir un registre numéroté et paraphé par les autorités fiscales compétentes, sur lequel sont enregistrées quotidiennement les dépenses et recettes sur la base des documents justificatifs</div>
+									</div>
+									<!--/ End Single Faq -->
+								</div>
+								<div class="panel panel-default">
+									<!-- Single Faq -->
+									<div class="faq-heading"  id="FaqTitle5">
+									  <h4 class="faq-title">
+										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq5">Quelles Sont Les Catégories Des Activités Concernées</a>
+									  </h4>
+									</div>
+									<div id="faq5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="FaqTitle5">
+									 <div class="faq-body">Les professions exercées en auto-entreprise se répartissent en 5 catégories. Les activités dans le secteur de l'industrie, de l'agriculture, du commerce, des services, de l’artisanat ou des métiers</div>
+									</div>
+									<!--/ End Single Faq -->
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="faq-image">
+								<img src="{{ asset('images/faq.png') }}" alt=""/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+{% endblock %}

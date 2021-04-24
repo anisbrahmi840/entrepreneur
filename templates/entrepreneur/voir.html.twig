@@ -17,36 +17,43 @@
         </div>
     </div>
 </section>
+<!-- Start Pricing Table -->
 <section id="pricing-table" class="pricing-table section">
     <div class="container">
         <div class="row justify-content-center">
+            <!-- Single Table -->
             <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="single-table active">
-                    <div class="bg-icon"><i class="fa fa-address-book"></i></div>
+                <div class="single-table">
+                    <div class="bg-icon"><i class="fa fa-file"></i></div>
+                    <!-- Table Head -->
                     <div class="table-head">
-                        <h2 class="title">Informations d'activité</h2>
+                        <h2 class="title">Informations personnelles</h2>
                     </div>
                     <table class="table table-bordered table-striped">
                         <tbody>
                             <tr>
-                                <th>Adresse</th>
-                                <td>{{ entrepreneur.categorie.adresse }}</td>
+                                <th>CIN:</th>
+                                <td>{{ entrepreneur.cin }}</td>
                             </tr>
                             <tr>
-                                <th>Codepostale</th>
-                                <td>{{ entrepreneur.categorie.codepostale }}</td>
+                                <th>Téléphone:</th>
+                                <td>{{ entrepreneur.tel }} </td>
                             </tr>
                             <tr>
-                                <th>Secteur d'activité</th>
-                                <td>{{ entrepreneur.categorie.activite.nom }}</td>
+                                <th>Genre:</th>
+                                <td>{{ entrepreneur.genre }}d</td>
                             </tr>
                             <tr>
-                                <th>Taux</th>
-                                <td>{{ entrepreneur.categorie.activite.taux }}%</td>
+                                <th>Date de naissance:</th>
+                                <td>{{ entrepreneur.datenais | date('d-m-Y') }}</td>
                             </tr>
                             <tr>
-                                <th>Domicile</th>
-                                <td>{{ entrepreneur.categorie.domicile ? 'Non' : 'Oui' }}</td>
+                                <th>Pays:</th>
+                                <td>Tunisie</td>
+                            </tr>
+                            <tr>
+                                <th>Ville:</th>
+                                <td>{{entrepreneur.villenais}} </td>
                             </tr>
                         </tbody>
                     </table>
@@ -55,5 +62,4 @@
         </div>
     </div>
 </section>
-<!--/ End Pricing Table -->
 {% endblock %}

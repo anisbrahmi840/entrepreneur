@@ -23,8 +23,10 @@ class SoldeController extends AbstractController
             $totalDeclare  += $declaration->getChiffre();
             if ( $declaration->getDateDec() && $declaration->getDateDec()->format('Y') === date('Y')){
                 $totaleDeclareCetteAnnee += $declaration->getChiffre();
-                if( $declaration->getPaiement() && $declaration->getPaiement()->getEtat() && $declaration->getPaiement()->getEtatEnt())
-                $totalePayeCetteAnnee += $declaration->getTotalapayer();
+            } 
+            if ($declaration->getPaiement() && $declaration->getPaiement()->getEtat() && $declaration->getPaiement()->getEtatEnt()){
+                if( $declaration->getPaiement()->getDatePai()  && $declaration->getPaiement()->getDatePai()->format('Y') === date('Y'))
+                    $totalePayeCetteAnnee += $declaration->getTotalapayer();
             }
             if( $declaration->getPaiement() && $declaration->getPaiement()->getEtat() && $declaration->getPaiement()->getEtatEnt())
                 $totalePaye += $declaration->getTotalapayer();

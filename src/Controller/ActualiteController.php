@@ -5,23 +5,27 @@ namespace App\Controller;
 use App\Entity\Actualite;
 use App\Form\ActualiteType;
 use App\Repository\ActualiteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/actualite")
+ * @Route("/admin/actualite")
  */
 class ActualiteController extends AbstractController
 {
     /**
-     * @Route("/", name="actualite_index", methods={"GET"})
+     * @Route("/liste", name="actualite_index", methods={"GET"})
      */
-    public function index(ActualiteRepository $actualiteRepository): Response
+    public function index(ActualiteRepository $actualiteRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $actualites = $paginator->paginate($actualiteRepository->findAll(),
+        $request->query->getInt('page', 1),
+        10);
         return $this->render('actualite/index.html.twig', [
-            'actualites' => $actualiteRepository->findAll(),
+            'actualites' => $actualites,
         ]);
     }
 
@@ -35,6 +39,7 @@ class ActualiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $actualite->setRef(uniqid('Act-'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($actualite);
             $entityManager->flush();
@@ -49,46 +54,12 @@ class ActualiteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="actualite_show", methods={"GET"})
+     * @Route("/{ref}", name="actualite_show", methods={"GET"})
      */
     public function show(Actualite $actualite): Response
     {
         return $this->render('actualite/show.html.twig', [
             'actualite' => $actualite,
         ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="actualite_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Actualite $actualite): Response
-    {
-        $form = $this->createForm(ActualiteType::class, $actualite);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('actualite_index');
-        }
-
-        return $this->render('actualite/edit.html.twig', [
-            'actualite' => $actualite,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="actualite_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Actualite $actualite): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$actualite->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($actualite);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('actualite_index');
     }
 }

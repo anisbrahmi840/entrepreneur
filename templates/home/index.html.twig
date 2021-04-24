@@ -3,6 +3,18 @@
 {% block title %}{{controller_name}}
 {% endblock %}
 
+{% block stylesheets %}
+<style>
+	i.fa.fa-angle-right {
+		margin-top: 50%;
+	}
+
+	i.fa.fa-angle-left {
+		margin-top: 50%;
+	}
+</style>
+{% endblock %}
+
 {% block body %}
 <section class="hero-area">
 	<div class="slider-one">
@@ -311,11 +323,7 @@
 			<div class="col-md-4 col-sm-12 col-xs-12 fix">
 				<div class="working-process">
 					<h2>Demande carte entrepreneur</h2>
-					<p>It is a long established fact that a reader will be distracted by the readable content of a page
-						when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-						distribution of letters</p>
-					<a href="about-us.html" class="btn">
-						Read More</a>
+					<p>Pour exercer une activité commerciale, industrie, agriculture, des services, de l’artisanat ou des métiers, vous devez avoir une carte d'entrepreneur</p>
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-12 col-xs-12 fix">
@@ -324,22 +332,22 @@
 					<div class="single-choose">
 						<i class="fa fa-check"></i>
 						<h4>inscrivez vous !</h4>
-						<p>notare quam littera gothica, quam nunc putamus parum claram</p>
-					</div>
+						<p>créez votre profil en 2 minutes</p>
+					</div><br>
 					<!-- End Single Choose -->
 					<!-- Single Choose -->
 					<div class="single-choose">
-						<i class="fa fa-support"></i>
+						<i class="fa fa-file"></i>
 						<h4>remplir le formulaire d'inscription</h4>
-						<p>notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas
+						<p>Remplissez vos informations personnelles et professionnelles<p>
 						</p>
 					</div>
 					<!-- End Single Choose -->
 					<!-- Single Choose -->
 					<div class="single-choose">
-						<i class="fa fa-optin-monster"></i>
-						<h4>demandez votre carte</h4>
-						<p>notare quam littera gothica, quam nunc putamus parum claram</p>
+						<i class="fa fa-credit-card "></i>
+						<h4>votre carte</h4>
+						<p>Dans un délai maximum de 15 jours, vous obtiendrez votre carte</p>
 					</div>
 					<!-- End Single Choose -->
 				</div>
@@ -375,48 +383,23 @@
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div id="project-item" class="cbp">
+					{% for actualite in actualites %}
 					<div class="cbp-item  webdesign branding package">
-						<!-- Single Project -->
-						<div class="project-inner">
-							<div class="project-head">
-								<img src="http://via.placeholder.com/700x500" alt="" />
+						<a href="{{ path('actualite_show_entrepreneur', {ref: actualite.ref}) }}">
+							<div class="project-inner">
+								<div class="project-head">
+									<img src="{{actualite.image}}" alt="" widht="700" height="500" />
+								</div>
+								<div class="text-center">
+									<p class="font-weight-bold">
+										<p>{{actualite.title}}</p>
+									</p>
+								</div>
 							</div>
-							<div class="text-center">
-								<p class="font-weight-bold">
-									<a href="service-single.html">Fiscalité réduite</a>
-								</p>
-							</div>
-						</div>
+						</a>
 						<!--/ End Single Project -->
 					</div>
-					<div class="cbp-item  webdesign branding package">
-						<!-- Single Project -->
-						<div class="project-inner">
-							<div class="project-head">
-								<img src="http://via.placeholder.com/700x500" alt="" />
-							</div>
-							<div class="text-center">
-								<p class="font-weight-bold">
-									<a href="service-single.html">Fiscalité réduite</a>
-								</p>
-							</div>
-						</div>
-						<!--/ End Single Project -->
-					</div>
-					<div class="cbp-item  webdesign branding package">
-						<!-- Single Project -->
-						<div class="project-inner">
-							<div class="project-head">
-								<img src="http://via.placeholder.com/700x500" alt="" />
-							</div>
-							<div class="text-center">
-								<p class="font-weight-bold">
-									<a href="service-single.html">Fiscalité réduite</a>
-								</p>
-							</div>
-						</div>
-						<!--/ End Single Project -->
-					</div>
+					{% endfor %}
 				</div>
 				<!--/ End Load More -->
 			</div>

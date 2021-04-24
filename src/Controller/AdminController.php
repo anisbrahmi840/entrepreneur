@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\Agent;
-use App\Entity\Declaration;
 use App\Form\AdminType;
 use App\Form\AgentType;
+use App\Entity\Declaration;
 use App\Entity\Entrepreneur;
 use App\Form\DeclarationAdminType;
 use App\Form\EntrepreneurAdminType;
 use App\Repository\AdminRepository;
 use App\Repository\AgentRepository;
+use App\Repository\DeclarationRepository;
 use App\Repository\EntrepreneurRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -151,6 +152,19 @@ class AdminController extends AbstractController
     }
 
 // -----------------------------Controle Déclarations --------------------------------------------------------------
+  
+    /**
+     * @Route("/declarations/liste", name="admin_declaration_index", methods={"GET"})
+     */
+    public function listeDeclaration(DeclarationRepository $declarationRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+
+        return $this->render('declaration/admin/index.html.twig', [
+            'declarations' => $paginator->paginate($declarationRepository->findAll(),
+                                $request->query->getInt('page', 1),
+                                10),]);
+    }
+
     /**
      * Undocumented function
      *
@@ -164,9 +178,9 @@ class AdminController extends AbstractController
         foreach ($entrepreneurs as $index => $entrepreneur) {
             $declaration = new Declaration();
             $form = $this->createForm(DeclarationAdminType::class, $declaration);
-            $form->handleRequest($request);
+            $form->handleRequest($request);            
+            $em = $this->getDoctrine()->getManager();
             if($form->isSubmitted() && $form->isValid()){
-                $em = $this->getDoctrine()->getManager();
                 $declaration
                     ->setEntrepreneur($entrepreneur)                    
                     ->setRef(uniqid('Dec-'))

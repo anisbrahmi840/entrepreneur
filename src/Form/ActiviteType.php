@@ -15,7 +15,7 @@ class ActiviteType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('taux', NumberType::class)
+            ->add('taux de cotisation', NumberType::class)
         ;
     }
 

@@ -36,7 +36,12 @@ class CategorieType extends AbstractType
                     new NotNull(['message' => "Saisir le code postale"])
                 ]
             ])
-            ->add('domicile')
+            ->add('domicile', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'style' => "height : 80%; margin-left:-30%"
+                ]
+            ])
             ->add('activite', EntityType::class, [
                 'class' => Activite::class,
                 'choice_label' => 'nom'

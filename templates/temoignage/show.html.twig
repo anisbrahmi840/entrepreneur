@@ -1,0 +1,44 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Temoignage{% endblock %}
+
+{% block body %}
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>Temoignage</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center ">
+            <div class="col-md-6 col-sm-12 col-xs-12 bg-light">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Ref</th>
+                            <td>{{ temoignage.ref }}</td>
+                        </tr>
+                        <tr>
+                            <th>Title</th>
+                            <td>{{ temoignage.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Video</th>
+                            <td>
+                                <iframe width="400" height="325" src="{{ temoignage.url }}"></iframe>
+                        </tr>
+                        <tr>
+                            <th>Crée le </th>
+                            <td>{{ temoignage.createdAt ? temoignage.createdAt|date('Y-m-d') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</section>
+
+{{ include('temoignage/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,11 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
-{% block title %}New Actualite{% endblock %}
+{% block title %}Ajouter Actualité{% endblock %}
 
 {% block body %}
-    <h1>Create new Actualite</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <h1>Ajouter Actualité</h1>
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="text-center">
+                <button class="btn btn-primary">{{ button_label|default('Ajouter Actualité') }}</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
 
-    {{ include('actualite/_form.html.twig') }}
-
-    <a href="{{ path('actualite_index') }}">back to list</a>
 {% endblock %}

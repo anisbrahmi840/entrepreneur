@@ -28,6 +28,9 @@ class EntrepreneurController extends AbstractController
      * @Route("/dashboard/", name="entrepreneur_dashboard")
      */
     public function dashboard(){
+        if (!$this->getUser()->getCategorie()){
+            return $this->redirectToRoute('categorie_new');
+        }
         return $this->render('entrepreneur/dashboard.html.twig', [
             'entrepreneur' => $this->getUser()
         ]);
@@ -73,6 +76,26 @@ class EntrepreneurController extends AbstractController
     public function show(EntrepreneurRepository $entrepreneurRepository, string $slug): Response
     {
         return $this->render('entrepreneur/show.html.twig', [
+            'entrepreneur' => $entrepreneurRepository->findOneBy(['slug' => $slug]),
+        ]);
+    }
+
+    /**
+     * @Route("/{slug}/voir", name="entrepreneur_show_info", methods={"GET"})
+     */
+    public function showInfo(EntrepreneurRepository $entrepreneurRepository, string $slug): Response
+    {
+        return $this->render('entrepreneur/voir.html.twig', [
+            'entrepreneur' => $entrepreneurRepository->findOneBy(['slug' => $slug]),
+        ]);
+    }
+
+    /**
+     * @Route("/{slug}/voiractivite", name="entrepreneur_show_info_activite", methods={"GET"})
+     */
+    public function showInfoActivite(EntrepreneurRepository $entrepreneurRepository, string $slug): Response
+    {
+        return $this->render('categorie/show.html.twig', [
             'entrepreneur' => $entrepreneurRepository->findOneBy(['slug' => $slug]),
         ]);
     }

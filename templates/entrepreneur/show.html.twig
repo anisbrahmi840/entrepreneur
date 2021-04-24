@@ -29,44 +29,20 @@
                     <div class="table-head">
                         <h2 class="title">Informations personnelles</h2>
                     </div>
-                    <!-- Table List -->
-                    <table class="table table-bordered table-striped">
-                        <tbody>
-                            <tr>
-                                <th>CIN:</th>
-                                <td>{{ entrepreneur.cin }}</td>
-                            </tr>
-                            <tr>
-                                <th>Téléphone:</th>
-                                <td>{{ entrepreneur.tel }} </td>
-                            </tr>
-                            <tr>
-                                <th>Genre:</th>
-                                <td>{{ entrepreneur.genre }}d</td>
-                            </tr>
-                            <tr>
-                                <th>Date de naissance:</th>
-                                <td>{{ entrepreneur.datenais | date('d-m-Y') }}</td>
-                            </tr>
-                            <tr>
-                                <th>Pays:</th>
-                                <td>Tunisie</td>
-                            </tr>
-                            <tr>
-                                <th>Ville:</th>
-                                <td>{{entrepreneur.villenais}} </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        <!-- Table List -->
+                    <ul class="table-list">
+                        <li></li>
+                        <li></li>
+                    </ul>
                     <!-- Table Bottom -->
                     <div class="table-bottom">
                         <a class="btn primary" href="{{ path('entrepreneur_edit', {slug: entrepreneur.slug}) }}"><i
                                 class="fa fa-edit"></i>Modifier</a>
+                        <a class="btn primary" href="{{ path('entrepreneur_show_info', {slug: entrepreneur.slug}) }}"><i
+                                class="fa fa-eye"></i>Voir</a>
                     </div>
                 </div>
             </div>
-            <!-- End Single Table-->
-            <!-- Single Table -->
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="single-table active">
                     <div class="bg-icon"><i class="fa fa-address-book"></i></div>
@@ -74,7 +50,16 @@
                     <div class="table-head">
                         <h2 class="title">Informations d'activité</h2>
                     </div>
-                    <!-- Table List -->
+                    <ul class="table-list">
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <!-- Table Bottom -->
+                    <div class="table-bottom">
+                        <a class="btn primary" href="{{ path('entrepreneur_show_info_activite', {slug: entrepreneur.slug}) }}"><i
+                                class="fa fa-eye"></i>Voir</a>
+                    </div>
+                    <!-- Table List 
                     <table class="table table-bordered table-striped">
                         <tbody>
                             <tr>
@@ -99,6 +84,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    -->
                 </div>
             </div>
             <!-- End Single Table-->
