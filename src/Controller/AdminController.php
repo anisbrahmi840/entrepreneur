@@ -9,9 +9,11 @@ use App\Form\AgentType;
 use App\Entity\Declaration;
 use App\Entity\Entrepreneur;
 use App\Form\DeclarationAdminType;
+use App\Form\AdminEditPasswordType;
 use App\Form\EntrepreneurAdminType;
 use App\Repository\AdminRepository;
 use App\Repository\AgentRepository;
+use Symfony\Component\Form\FormError;
 use App\Repository\DeclarationRepository;
 use App\Repository\EntrepreneurRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -67,6 +69,33 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/show.html.twig', [
             'admin' => $admin,
+        ]);
+    }
+
+    /**
+     * @Route("/editpassword/edit", name="admin_editpassword", methods={"GET","POST"})
+     */
+    public function editPassword(Request $request, UserPasswordEncoderInterface $encoder): Response
+    {
+        $admin = $this->getUser();
+        $oldPasswordBd = $admin->getPassword();
+        $form = $this->createForm(AdminEditPasswordType::class, $admin);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {  
+            $oldPassword = $request->request->get('admin_edit_password')['oldPassword'];
+            
+            if(!password_verify($oldPassword, $oldPasswordBd)){
+                $form->get('oldPassword')->addError(new FormError('Mot de passe incorrect!'));
+            }else{
+                $admin->setPassword($encoder->encodePassword($admin, $admin->getPassword()) );                
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('admin_index');
+            }
+        }
+
+        return $this->render('admin/editPassword.html.twig', [
+            'admin' => $admin,
+            'form' => $form->createView(),
         ]);
     }
 

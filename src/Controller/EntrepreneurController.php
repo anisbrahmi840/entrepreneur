@@ -138,7 +138,7 @@ class EntrepreneurController extends AbstractController
                 $entrepreneur->setPassword($encoder->encodePassword($entrepreneur, $entrepreneur->getPassword()) );
                 
                 $this->getDoctrine()->getManager()->flush();
-                return $this->redirectToRoute('entrepreneur_show', ['id' => $entrepreneur->getId()]);
+                return $this->redirectToRoute('entrepreneur_show', ['slug' => $entrepreneur->getSlug()]);
             }
         }
 
