@@ -3,15 +3,17 @@
 {% block title %}Actualite index{% endblock %}
 
 {% block body %}
-<h1>Liste des actualités</h1>
+<div class="text-center">
+    <h1>Liste des actualités</h1>
+</div>
 
-<table class="table">
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>ref</th>
             <th>Title</th>
             <th>Créé le</th>
-            <th>actions</th>
+            <th class="text-center">actions</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +22,7 @@
             <td>{{ actualite.ref }}</td>
             <td>{{ actualite.title }}</td>
             <td>{{ actualite.createdAt ? actualite.createdAt|date('d-m-Y H:i:s') : '' }}</td>
-            <td>
+            <td class="text-center">
                 <a href="{{ path('actualite_show', {'ref': actualite.ref}) }}"><i class="fas fa-eye"></i></a>
             </td>
         </tr>

@@ -27,7 +27,7 @@ class PaiementController extends AbstractController
         return $this->render('paiement/index.html.twig', [
             'declarations' => $paginator->paginate($declarationRepository->findBy(['entrepreneur' => $this->getUser(), 'etat' => true], array('date_dec' => 'DESC')),
                                 $request->query->getInt('page', 1),
-                                5),]);
+                                10),]);
     }
 
     /**

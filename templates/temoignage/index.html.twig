@@ -3,7 +3,9 @@
 {% block title %}Temoignage index{% endblock %}
 
 {% block body %}
-<h1>Temoignage index</h1>
+<div class="text-center">
+    <h1>Liste des Temoignages</h1>
+</div>
 
 <table class="table">
     <thead>
@@ -22,7 +24,7 @@
             <td>{{ temoignage.entrepreneur.getFullName }}</td>
             <td>{{ temoignage.title }}</td>
             <td>{{ temoignage.createdAt ? temoignage.createdAt|date('d-m-Y') : '' }}</td>
-            <td>
+            <td class="text-center">
                 <a href="{{ path('temoignage_show', {'ref': temoignage.ref}) }}"><i class="fa fa-eye"></i></a>
             </td>
         </tr>

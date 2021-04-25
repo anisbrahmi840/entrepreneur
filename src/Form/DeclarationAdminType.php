@@ -15,9 +15,11 @@ class DeclarationAdminType extends AbstractType
         $builder
             ->add('date_cr', DateType::class, [
                 'label' => "Date de déclaration de trimestre",
+                'widget' => 'single_text'
             ])
             ->add('date_ex', DateType::class, [
                 'label' => "Date exigibilité",
+                'widget' => 'single_text'
             ])
         ;
     }
