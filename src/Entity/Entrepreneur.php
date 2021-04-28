@@ -8,10 +8,15 @@ use App\Repository\EntrepreneurRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=EntrepreneurRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("email", message="l'email existe déjà.")
+ * @UniqueEntity("carte", message="numéro existe déjà.")
+ * 
  */
 class Entrepreneur implements UserInterface
 {
@@ -118,11 +123,17 @@ class Entrepreneur implements UserInterface
      */
     private $declarations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AttestationChiffreAffaire::class, mappedBy="entrepreneur")
+     */
+    private $attestationChiffreAffaires;
+
     public function __construct()
     {
         $this->factures = new ArrayCollection();
         $this->rendezvouses = new ArrayCollection();
         $this->declarations = new ArrayCollection();
+        $this->attestationChiffreAffaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -479,5 +490,35 @@ class Entrepreneur implements UserInterface
 
     public function getFullName(){
         return "$this->nom $this->prenom";
+    }
+
+    /**
+     * @return Collection|AttestationChiffreAffaire[]
+     */
+    public function getAttestationChiffreAffaires(): Collection
+    {
+        return $this->attestationChiffreAffaires;
+    }
+
+    public function addAttestationChiffreAffaire(AttestationChiffreAffaire $attestationChiffreAffaire): self
+    {
+        if (!$this->attestationChiffreAffaires->contains($attestationChiffreAffaire)) {
+            $this->attestationChiffreAffaires[] = $attestationChiffreAffaire;
+            $attestationChiffreAffaire->setEntrepreneur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttestationChiffreAffaire(AttestationChiffreAffaire $attestationChiffreAffaire): self
+    {
+        if ($this->attestationChiffreAffaires->removeElement($attestationChiffreAffaire)) {
+            // set the owning side to null (unless already changed)
+            if ($attestationChiffreAffaire->getEntrepreneur() === $this) {
+                $attestationChiffreAffaire->setEntrepreneur(null);
+            }
+        }
+
+        return $this;
     }
 }

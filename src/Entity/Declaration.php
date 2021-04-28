@@ -73,6 +73,11 @@ class Declaration
      */
     private $paiement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=AttestationChiffreAffaire::class, inversedBy="declaration")
+     */
+    private $attestationChiffreAffaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -216,6 +221,18 @@ class Declaration
         }
 
         $this->paiement = $paiement;
+
+        return $this;
+    }
+
+    public function getAttestationChiffreAffaire(): ?AttestationChiffreAffaire
+    {
+        return $this->attestationChiffreAffaire;
+    }
+
+    public function setAttestationChiffreAffaire(?AttestationChiffreAffaire $attestationChiffreAffaire): self
+    {
+        $this->attestationChiffreAffaire = $attestationChiffreAffaire;
 
         return $this;
     }

@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Validator\Constraints\Unique;
 
 class EntrepreneurAdminType extends AbstractType
 {
@@ -80,7 +81,7 @@ class EntrepreneurAdminType extends AbstractType
             ])
             ->add('carte', IntegerType::class,[
                 'label' => "Numéro de carte",
-                'required' => false
+                'required' => false,
             ])
         ;
     }
