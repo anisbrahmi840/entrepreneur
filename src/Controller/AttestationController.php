@@ -15,6 +15,7 @@ class AttestationController extends AbstractController
     {
         return $this->render('attestation/index.html.twig', [            
             'attestations' => $this->getUser()->getAttestationChiffreAffaires(),
+            'attestationsF' => $this->getUser()->getAttestationFiscales(),
             'controller_name' => 'Attestations',
         ]);
     }

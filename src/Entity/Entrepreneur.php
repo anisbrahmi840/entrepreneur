@@ -128,12 +128,18 @@ class Entrepreneur implements UserInterface
      */
     private $attestationChiffreAffaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AttestationFiscale::class, mappedBy="entrepreneur")
+     */
+    private $attestationFiscales;
+
     public function __construct()
     {
         $this->factures = new ArrayCollection();
         $this->rendezvouses = new ArrayCollection();
         $this->declarations = new ArrayCollection();
         $this->attestationChiffreAffaires = new ArrayCollection();
+        $this->attestationFiscales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -516,6 +522,36 @@ class Entrepreneur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($attestationChiffreAffaire->getEntrepreneur() === $this) {
                 $attestationChiffreAffaire->setEntrepreneur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AttestationFiscale[]
+     */
+    public function getAttestationFiscales(): Collection
+    {
+        return $this->attestationFiscales;
+    }
+
+    public function addAttestationFiscale(AttestationFiscale $attestationFiscale): self
+    {
+        if (!$this->attestationFiscales->contains($attestationFiscale)) {
+            $this->attestationFiscales[] = $attestationFiscale;
+            $attestationFiscale->setEntrepreneur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttestationFiscale(AttestationFiscale $attestationFiscale): self
+    {
+        if ($this->attestationFiscales->removeElement($attestationFiscale)) {
+            // set the owning side to null (unless already changed)
+            if ($attestationFiscale->getEntrepreneur() === $this) {
+                $attestationFiscale->setEntrepreneur(null);
             }
         }
 

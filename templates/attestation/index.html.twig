@@ -13,7 +13,7 @@
                 </div>
                 <a href="{{ path('attestation_chiffre_affaire_index') }}" class="btn btn-primary mb-2">Chiffre
                     d'affaire</a>
-                <a href="{{ path('facture_new') }}" class="btn btn-primary mb-2">Ajouter une facture</a>
+                <a href="{{ path('attestation_fiscale_index') }}" class="btn btn-primary mb-2">Fiscale</a>
                 <a href="{{ path('facture_new') }}" class="btn btn-primary mb-2">Ajouter une facture</a>
             </div>
         </div>
@@ -32,7 +32,21 @@
                 <tr class="">
                     <td>{{ attestation.ref }}</td>
                     <td>{{ attestation.nom }}</td>
-                    <td>{{ attestation.date ? attestation.date|date('d-m-Y') : '' }}</td>
+                    <td>{{ attestation.date ? attestation.date|date('d-m-Y') : ''}}</td>
+                    <td>{{ attestation.annee }}</td>
+                    <td class="text-center">
+                        <a href="{{ path('attestation_chiffre_affaire_show', {'ref': attestation.ref}) }}">
+                            <i class="fa fa-file"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+            {% for attestation in attestationsF %}
+                <tr class="">
+                    <td>{{ attestation.ref }}</td>
+                    <td>{{ attestation.nom }}</td>
+                    <td>{{ attestation.dateCr ? attestation.dateCr|date('d-m-Y') : ''}}</td>
                     <td>{{ attestation.annee }}</td>
                     <td class="text-center">
                         <a href="{{ path('attestation_chiffre_affaire_show', {'ref': attestation.ref}) }}">
