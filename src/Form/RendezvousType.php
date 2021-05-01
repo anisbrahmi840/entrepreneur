@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RendezvousType extends AbstractType
@@ -19,12 +20,15 @@ class RendezvousType extends AbstractType
     {
         $builder
             ->add('daterendezvous', DateTimeType::class, [
-                'widget' => 'single_text',
-                'time_label' => 'Starts On',
+                'label' => 'Date de rendez-vous',
+                'date_widget' => 'single_text',
+                'hours' => ['8','9','10','11','13','14','15','16',],
+                'minutes' => ['00', '30'],
                 'required' => false,
                 'constraints' => [
                     new NotNull(['message' => 'Saisir votre date de naissance']),
                     new DateTime(['message' => "Saisir votre date de naissance"]),
+                    new GreaterThan('now', 'message'),
                 ],
             ])
             ->add('objet', TextType::class, [

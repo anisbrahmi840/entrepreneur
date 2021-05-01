@@ -36,10 +36,10 @@
                     </ul>
                     <!-- Table Bottom -->
                     <div class="table-bottom">
-                        <a class="btn primary" href="{{ path('entrepreneur_edit', {slug: entrepreneur.slug}) }}"><i
-                                class="fa fa-edit"></i>Modifier</a>
                         <a class="btn primary" href="{{ path('entrepreneur_show_info', {slug: entrepreneur.slug}) }}"><i
                                 class="fa fa-eye"></i>Voir</a>
+                        <a class="btn primary" href="{{ path('entrepreneur_edit', {slug: entrepreneur.slug}) }}"><i
+                                class="fa fa-edit"></i>Modifier</a>
                     </div>
                 </div>
             </div>
@@ -59,32 +59,6 @@
                         <a class="btn primary" href="{{ path('entrepreneur_show_info_activite', {slug: entrepreneur.slug}) }}"><i
                                 class="fa fa-eye"></i>Voir</a>
                     </div>
-                    <!-- Table List 
-                    <table class="table table-bordered table-striped">
-                        <tbody>
-                            <tr>
-                                <th>Adresse</th>
-                                <td>{{ entrepreneur.categorie.adresse }}</td>
-                            </tr>
-                            <tr>
-                                <th>Codepostale</th>
-                                <td>{{ entrepreneur.categorie.codepostale }}</td>
-                            </tr>
-                            <tr>
-                                <th>Secteur d'activité</th>
-                                <td>{{ entrepreneur.categorie.activite.nom }}</td>
-                            </tr>
-                            <tr>
-                                <th>Taux</th>
-                                <td>{{ entrepreneur.categorie.activite.taux }}%</td>
-                            </tr>
-                            <tr>
-                                <th>Domicile</th>
-                                <td>{{ entrepreneur.categorie.domicile ? 'Non' : 'Oui' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    -->
                 </div>
             </div>
             <!-- End Single Table-->

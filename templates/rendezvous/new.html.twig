@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-	{% block stylesheets %}
+{% block stylesheets %}
 
-	{% endblock %}
+{% endblock %}
 
 {% block body %}
 <section id="contact-us" class="contact-us section">
@@ -18,7 +18,26 @@
         <div class="row justify-content-center ">
             <div class="col-md-6 col-sm-12 col-xs-12 bg-light">
                 {{ form_start(form) }}
-                {{ form_widget(form) }}
+                {{ form_label(form.daterendezvous) }}
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 d-flex mb-2">
+                        <div class="form-control col-8">
+                            {{ form_widget(form.daterendezvous.date) }}
+                        </div>
+                        <div class="form-control col-2">
+                            {{ form_widget(form.daterendezvous.time.hour) }}
+                        </div>
+                        <div class="form-control col-2">
+                            {{ form_widget(form.daterendezvous.time.minute) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_label(form.objet) }}
+                <div class="row form-group">
+                    <div class="form-control col-md-12 col-sm-12 col-xs-12 mb-2 d-flex">
+                        {{ form_widget(form.objet) }}
+                    </div>
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <button class="btn btn-primary">{{ button_label|default('Ajouter un rendez-vous') }}</button>

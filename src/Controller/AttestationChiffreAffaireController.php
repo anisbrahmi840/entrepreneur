@@ -8,6 +8,7 @@ use App\Entity\AttestationChiffreAffaire;
 use App\Form\AttestationChiffreAffaireType;
 use App\Form\AttestationSearchType;
 use App\Repository\AttestationChiffreAffaireRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,7 @@ class AttestationChiffreAffaireController extends AbstractController
     /**
      * @Route("/", name="attestation_chiffre_affaire_index")
      */
-    public function index(AttestationChiffreAffaireRepository $attestationChiffreAffaireRepository, Request $request): Response
+    public function index(AttestationChiffreAffaireRepository $attestationChiffreAffaireRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $entrepreneur = $this->getUser();
         $attestationsChiffreAffaire = $entrepreneur->getAttestationChiffreAffaires();
@@ -65,7 +66,7 @@ class AttestationChiffreAffaireController extends AbstractController
             return $this->redirectToRoute('attestation_chiffre_affaire_index');
         }
         return $this->render('attestation_chiffre_affaire/index.html.twig', [
-            'attestations' => $entrepreneur->getAttestationChiffreAffaires(),
+            'attestations' => $paginator->paginate($entrepreneur->getAttestationChiffreAffaires(), $request->query->getInt('page', 1), 5),
             'form' => $form->createView()
         ]);
     }

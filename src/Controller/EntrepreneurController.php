@@ -73,10 +73,12 @@ class EntrepreneurController extends AbstractController
     /**
      * @Route("/{slug}", name="entrepreneur_show", methods={"GET"})
      */
-    public function show(EntrepreneurRepository $entrepreneurRepository, string $slug): Response
+    public function show(EntrepreneurRepository $entrepreneurRepository, Entrepreneur $entrepreneur): Response
     {
+        if(!$entrepreneur->getCategorie())
+            return $this->redirectToRoute(('categorie_new'));
         return $this->render('entrepreneur/show.html.twig', [
-            'entrepreneur' => $entrepreneurRepository->findOneBy(['slug' => $slug]),
+            'entrepreneur' => $entrepreneur,
         ]);
     }
 

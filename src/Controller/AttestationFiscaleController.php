@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AttestationFiscaleRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -22,7 +23,7 @@ class AttestationFiscaleController extends AbstractController
     /**
      * @Route("/", name="attestation_fiscale_index")
      */
-    public function index(AttestationFiscaleRepository $attestationFiscaleRepository, Request $request): Response
+    public function index(AttestationFiscaleRepository $attestationFiscaleRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $entrepreneur = $this->getUser();
         $attestationsfiscale = $entrepreneur->getAttestationFiscales();
@@ -64,7 +65,7 @@ class AttestationFiscaleController extends AbstractController
             return $this->redirectToRoute('attestation_fiscale_index');
         }
         return $this->render('attestation_fiscale/index.html.twig', [
-            'attestations' => $entrepreneur->getAttestationFiscales(),
+            'attestations' => $paginator->paginate($entrepreneur->getAttestationFiscales(), $request->query->getInt('page', 1), 5),
             'form' => $form->createView()
         ]);
     }

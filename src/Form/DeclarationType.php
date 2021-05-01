@@ -29,6 +29,7 @@ class DeclarationType extends AbstractType
                 'disabled' => true,
             ])
             ->add('date_ex', DateType::class, [
+                'widget' => 'single_text',
                 'label' => "Date exigibilité",
                 'disabled' => true,
             ])
