@@ -6,10 +6,12 @@ use App\Entity\Activite;
 use App\Entity\Actualite;
 use App\Entity\Admin;
 use App\Entity\Agent;
+use App\Entity\Categorie;
 use App\Entity\Declaration;
 use App\Entity\Entrepreneur;
 use App\Entity\Facture;
 use App\Entity\Produit;
+use App\Entity\Temoignage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -30,6 +32,76 @@ class AppFixtures extends Fixture
         $faker = Factory::create();
         // $product = new Product();
         // $manager->persist($product);
+
+
+        // admin fixture
+        $admin = new Admin();
+        $admin->setNom('Anis')
+            ->setPrenom('Brahmi')
+            ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
+            ->setEmail('admin@gmail.com')
+            ->setPassword($this->encoder->encodePassword($admin, 'admin123'))
+            ;
+        $manager->persist($admin);
+
+        //secteur
+        $activite1 = new Activite();
+        $activite2 = new Activite();
+        $activite3= new Activite();
+        $activite4= new Activite();
+        $activite5 = new Activite();
+        
+        $activite1
+            ->setNom("Secteur de l'industrie")
+            ->setTaux(0.7)
+            ;
+        $activite2
+            ->setNom("Secteur de l'agriculture")
+            ->setTaux(10)
+            ;
+        $activite3
+            ->setNom("Secteur du commerce")
+            ->setTaux(20)
+            ;
+        $activite4
+            ->setNom("Secteur des services")
+            ->setTaux(15)
+            ;
+        $activite5
+            ->setNom("Secteur de l’artisanat ou des métiers")
+            ->setTaux(12)
+            ;
+            $manager->persist($activite1);
+            $manager->persist($activite2);
+            $manager->persist($activite3);
+            $manager->persist($activite4);
+            $manager->persist($activite5);
+
+        //agent fixture
+        for ($ag=0; $ag < 20; $ag++) {
+            $agent = new Agent();
+            $agent->setNom($faker->name)
+                ->setPrenom($faker->lastName)
+                ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
+                ->setEmail($faker->email)
+                ->setPassword($this->encoder->encodePassword($agent, 'agent'))
+                ;
+            $manager->persist($agent);
+        }
+
+        //ajouter actualités
+        for ($a=0; $a < 10; $a++) { 
+            $actualite = new Actualite();
+            $actualite
+                ->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true))
+                ->setDescription($faker->paragraph)
+                ->setRef(uniqid('Act-'))
+                ->setImage($faker->randomElement(['https://www.dynamique-mag.com/wp-content/uploads/2b8b4313995737e29f938e99cc5eb9ff.jpg', 'https://www.mescertifications.com/wp-content/uploads/2019/08/managementstrategique.jpg', 'https://avocat-charlottedingaatipo.fr/wp-content/uploads/accomplishment-agreement-business-1249158-Pexels.jpg']))
+                ;
+            $manager->persist($actualite);
+        }
+
+        //faker entrepreneur
         for($i=0; $i<=10; $i++){
             $entrepreneur = new Entrepreneur();
             $entrepreneur
@@ -37,7 +109,7 @@ class AppFixtures extends Fixture
                 ->setPrenom($faker->lastName)
                 ->setEmail($faker->email)
                 ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
-                ->setGenre($faker->randomElement($array = array('femme', 'homme')))
+                ->setGenre($faker->randomElement(['femme', 'homme']))
                 ->setDatenais(new \DateTime())
                 ->setPaynais('Tunisie')
                 ->setTel($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
@@ -68,10 +140,22 @@ class AppFixtures extends Fixture
                                                                     'Zaghouan'
                                                                     )))
                 ->setEtat(false)
-                ->setPassword($this->encoder->encodePassword($entrepreneur, 'test'))
+                ->setPassword($this->encoder->encodePassword($entrepreneur, 'test123'))
                 ;
+
+            // fixture Categorie
+            $categorie = new Categorie();
+            $categorie
+                ->setAdresse($faker->address)
+                ->setCodepostale((int)$faker->postcode)
+                ->setDomicile($faker->boolean($chanceOfGettingTrue = 50))
+                ->setActivite($faker->randomElement([$activite1, $activite2, $activite3, $activite4, $activite5]))
+                ->setEntrepreneur($entrepreneur)
+                ;
+            $manager->persist($categorie);
+
                 $nbT = 0;
-                for($j=0; $j<=10; $j++){
+                for($j=0; $j<=20; $j++){
                     $facture = new Facture();
                     $facture
                         ->setClient($faker->name." ".$faker->lastName)
@@ -106,8 +190,8 @@ class AppFixtures extends Fixture
 
                     $manager->persist($facture);
                 }           
-
-            $manager->persist($entrepreneur);
+            
+            // fixture déclaration
             $declaration1 = new Declaration();
             $declaration1
                 ->setEntrepreneur($entrepreneur)
@@ -117,15 +201,15 @@ class AppFixtures extends Fixture
                 ;
             $manager->persist($declaration1);
 
-            for ($d=0; $d <= 10; $d++) { 
+            for ($d=0; $d <= 20; $d++) { 
                 $declaration = new Declaration();
                 if((bool) mt_rand(0, 1)){
                     $declaration
                     ->setEntrepreneur($entrepreneur)
                     ->setChiffre($faker->randomFloat())
                     ->setDateDec($faker->dateTime())
-                    ->setDateEx($faker->dateTime())
                     ->setDateCr($faker->dateTime())
+                    ->setDateEx($faker->dateTime())
                     ->setPenalite($faker->randomFloat())
                     ->setCotisation($faker->randomFloat())
                     ->setEtat(true)
@@ -142,73 +226,16 @@ class AppFixtures extends Fixture
                 }                
                 $manager->persist($declaration);
             }
-        }
 
-        // admin fixture
-        $admin = new Admin();
-        $admin->setNom('Anis')
-            ->setPrenom('Brahmi')
-            ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
-            ->setEmail('admin@gmail.com')
-            ->setPassword($this->encoder->encodePassword($admin, 'admin'))
-            ;
-        $manager->persist($admin);
-
-        //secteur
-        $acitvite = new Activite();
-        $activite2 = new Activite();
-        $activite3= new Activite();
-        $activite4= new Activite();
-        $activite5 = new Activite();
-        
-        $acitvite
-            ->setNom("Secteur de l'industrie")
-            ->setTaux(0.5)
-            ;
-        $activite2
-            ->setNom("Secteur de l'agriculture")
-            ->setTaux(0.5)
-            ;
-        $activite3
-            ->setNom("Secteur du commerce")
-            ->setTaux(0.5)
-            ;
-        $activite4
-            ->setNom("Secteur des services")
-            ->setTaux(0.5)
-            ;
-        $activite5
-            ->setNom("Secteur de l’artisanat ou des métiers")
-            ->setTaux(0.5)
-            ;
-            $manager->persist($acitvite);
-            $manager->persist($activite2);
-            $manager->persist($activite3);
-            $manager->persist($activite4);
-            $manager->persist($activite5);
-
-        //agent fixture
-        for ($ag=0; $ag < 20; $ag++) { 
-            $agent = new Agent();
-            $agent->setNom($faker->name)
-                ->setPrenom($faker->lastName)
-                ->setCin($faker->biasedNumberBetween($min = 10000000, $max = 99999999))
-                ->setEmail($faker->email)
-                ->setPassword($this->encoder->encodePassword($agent, 'agent'))
+            // fixture temoignage
+            $temoignage = new Temoignage();
+            $temoignage
+                ->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true))
+                ->setEntrepreneur($entrepreneur)
+                ->setUrl($faker->randomElement(["https://www.youtube.com/embed/yvShowpI-2I", 'https://www.youtube.com/embed/1NE6k54523s', 'https://www.youtube.com/embed/jaS6o5jQLVw', 'https://www.youtube.com/embed/F0KZvMoOCwY']))
+                ->setRef(uniqid('Tem-'))
                 ;
-            $manager->persist($agent);
-        }
-
-        //ajouter actualités
-        for ($a=0; $a < 5; $a++) { 
-            $actualite = new Actualite();
-            $actualite
-                ->setTitle($faker->title)
-                ->setDescription($faker->paragraph)
-                ->setRef(uniqid('Act-'))
-                ->setImage($faker->imageUrl())
-                ;
-            $manager->persist($actualite);
+            $manager->persist($temoignage);
         }
 
         $manager->flush();

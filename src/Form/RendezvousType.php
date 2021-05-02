@@ -25,6 +25,9 @@ class RendezvousType extends AbstractType
                 'hours' => ['8','9','10','11','13','14','15','16',],
                 'minutes' => ['00', '30'],
                 'required' => false,
+                'placeholder' => [
+                    'hour' => 'hh', 'minute' => 'mm',
+                ],
                 'constraints' => [
                     new NotNull(['message' => 'Saisir votre date de naissance']),
                     new DateTime(['message' => "Saisir votre date de naissance"]),

@@ -56,6 +56,7 @@ class DeclarationRepository extends ServiceEntityRepository
             ->andWhere("d.etat = false")
             ->setParameter('val', $value)
             ->setParameter('date', $date)
+            ->orderBy('d.date_cr', 'DESC')
             ->getQuery()
             ->getResult()
         ;

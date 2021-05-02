@@ -17,38 +17,45 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div id="project-item-2" class="cbp">
-                    {% for temoignage in temoignages %}
-                    <div class="cbp-item  webdesign development video branding package text-center">
-                        <!-- Single Project -->
-                        <h5>{{ temoignage.title }}</h5>
-                        <p><strong>Entrepreneur</strong>: {{temoignage.entrepreneur.getFullName}}<br>
-                        <p><strong>Secteur</strong>: {{temoignage.entrepreneur.Categorie.activite.nom}}<br>
-                        <span><i class="fa fa-calendar-o"></i>{{temoignage.createdAt| date('d-m-Y')}}</span>
+            <div class="blog-main">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        {% for temoignage in temoignages %}
+                        <div class="col-md-6 col-sm-4 col-xs-12">
+                            <!-- Single Post -->
+                            <div class="single-blog slider">
+                                <div class="blog-post">
+                                    <div class="blog-head">
+                                        <div class="">
+                                            <div class="single-slide">
+                                                <iframe width="700" height="400" src="{{temoignage.url}}"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="blog-info text-center">
+                                        <h5>{{ temoignage.title }}</h5>
+                                        <p><strong>Entrepreneur</strong>: {{temoignage.entrepreneur.getFullName}}<br>
+                                            <p><strong>Secteur</strong>:
+                                                {{temoignage.entrepreneur.Categorie.activite.nom}}<br>
+                                                <span><i
+                                                        class="fa fa-calendar-o"></i>{{temoignage.createdAt| date('d-m-Y')}}</span>
 
-                        <div class="project-single">
-                            <div class="project-inner">
-                                <div class="project-heagd">
-                                    <iframe width="700" height="520" src="{{temoignage.url}}"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
+                                    </div>
                                 </div>
                             </div>
+                            <!--/ End Single Post -->
                         </div>
-                        <!--/ End Single Project -->
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-
-                <!--/ End Load More -->
             </div>
         </div>
-    </div>
-            <div class="navigation d-flex justify-content-center">
-            {{ knp_pagination_render(temoignages) }}
-        </div>
+<div class="navigation d-flex justify-content-center mt-4">
+    {{ knp_pagination_render(temoignages) }}
+</div>
 </section>
 <!--/ End Project -->
 

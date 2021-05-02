@@ -31,10 +31,10 @@ class DeclarationController extends AbstractController
     /**
      * @Route("/regulariser/liste", name="declaration_regulariser", methods={"GET"})
      */
-    public function regulariser(DeclarationRepository $declarationRepository, Request $request): Response
+    public function regulariser(DeclarationRepository $declarationRepository, Request $request, PaginatorInterface $paginator): Response
     {
         return $this->render('declaration/regulariser.html.twig', [
-            'declarations' => $declarationRepository->regulariser($this->getUser(), new \DateTime()),
+            'declarations' => $paginator->paginate($declarationRepository->regulariser($this->getUser(), new \DateTime()), $request->query->getInt('page',1), 10),
         ]);
     }
 

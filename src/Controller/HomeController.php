@@ -37,10 +37,10 @@ class HomeController extends AbstractController
     /**
      * @Route("/actualite", name="actualite_index_entrepreneur", methods={"GET"})
      */
-    public function indexActualite(ActualiteRepository $actualiteRepository): Response
+    public function indexActualite(Request $request, ActualiteRepository $actualiteRepository, PaginatorInterface $paginator): Response
     {
         return $this->render('home/actualite/index.html.twig', [           
-            'actualites' => $actualiteRepository->getActualites()
+            'actualites' => $paginator->paginate($actualiteRepository->findAll(), $request->query->getInt('page',1), 6),
         ]);
     }
 
