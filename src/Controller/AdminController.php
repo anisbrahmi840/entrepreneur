@@ -16,6 +16,8 @@ use App\Repository\AgentRepository;
 use Symfony\Component\Form\FormError;
 use App\Repository\DeclarationRepository;
 use App\Repository\EntrepreneurRepository;
+use App\Repository\FactureRepository;
+use App\Repository\RendezvousRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,11 +33,17 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin_index", methods={"GET"})
      */
-    public function index(AdminRepository $adminRepository, EntrepreneurRepository $entrepreneurRepository): Response
+    public function index(AdminRepository $adminRepository, EntrepreneurRepository $entrepreneurRepository, FactureRepository $factureRepository, DeclarationRepository $declarationRepository, RendezvousRepository $rendezvousRepository): Response
     {
         return $this->render('admin/index.html.twig', [
             'admins' => $adminRepository->findAll(),
-            'nbEntrepreneurs' => count($entrepreneurRepository->findAll())
+            'nbEntrepreneurs' => count($entrepreneurRepository->findAll()),
+            'entrepreneursNonValid' => $entrepreneurRepository->findBy(['etat' => false], null, 6),
+            'ev' => count($entrepreneurRepository->findBy(['etat' => true])),
+            'env' => count($entrepreneurRepository->findBy(['etat' => false])),
+            'nbFactures' => count($factureRepository->findAll()),
+            'Nbdeclarations' => count($declarationRepository->findBy(['etat' => true])),
+            'nbrendezVous' => count($rendezvousRepository->findAll()),
         ]);
     }
 
@@ -189,9 +197,25 @@ class AdminController extends AbstractController
     {
 
         return $this->render('declaration/admin/index.html.twig', [
-            'declarations' => $paginator->paginate($declarationRepository->findAll(),
+            'declarations' => $paginator->paginate($declarationRepository->findBy(['etat' => true]),
                                 $request->query->getInt('page', 1),
-                                10),]);
+                                10),
+            'titre' => 'Déclarations'        
+            ]);
+    }
+
+    /**
+     * @Route("/declarations/liste/regulariser", name="admin_declaration_regulariser", methods={"GET"})
+     */
+    public function listeDeclarationRegulariser(DeclarationRepository $declarationRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+
+        return $this->render('declaration/admin/index.html.twig', [
+            'declarations' => $paginator->paginate($declarationRepository->findBy(['etat' => false]),
+                                $request->query->getInt('page', 1),
+                                10),
+            'titre' => 'Déclarations à régulariser'                    
+            ]);
     }
 
     /**
@@ -296,6 +320,43 @@ class AdminController extends AbstractController
             'agent' => $agent,
             'form' => $form->createView(),
         ]);
+    }
+
+//------------------ contole Facturation -------------------------------------------------
+    /**
+     * Undocumented function
+     *@Route("/facture/liste", name="admin_facture_index")
+     * @param FactureRepository $factureRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return void
+     */
+    public function getAllFactures(FactureRepository $factureRepository, PaginatorInterface $paginator, Request $request){
+
+        return $this->render('facture/admin/index.html.twig', [
+            'factures' => $paginator->paginate($factureRepository->findBy(['type' => 'facture']),
+                                $request->query->getInt('page', 1),
+                                10),
+            'titre' => 'Facture'                    
+            ]);
+    }
+
+    /**
+     * Undocumented function
+     *@Route("/facture/devis", name="admin_devis_index")
+     * @param FactureRepository $factureRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return void
+     */
+    public function getAllDevis(FactureRepository $factureRepository, PaginatorInterface $paginator, Request $request){
+
+        return $this->render('facture/admin/index.html.twig', [
+            'factures' => $paginator->paginate($factureRepository->findBy(['type' => 'devis']),
+                                $request->query->getInt('page', 1),
+                                10),
+            'titre' => 'Devis'                    
+            ]);
     }
 
 }

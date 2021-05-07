@@ -1,0 +1,48 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Declarations{% endblock %}
+
+
+{% block body %}
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>{{titre}}</h1>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead class="text-center">
+                <tr>
+                    <th>Réf</th>
+                    <th>Entrepreneur</th>
+                    <th>Date de création</th>
+                    <th>Client</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for facture in factures %}
+                <tr>
+                    <td>{{ facture.ref }}</td>
+                    <td>{{ facture.entrepreneur.prenom }} {{ facture.entrepreneur.nom }}</td>
+                    <td>{{ facture.dateFact ? facture.dateFact|date('d-m-Y') : '' }}</td>
+                    <td>{{ facture.client }}</td>
+                    <td>
+                        <a href="{{ path('facture_show', {'id': facture.id}) }}"><i class="fa fa-file"></i></a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="9">Pas de facture</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation d-flex justify-content-center">
+            {{ knp_pagination_render(factures) }}
+        </div>
+    </div>
+</section>
+{% endblock %}

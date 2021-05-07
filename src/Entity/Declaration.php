@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DeclarationRepository;
 use App\Repository\PaiementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DeclarationRepository::class)
@@ -30,6 +31,7 @@ class Declaration
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThan(propertyPath="date_cr", message="Cette valeur doit être supérieure à la date de déclaration")
      */
     private $date_ex;
 
@@ -117,7 +119,7 @@ class Declaration
         return $this->date_ex;
     }
 
-    public function setDateEx(\DateTimeInterface $date_ex): self
+    public function setDateEx(?\DateTimeInterface $date_ex): self
     {
         $this->date_ex = $date_ex;
 
@@ -129,7 +131,7 @@ class Declaration
         return $this->date_cr;
     }
 
-    public function setDateCr(\DateTimeInterface $date_cr): self
+    public function setDateCr(?\DateTimeInterface $date_cr): self
     {
         $this->date_cr = $date_cr;
 

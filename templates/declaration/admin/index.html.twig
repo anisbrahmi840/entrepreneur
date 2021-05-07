@@ -9,7 +9,7 @@
         <div class="row text-center">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="section-title">
-                    <h1>Déclarations</h1>
+                    <h1>{{titre}}</h1>
                 </div>
             </div>
         </div>
@@ -28,7 +28,6 @@
             </thead>
             <tbody class="text-center">
                 {% for declaration in declarations %}
-                {% if declaration.chiffre %}
                 <tr>
                     <td>{{ declaration.ref }}</td>
                     <td>{{ declaration.chiffre }}</td>
@@ -45,7 +44,6 @@
                         {% endif %}
                     </td>
                 </tr>
-                {% endif %}
                 {% else %}
                 <tr>
                     <td colspan="9">Pas de déclaration</td>
