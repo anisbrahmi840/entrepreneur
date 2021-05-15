@@ -47,4 +47,20 @@ class FactureRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function filter($nom,  $dateStart,  $dateEnd, $type)
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.type like :type')
+            ->andWhere('e.nom like :nom OR e.prenom like :nom OR f.ref like :nom')
+            ->andWhere("f.dateFact between :dateStart and :dateEnd")            
+            ->leftJoin('f.entrepreneur', 'e')
+            ->setParameter('nom', "%$nom%")
+            ->setParameter('dateStart', $dateStart)
+            ->setParameter('dateEnd', $dateEnd)
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

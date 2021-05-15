@@ -15,7 +15,7 @@
 		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 		rel="stylesheet">
 
-	<link href="{{ asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+	<link href="{{ asset('admin/css/sb-admin-2.css')}}" rel="stylesheet">
 
 </head>
 
@@ -25,23 +25,23 @@
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('admin_index') }}">
 				<div class="sidebar-brand-icon rotate-n-15">
 				</div>
-				<div class="sidebar-brand-text mx-3"><b>Entrepreneur</b> Admin</div>
+				<div class="sidebar-brand-text mx-3 text-dark"><b>Entrepreneur</b> Admin</div>
 			</a>
 			<hr class="sidebar-divider my-0">
 			<li class="nav-item active">
 				<a class="nav-link" href="{{ path('admin_index') }}">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Dashboard</span></a>
+					<i class="fas fa-fw fa-tachometer-alt text-dark"></i>
+					<span class="text-dark">Tableau de bord</span></a>
 			</li>
 			<hr class="sidebar-divider">
-			<div class="sidebar-heading">
+			<div class="sidebar-heading text-dark">
 				Interface
 			</div>
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
 					aria-expanded="true" aria-controls="collapseTwo">
-					<i class="fas fa-users fa-cog"></i>
-					<span>Users</span>
+					<i class="fas fa-users fa-cog text-dark"></i>
+					<span>Utilisateurs</span>
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
@@ -55,14 +55,13 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoDeclaration"
 					aria-expanded="true" aria-controls="collapseTwoDeclaration">
-					<i class="fas fa-fw fa-file"></i>
+					<i class="fas fa-fw fa-file text-dark"></i>
 					<span>Déclarations</span>
 				</a>
 				<div id="collapseTwoDeclaration" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="{{ path('admin_declaration_index') }}">Liste des Déclarations</a>
-						<a class="collapse-item" href="{{ path('admin_declaration_regulariser') }}">Déclarations à régulariser</a>
 						{% if is_granted("ROLE_ADMIN") %}
 						<a class="collapse-item" href="{{ path('admin_declaration_new') }}">Ajouter Déclaration</a>
 						{% endif %}
@@ -72,7 +71,7 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoFacture"
 					aria-expanded="true" aria-controls="collapseTwoFacture">
-					<i class="fas fa-fw fa-file-alt"></i>
+					<i class="fas fa-fw fa-file-alt text-dark"></i>
 					<span>Facturation</span>
 				</a>
 				<div id="collapseTwoFacture" class="collapse" aria-labelledby="headingTwo"
@@ -86,7 +85,7 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwocalendar"
 					aria-expanded="true" aria-controls="collapseTwocalendar">
-					<i class="fas fa-fw fa-calendar-alt"></i>
+					<i class="fas fa-fw fa-calendar-alt text-dark"></i>
 					<span>Rendez-vous</span>
 				</a>
 				<div id="collapseTwocalendar" class="collapse" aria-labelledby="headingTwo"
@@ -104,7 +103,7 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoVersement"
 					aria-expanded="true" aria-controls="collapseTwoVersement">
-					<i class="fas fa-fw fa-money-bill-alt"></i>
+					<i class="fas fa-fw fa-money-bill-alt text-dark"></i>
 					<span>Versements</span>
 				</a>
 				<div id="collapseTwoVersement" class="collapse" aria-labelledby="headingTwo"
@@ -122,7 +121,7 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoActualite"
 					aria-expanded="true" aria-controls="collapseTwoActualite">
-					<i class="fas fa-fw fa-sticky-note"></i>
+					<i class="fas fa-fw fa-sticky-note text-dark"></i>
 					<span>Actualités</span>
 				</a>
 				<div id="collapseTwoActualite" class="collapse" aria-labelledby="headingTwo"
@@ -138,7 +137,7 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoTemoignage"
 					aria-expanded="true" aria-controls="collapseTwoTemoignage">
-					<i class="fas fa-fw fa-play"></i>
+					<i class="fas fa-fw fa-play text-dark"></i>
 					<span>Témoignages</span>
 				</a>
 				<div id="collapseTwoTemoignage" class="collapse" aria-labelledby="headingTwo"
@@ -157,18 +156,6 @@
 					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>
-					<form
-						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-								aria-label="Search" aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item dropdown no-arrow d-sm-none">
 							<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -187,12 +174,12 @@
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" {% if is_granted("ROLE_ADMIN") %} href="{{ path('admin_editpassword') }}" {% else %} href="{{ path('agent_editpassword', {slug:app.user.slug}) }}" {% endif %} >
-									<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+									<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400 text-dark"></i>
 									Mot de passe
 								</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{path('app_logout')}}">
-									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 text-dark"></i>
 									Logout
 								</a>
 							</div>
@@ -224,6 +211,7 @@
 	<script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
 	<script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
 	<script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
 	{% block javascripts %}
 	{% endblock %}

@@ -63,6 +63,11 @@ class Agent implements UserInterface
      */
     private $rendezvouses;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
     public function __construct()
     {
         $this->rendezvouses = new ArrayCollection();
@@ -226,6 +231,18 @@ class Agent implements UserInterface
                 $rendezvouse->setAgent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

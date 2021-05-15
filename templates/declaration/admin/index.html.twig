@@ -13,46 +13,76 @@
                 </div>
             </div>
         </div>
-        <table class="table table-striped table-bordered">
-            <thead class="text-center">
-                <tr>
-                    <th>Réf</th>
-                    <th>Chiffre d'affaire</th>
-                    <th>Date déclaration</th>
-                    <th>Date exigibilité</th>
-                    <th>Pénalité</th>
-                    <th>Cotisation</th>
-                    <th>Total à payer</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                {% for declaration in declarations %}
-                <tr>
-                    <td>{{ declaration.ref }}</td>
-                    <td>{{ declaration.chiffre }}</td>
-                    <td>{{ declaration.dateDec ? declaration.dateDec|date('d-m-Y') : '' }}</td>
-                    <td>{{ declaration.dateEx ? declaration.dateEx|date('d-m-Y') : '' }}</td>
-                    <td>{{ declaration.penalite }}</td>
-                    <td>{{ declaration.cotisation }}</td>
-                    <td>{{ declaration.totalapayer }}</td>
-                    <td>
-                        <a href="{{ path('declaration_show', {'id': declaration.id}) }}"><i class="fa fa-file"></i></a>
-                        {% if not declaration.paiement %}
-                        <a href="{{ path('paiement_new', {'ref': declaration.ref}) }}"><i class="fa fa-money"
-                                style="color:green;" aria-label="Open thi"></i></a>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="9">Pas de déclaration</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {{form_start(form)}}
+        <div class="row justify-content-center text-center mt-2  table table-bordered">
+            <div class="col-3">
+                {{form_label(form.nom)}}
+                {{form_widget(form.nom)}}
+            </div>
+            <div class="col-3">
+                {{form_label(form.dateStart)}}
+                {{form_widget(form.dateStart)}}
+            </div>
+            <div class="col-3">
+                {{form_label(form.dateEnd)}}
+                {{form_widget(form.dateEnd)}}
+            </div>
+            <div class="col-3 align-middle my-auto">
+                {{form_label(form.etat)}}
+                {{form_widget(form.etat)}}
+            </div>
+            <div class="col-3 my-2">
+                {{form_widget(form.filter)}}
+            </div>
+        </div>
+        {{form_end(form)}}
+        <div class="row">
+            <table class="table table-striped table-bordered">
+                <thead class="text-center">
+                    <tr>
+                        <th>Réf</th>
+                        <th>Chiffre d'affaire</th>
+                        <th>Date déclaration</th>
+                        <th>Date exigibilité</th>
+                        <th>Pénalité</th>
+                        <th>Cotisation</th>
+                        <th>Total à payer</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                {% if declarationss is defined %}{% set dec = declarationss %}{% else %}{% set dec = declarations %}{% endif %}
+                
+                    {% for declaration in dec %}
+                    <tr>
+                        <td>{{ declaration.ref }}</td>
+                        <td>{{ declaration.chiffre }}</td>
+                        <td>{{ declaration.dateDec ? declaration.dateDec|date('d-m-Y') : '' }}</td>
+                        <td>{{ declaration.dateEx ? declaration.dateEx|date('d-m-Y') : '' }}</td>
+                        <td>{{ declaration.penalite }}</td>
+                        <td>{{ declaration.cotisation }}</td>
+                        <td>{{ declaration.totalapayer }}</td>
+                        <td>
+                            <a href="{{ path('declaration_show', {'id': declaration.id}) }}"><i
+                                    class="fa fa-file"></i></a>
+                            {% if not declaration.paiement %}
+                            <a href="{{ path('paiement_new', {'ref': declaration.ref}) }}"><i class="fa fa-money"
+                                    style="color:green;" aria-label="Open thi"></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="9">Pas de déclaration</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         <div class="navigation d-flex justify-content-center">
-            {{ knp_pagination_render(declarations) }}
+            {% if not declarations is empty %}
+             {{ knp_pagination_render(declarations) }}
+            {% endif %}            
         </div>
     </div>
 </section>

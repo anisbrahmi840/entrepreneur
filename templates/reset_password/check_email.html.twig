@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Email envoyé{% endblock %}
+
+{% block body %}
+
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>Mot de passe oblié</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center ">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <p>Un e-mail a été envoyé contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot
+                    de passe.</p>
+                <p>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou <a
+                        href="{{ path('app_forgot_password_request') }}">réessayer</a>.</p>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 
 class RendezvousController extends AbstractController
 {
@@ -95,12 +96,19 @@ class RendezvousController extends AbstractController
     /**
      * @Route("/agent/rendezvous/{slug}/edit", name="agent_rendezvous_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Rendezvous $rendezvou): Response
+    public function edit(Request $request, Rendezvous $rendezvou, RendezvousRepository $rendezvousRepository): Response
     {
         $form = $this->createForm(RendezvousAgentType::class, $rendezvou);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $rendezvous = $rendezvousRepository->findBy(['agent' => $this->getUser(), 'daterendezvous' => $rendezvou->getDaterendezvous()]);
+            if (!empty($rendezvous)) {
+                $form->addError(new FormError('Vous avez déja un rendez-vous'));
+                return $this->render('rendezvous/agent/edit.html.twig', [
+                    'rendezvou' => $rendezvou,
+                    'form' => $form->createView(),
+                ]);            }
             $rendezvou->setAgent($this->getUser());
             $this->getDoctrine()->getManager()->flush();
 
@@ -114,7 +122,7 @@ class RendezvousController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="rendezvous_delete", methods={"DELETE"})
+     * @Route("/agent/rendezvous/{slug}/delete", name="rendezvous_delete")
      */
     public function delete(Request $request, Rendezvous $rendezvou): Response
     {

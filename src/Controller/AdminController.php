@@ -11,6 +11,7 @@ use App\Entity\Entrepreneur;
 use App\Form\DeclarationAdminType;
 use App\Form\AdminEditPasswordType;
 use App\Form\EntrepreneurAdminType;
+use App\Form\FilterSearchType;
 use App\Repository\AdminRepository;
 use App\Repository\AgentRepository;
 use Symfony\Component\Form\FormError;
@@ -18,12 +19,14 @@ use App\Repository\DeclarationRepository;
 use App\Repository\EntrepreneurRepository;
 use App\Repository\FactureRepository;
 use App\Repository\RendezvousRepository;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/admin")
@@ -35,6 +38,10 @@ class AdminController extends AbstractController
      */
     public function index(AdminRepository $adminRepository, EntrepreneurRepository $entrepreneurRepository, FactureRepository $factureRepository, DeclarationRepository $declarationRepository, RendezvousRepository $rendezvousRepository): Response
     {
+        if ($this->isGranted('ROLE_AGENT') && !$this->getUser()->getEtat()){            
+            session_destroy();
+            return $this->redirectToRoute('agent_login');
+        }
         return $this->render('admin/index.html.twig', [
             'admins' => $adminRepository->findAll(),
             'nbEntrepreneurs' => count($entrepreneurRepository->findAll()),
@@ -146,10 +153,11 @@ class AdminController extends AbstractController
 // ------------Controle Entrepreneur -----------------------------------------------------------------
 
     /**
-     * @Route("/entrepreneurs/liste", name="entrepreneur_index", methods={"GET"})
+     * @Route("/entrepreneurs/liste", name="entrepreneur_index")
      */
     public function indexEntrepreneur(Request $request, EntrepreneurRepository $entrepreneurRepository, PaginatorInterface $paginator): Response
     {
+        
         $entrepreneurs = $paginator->paginate($entrepreneurRepository->findAll(),
         $request->query->getInt('page', 1),
         10);
@@ -169,11 +177,24 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/entrepreneur/{slug}/verif", name="entrepreneur_verif_admin", methods={"GET"})
+     */
+    public function verifEntrepreneur(Entrepreneur $entrepreneur)
+    {
+        $entrepreneur->setEtat(!$entrepreneur->getEtat());
+        $this->getDoctrine()->getManager()->flush();
+       return $this->redirectToRoute('entrepreneur_index');
+    }
+
+    /**
      * @Route("/entrepreneur/{slug}/edit", name="entrepreneur_edit_admin", methods={"GET","POST"})
      */
     public function editEntrepreneur(Request $request, Entrepreneur $entrepreneur): Response
     {
-        $form = $this->createForm(EntrepreneurAdminType::class, $entrepreneur);
+        $form = $this->createForm(EntrepreneurAdminType::class, $entrepreneur, [
+            'action' => $this->generateUrl('entrepreneur_edit_admin', ['slug' => $entrepreneur->getSlug()]),
+            'method' => 'GET',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -191,30 +212,46 @@ class AdminController extends AbstractController
 // -----------------------------Controle Déclarations --------------------------------------------------------------
   
     /**
-     * @Route("/declarations/liste", name="admin_declaration_index", methods={"GET"})
+     * @Route("/declarations/liste", name="admin_declaration_index", methods={"GET", "POST"})
      */
     public function listeDeclaration(DeclarationRepository $declarationRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $form = $this->createForm(FilterSearchType::class);
+        $form->handleRequest($request);
 
+                
+        if($form->isSubmitted() && $form->isValid()){
+            $nom = $request->request->get('filter_search')['nom'];
+            $dateStart = $request->request->get('filter_search')['dateStart'] ?: new \DateTime('1950-01-01') ;
+            $dateEnd = $request->request->get('filter_search')['dateEnd'] ?:  new \DateTime();
+            $etat = $request->request->get('filter_search')['etat'];
+            switch ($etat) {
+                case 0:
+                    $etat = null;
+                    break;
+                case 1:
+                    $etat = true;
+                    break;
+                case 2:
+                    $etat = false;
+                    break;
+            }
+            $declarations = $declarationRepository->filter($nom, $dateStart, $dateEnd, $etat);
+            return $this->render('declaration/admin/index.html.twig', [
+                'declarations' => '',
+                'declarationss' => $declarations,
+                'titre' => 'Déclarations',            
+                'form' => $form->createView()   
+                ]);
+        }else{
+            $declarations = $declarationRepository->findBy(['etat' => true]);
+        }
         return $this->render('declaration/admin/index.html.twig', [
-            'declarations' => $paginator->paginate($declarationRepository->findBy(['etat' => true]),
-                                $request->query->getInt('page', 1),
-                                10),
-            'titre' => 'Déclarations'        
-            ]);
-    }
-
-    /**
-     * @Route("/declarations/liste/regulariser", name="admin_declaration_regulariser", methods={"GET"})
-     */
-    public function listeDeclarationRegulariser(DeclarationRepository $declarationRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-
-        return $this->render('declaration/admin/index.html.twig', [
-            'declarations' => $paginator->paginate($declarationRepository->findBy(['etat' => false]),
-                                $request->query->getInt('page', 1),
-                                10),
-            'titre' => 'Déclarations à régulariser'                    
+            'declarations' => $paginator->paginate($declarations,
+            $request->query->getInt('page', 1),
+            10),
+            'titre' => 'Déclarations',            
+            'form' => $form->createView()   
             ]);
     }
 
@@ -278,6 +315,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $agent->setEtat(true);
             $agent->setPassword($encoder->encodePassword($agent, $agent->getPassword()));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($agent);
@@ -291,6 +329,17 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/agent/{slug}/verif", name="agent_verif_admin", methods={"GET"})
+     */
+    public function verifAgent(Agent $agent)
+    {
+        $agent->setEtat(!$agent->getEtat());
+        $this->getDoctrine()->getManager()->flush();
+       return $this->redirectToRoute('agent_index_admin');
+    }
+
 
      /**
      * @Route("/agent/{slug}", name="agent_show_admin", methods={"GET"})
@@ -333,11 +382,28 @@ class AdminController extends AbstractController
      */
     public function getAllFactures(FactureRepository $factureRepository, PaginatorInterface $paginator, Request $request){
 
+        $form = $this->createForm(FilterSearchType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $nom = $request->request->get('filter_search')['nom'];
+            $dateStart = $request->request->get('filter_search')['dateStart'] ?: new \DateTime('1950-01-01') ;
+            $dateEnd = $request->request->get('filter_search')['dateEnd'] ?:  new \DateTime();
+            $facturess = $factureRepository->filter($nom, $dateStart, $dateEnd, 'facture');
+            return $this->render('facture/admin/index.html.twig', [
+                'factures' => '',
+                'facturess' => $facturess,
+                'titre' => 'Facture',            
+                'form' => $form->createView()   
+                ]);
+        }else{
+            $factures = $factureRepository->findBy(['type' => 'facture']);
+        }
         return $this->render('facture/admin/index.html.twig', [
-            'factures' => $paginator->paginate($factureRepository->findBy(['type' => 'facture']),
-                                $request->query->getInt('page', 1),
-                                10),
-            'titre' => 'Facture'                    
+            'factures' => $paginator->paginate($factures,
+            $request->query->getInt('page', 1),
+            10),         
+            'form' => $form->createView(),
+            'titre' => 'Facture'
             ]);
     }
 
@@ -351,11 +417,28 @@ class AdminController extends AbstractController
      */
     public function getAllDevis(FactureRepository $factureRepository, PaginatorInterface $paginator, Request $request){
 
+        $form = $this->createForm(FilterSearchType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $nom = $request->request->get('filter_search')['nom'];
+            $dateStart = $request->request->get('filter_search')['dateStart'] ?: new \DateTime('1950-01-01') ;
+            $dateEnd = $request->request->get('filter_search')['dateEnd'] ?:  new \DateTime();
+            $facturess = $factureRepository->filter($nom, $dateStart, $dateEnd, 'devis');
+            return $this->render('facture/admin/index.html.twig', [
+                'factures' => '',
+                'facturess' => $facturess,
+                'titre' => 'Devis',            
+                'form' => $form->createView()   
+                ]);
+        }else{
+            $factures = $factureRepository->findBy(['type' => 'devis']);
+        }
         return $this->render('facture/admin/index.html.twig', [
-            'factures' => $paginator->paginate($factureRepository->findBy(['type' => 'devis']),
-                                $request->query->getInt('page', 1),
-                                10),
-            'titre' => 'Devis'                    
+            'factures' => $paginator->paginate($factures,
+            $request->query->getInt('page', 1),
+            10),         
+            'form' => $form->createView(),
+            'titre' => 'Devis'
             ]);
     }
 

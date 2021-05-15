@@ -9863,8 +9863,8 @@ a:focus {
 }
 
 .bg-gradient-primary {
-  background-color: #ED1C24;
-  background-image: linear-gradient(180deg, #ED1C24 10%, #224abe 100%);
+  background-color: white;
+  background-image: linear-gradient(#e3e6f0, #e3e6f0 10%, #e3e6f0 100%);
   background-size: cover;
 }
 
@@ -10653,7 +10653,7 @@ a:focus {
 }
 
 .sidebar-dark .nav-item .nav-link {
-  color: rgba(255, 255, 255, 0.8);
+  color: black;
 }
 
 .sidebar-dark .nav-item .nav-link i {
@@ -10666,10 +10666,6 @@ a:focus {
 
 .sidebar-dark .nav-item .nav-link:active i, .sidebar-dark .nav-item .nav-link:focus i, .sidebar-dark .nav-item .nav-link:hover i {
   color: #fff;
-}
-
-.sidebar-dark .nav-item .nav-link[data-toggle="collapse"]::after {
-  color: rgba(255, 255, 255, 0.5);
 }
 
 .sidebar-dark .nav-item.active .nav-link {

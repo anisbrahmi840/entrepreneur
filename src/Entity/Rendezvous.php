@@ -125,7 +125,7 @@ class Rendezvous
     public function setSlug()
     {
         $slug = new Slugify();
-        return $this->slug = $slug->slugify($this->entrepreneur->getNom().$this->entrepreneur->getPrenom().$this->getDaterendezvous()->format('d-m-Y H:m'));
+        return $this->slug = $slug->slugify(uniqid().$this->entrepreneur->getNom().$this->entrepreneur->getPrenom().$this->getDaterendezvous()->format('d-m-Y H:i:s'));
     }
 
     public function getEntrepreneur(): ?Entrepreneur

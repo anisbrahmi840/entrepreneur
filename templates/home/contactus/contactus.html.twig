@@ -12,50 +12,56 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="section-title">
-                    <h1>Contact Us</h1>
+                    <h1>contactez nous</h1>
                 </div>
             </div>
         </div>
         <div class="row">
             <!-- Contact Form -->
             <div class="col-md-8 col-sm-6 col-xs-12">
-                <form class="form" method="post" action="mail/mail.php">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="prenom, nom" required="required">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Email" required="required">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="text" name="subject" placeholder="Sujet" required="required">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <textarea name="message" rows="7" placeholder="Votre Message Ici"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group button">
-                                <button type="submit" class="btn primary">Envoyer</button>
-                            </div>
+                {{ form_start(form) }}
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_errors(form.nom) }}
+                            {{ form_widget(form.nom) }}
                         </div>
                     </div>
-                </form>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_errors(form.email) }}
+                            {{ form_widget(form.email) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_errors(form.sujet) }}
+                            {{ form_widget(form.sujet) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_errors(form.message) }}
+                            {{ form_widget(form.message) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group button">
+                            <button type="submit" class="btn primary">Envoyer</button>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
             </div>
             <!--/ End Contact Form -->
             <!-- Contact Address -->
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="contact-address">
                     <div class="contact">
-                        <h2>Get In Touch</h2>
-                        <p>Pour plus d’informations sur la procédure de déclaration du chiffre d’affaires et de paiement de l’impôt sur le revenu, nous vous invitons à nous contacter. </p>
+                        <h2>Reste en contact</h2>
+                        <p>Pour plus d’informations sur la procédure de déclaration du chiffre d’affaires et de paiement
+                            de l’impôt sur le revenu, nous vous invitons à nous contacter. </p>
 
                         <!-- Single Address -->
                         <div class="single-address">
@@ -66,7 +72,7 @@
                         <!-- Single Address -->
                         <div class="single-address">
                             <span><i class="fa fa-envelope"></i>Email</span>
-                            <p><a href="mailto:success@youremail.com">info@entrepreneur.com</a></p>
+                            <p><a href="mailto:success@youremail.com">entrepreneur840@gmail.com</a></p>
                         </div>
                     </div>
                 </div>

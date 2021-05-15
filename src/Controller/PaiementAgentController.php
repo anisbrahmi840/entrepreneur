@@ -29,13 +29,14 @@ class PaiementAgentController extends AbstractController
      */
     public function regulariser(PaiementRepository $paiementRepository): Response
     {        
+        $paiements = [];
         $paies =  $paiementRepository->findAll();
         foreach ($paies as $paiement) {
             if($paiement->getEtatEnt() && !$paiement->getEtat())
                 $paiements [] = $paiement;
         }
         return $this->render('paiement/agent/index.html.twig', [
-            'paiements' => $paiements,
+            'paiements' => $paiements = [],
             'titre' => 'Liste des paiements à régulariser'
         ]);
     }

@@ -49,6 +49,8 @@ class Admin implements UserInterface
      */
     private $cin;
 
+    private $oldPassword;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -162,6 +164,17 @@ class Admin implements UserInterface
     public function setCin(int $cin): self
     {
         $this->cin = $cin;
+
+        return $this;
+    }
+    public function getOldPassword(): ?string
+    {
+        return $this->oldPassword;
+    }
+
+    public function setOldPassword(string $oldPassword): self
+    {
+        $this->oldPassword = $oldPassword;
 
         return $this;
     }

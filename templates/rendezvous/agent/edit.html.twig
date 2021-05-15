@@ -40,13 +40,14 @@
                 <div class="row">
                     {{ form_start(form) }}
                     <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group">                                       
+                            {{form_errors(form)}}
                             {{ form_label(form.observation)}}
                             {{ form_widget(form.observation)}}
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group">         
                             {{ form_label(form.etat)}}
                             {{ form_widget(form.etat)}}
                         </div>

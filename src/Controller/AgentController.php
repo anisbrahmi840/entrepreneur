@@ -84,6 +84,6 @@ class AgentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('agent_index');
+        return $this->redirectToRoute('agent_index_admin');
     }
 }

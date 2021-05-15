@@ -3,17 +3,17 @@
 {% block title %}Liste des agents{% endblock %}
 
 {% block body %}
-<div class="text-center">
+<div class="text-center mb-2">
     <h1>Liste des agents</h1>
+    <a href="{{ path('agent_new_admin') }}" class="btn btn-primary">Ajouter agent</a>
 </div>
 
-
+{% if not agents is  empty %}
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Email</th>
             <th>Nom</th>
-            <th>Prenom</th>
             <th>Cin</th>
             <th>actions</th>
         </tr>
@@ -22,25 +22,24 @@
         {% for agent in agents %}
         <tr>
             <td>{{ agent.email }}</td>
-            <td>{{ agent.nom }}</td>
-            <td>{{ agent.prenom }}</td>
+            <td>{{ agent.prenom }} {{ agent.nom }}</td>
             <td>{{ agent.cin }}</td>
-            <td class="text-center">
-                <a href="{{ path('agent_show_admin', {'slug': agent.slug}) }}"><span
+            <td class="text-center justify-content-center">
+                <a href="{{ path('agent_show_admin', {'slug': agent.slug}) }}" class="d-inline "><span
                         class="fa fa-eye text-info" />&nbsp;&nbsp;</a>
-                <a href="{{ path('agent_edit_admin', {'slug': agent.slug}) }}"><span
+                <a href="{{ path('agent_edit_admin', {'slug': agent.slug}) }}" class="d-inline"><span
                         class="fa fa-edit text-success" /></a>
+                <a href=" {{ path('agent_verif_admin', {slug: agent.slug}) }} ">{% if agent.etat %}<span
+                        class="fa fa-check-square text-success"></span> {% else %} <span
+                        class="fa fa-user-times text-danger"></span> {% endif %} <a />
             </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="8">Aucun enregistrement trouvé</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
+
 <div class="navigation d-flex justify-content-center">
     {{ knp_pagination_render(agents) }}
 </div>
-<a href="{{ path('agent_new_admin') }}" class="btn btn-primary">Ajouter agent</a>
 {% endblock %}

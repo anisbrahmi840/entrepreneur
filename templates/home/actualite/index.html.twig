@@ -31,8 +31,11 @@
 									<div class="blog-info">
 										<h2><a href="{{path('actualite_show_entrepreneur', {ref: actualite.ref})}}">{{actualite.title}}</a></h2>
 										<div class="meta">
-											<span><i
-													class="fa fa-calendar-o"></i>{{actualite.createdAt | date('d-m-Y H:i:s')}}</span>
+											<span><i class="fa fa-calendar-o"></i>{{actualite.createdAt | date('d-m-Y')}}</span>
+										</div>
+										<p>{{ actualite.description|u.truncate(100, '...') }}</p>
+										<div class="text-center">
+											<a href="{{path('actualite_show_entrepreneur', {ref: actualite.ref})}}" class="btn primary btn-lg">Voir Plus</a>
 										</div>
 									</div>
 								</div>

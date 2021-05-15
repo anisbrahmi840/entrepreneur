@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Declaration;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -36,6 +37,23 @@ class DeclarationRepository extends ServiceEntityRepository
     }
     */
 
+    public function filter($nom,  $dateStart,  $dateEnd, $etat)
+    {
+        $dd = $this->createQueryBuilder('d')
+        ->andWhere('e.nom like :nom OR e.prenom like :nom OR d.ref like :nom')
+        ->andWhere("d.date_cr between :dateStart and :dateEnd")            
+        ->leftJoin('d.entrepreneur', 'e')
+        ->setParameter('nom', "%$nom%")
+        ->setParameter('dateStart', $dateStart)
+        ->setParameter('dateEnd', $dateEnd)
+        ;
+        is_null($etat) ?: $dd->andWhere('d.etat = :etat')->setParameter('etat', $etat);
+        return $dd
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function encours($value, $date): ?Declaration
     {
         return $this->createQueryBuilder('d')
@@ -46,19 +64,6 @@ class DeclarationRepository extends ServiceEntityRepository
             ->setParameter('date', $date)
             ->getQuery()
             ->getOneOrNullResult()
-        ;
-    }
-    public function regulariser($value, $date)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.entrepreneur = :val')
-            ->andWhere(":date > d.date_ex")
-            ->andWhere("d.etat = false")
-            ->setParameter('val', $value)
-            ->setParameter('date', $date)
-            ->orderBy('d.date_cr', 'DESC')
-            ->getQuery()
-            ->getResult()
         ;
     }
 }
