@@ -28,8 +28,8 @@
         </div>
         <div class="row">
             <!-- Single Service -->
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-services">
+            <div class="col-md-4 col-sm-6 col-xs-12 ">
+                <div class="single-services {{ not app.user.etat ? 'disableMe' }}">
                     <div class="icon"><i class="fa fa-money"></i></div>
                     <div class="icon two"><i class="fa fa-money"></i></div>
                     <h2><a href="#">Déclarer et payer</a></h2>
@@ -40,7 +40,7 @@
             <!--/ End Single Service -->
             <!-- Single Service -->
             <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-services">
+                <div class="single-services {{ not app.user.etat ? 'disableMe' }}">
                     <div class="icon"><i class="fa fa-files-o"></i></div>
                     <div class="icon two"><i class="fa fa-files-o"></i></div>
                     <h2><a href="#">Mes documents</a></h2>
@@ -66,7 +66,7 @@
             <!--/ End Single Service -->
             <!-- Single Service -->
             <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-services">
+                <div class="single-services {{ not app.user.etat ? 'disableMe' }}">
                     <div class="icon"><i class="fa fa-file"></i></div>
                     <div class="icon two"><i class="fa fa-file"></i></div>
                     <h2><a href="#">Facturation</a></h2>
@@ -77,7 +77,7 @@
             <!--/ End Single Service -->
             <!-- Single Service -->
             <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-services">
+                <div class="single-services {{ not app.user.etat ? 'disableMe' }}">
                     <div class="icon"><i class="fa fa-credit-card-alt"></i></div>
                     <div class="icon two"><i class="fa fa-credit-card-alt"></i></div>
                     <h2><a href="#">Mes paiements</a></h2>

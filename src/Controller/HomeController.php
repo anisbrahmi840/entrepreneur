@@ -68,11 +68,4 @@ class HomeController extends AbstractController
     public function apropos(){
         return $this->render('home/apropos/apropos.html.twig');
     }
-    
-    /**
-     * @Route("/contactus", name="contactus_index")
-     */
-    public function contactUs(){
-        return $this->render('home/contactus/contactus.html.twig');
-    }
 }

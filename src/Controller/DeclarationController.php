@@ -2,19 +2,22 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Declaration;
 use App\Form\DeclarationType;
 use App\Repository\DeclarationRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/entrepreneur/declaration")
+ * @Route("/entrepreneur/declaration") 
+ * @Security("is_granted('ROLE_USER') and user.getEtat()===true")
  */
 class DeclarationController extends AbstractController
 {

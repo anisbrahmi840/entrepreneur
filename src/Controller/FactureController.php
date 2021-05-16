@@ -13,9 +13,12 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/entrepreneur/facture")
+ * @Security("is_granted('ROLE_USER') and user.getEtat()===true")
  */
 class FactureController extends AbstractController
 {

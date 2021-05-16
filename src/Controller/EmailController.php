@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EmailController extends AbstractController
 {
     /**
-     * @Route("/email", name="email")
+     * @Route("/contactus", name="contactus_index")
      */
     public function index(Request $request, \Swift_Mailer $mailer): Response
     {
@@ -29,7 +29,7 @@ class EmailController extends AbstractController
             )
         ;
         $mailer->send($message);
-         return $this->redirectToRoute('email');
+         return $this->redirectToRoute('contactus_index');
         }
         return $this->render('home/contactus/contactus.html.twig', [
             'form' => $form->createView()

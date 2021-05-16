@@ -14,9 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AttestationFiscaleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/entrepreneur/attestation/fiscale")
+ * @Security("is_granted('ROLE_USER') and user.getEtat()===true")
  */
 class AttestationFiscaleController extends AbstractController
 {

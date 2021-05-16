@@ -4640,6 +4640,11 @@ input:-webkit-autofill:focus {
 .footer.dark .footer-bottom{
 	border-top:1px solid rgba(204, 204, 204, 0.35);
 }
+
+.disableMe {
+	pointer-events: none;
+	background: #bbb !important;
+}
 /*=======================
   End Footer CSS
 =========================*/ 
