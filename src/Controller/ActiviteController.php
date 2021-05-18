@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Activite;
 use App\Form\ActiviteType;
+use App\Form\SearchBarType;
 use App\Repository\ActiviteRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin/activite")
@@ -16,12 +18,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActiviteController extends AbstractController
 {
     /**
-     * @Route("/", name="activite_index", methods={"GET"})
+     * @Route("/liste", name="activite_index", methods={"GET", "POST"})
      */
-    public function index(ActiviteRepository $activiteRepository): Response
+    public function index(ActiviteRepository $activiteRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $form = $this->createForm(SearchBarType::class, null, ['attr' => ['class' => 'd-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search']]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form-> isValid()){
+            $activateSearched = $activiteRepository->search($request->request->get('search_bar')['text']);
+            return $this->render('activite/index.html.twig', [
+                'activitess' => $activateSearched,
+                'form' =>$form->createView()
+            ]);
+        }
         return $this->render('activite/index.html.twig', [
-            'activites' => $activiteRepository->findAll(),
+            'activites' => $paginator->paginate($activiteRepository->findAll(),
+            $request->query->getInt('page', 1),
+            10),
+            'form' =>$form->createView()
         ]);
     }
 

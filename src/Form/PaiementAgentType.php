@@ -14,6 +14,7 @@ class PaiementAgentType extends AbstractType
     {
         $builder
             ->add('etat', CheckboxType::class,[
+                'required' => false,
                 'label' => 'Etat de versement'
             ])
         ;

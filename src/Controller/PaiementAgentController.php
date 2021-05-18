@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Paiement;
 use App\Form\PaiementType;
+use App\Form\SearchBarType;
 use App\Form\PaiementAgentType;
 use App\Repository\PaiementRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +18,24 @@ class PaiementAgentController extends AbstractController
     /**
      * @Route("/agent/paiement/liste", name="paiement_agent_liste")
      */
-    public function index(PaiementRepository $paiementRepository): Response
+    public function index(PaiementRepository $paiementRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $form = $this->createForm(SearchBarType::class, null, ['attr' => ['class' => 'd-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search']]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form-> isValid()){
+            $apiementSearched = $paiementRepository->search($request->request->get('search_bar')['text']);
+            return $this->render('paiement/agent/index.html.twig', [
+                'paiementss' => $apiementSearched,
+                'form' =>$form->createView(),
+                'titre' => 'Liste des paiements'
+            ]);
+        }
+
         return $this->render('paiement/agent/index.html.twig', [
-            'paiements' => $paiementRepository->findAll(),
+            'paiements' => $paginator->paginate($paiementRepository->findAll(),
+            $request->query->getInt('page', 1),
+            10),
+            'form' =>$form->createView(),
             'titre' => 'Liste des paiements'
         ]);
     }
@@ -27,8 +43,18 @@ class PaiementAgentController extends AbstractController
     /**
      * @Route("/agent/paiement/regulariser", name="paiement_agent_regulariser")
      */
-    public function regulariser(PaiementRepository $paiementRepository): Response
-    {        
+    public function regulariser(PaiementRepository $paiementRepository, Request $request, PaginatorInterface $paginator): Response
+    { 
+        $form = $this->createForm(SearchBarType::class, null, ['attr' => ['class' => 'd-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search']]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form-> isValid()){
+            $apiementSearched = $paiementRepository->search($request->request->get('search_bar')['text']);
+            return $this->render('paiement/agent/index.html.twig', [
+                'paiementss' => $apiementSearched,
+                'form' =>$form->createView(),
+                'titre' => 'Liste des paiements à régulariser'
+            ]);
+        }       
         $paiements = [];
         $paies =  $paiementRepository->findAll();
         foreach ($paies as $paiement) {
@@ -36,8 +62,11 @@ class PaiementAgentController extends AbstractController
                 $paiements [] = $paiement;
         }
         return $this->render('paiement/agent/index.html.twig', [
-            'paiements' => $paiements = [],
-            'titre' => 'Liste des paiements à régulariser'
+            'paiements' => $paginator->paginate($paiementRepository->findByEtat(false),
+            $request->query->getInt('page', 1),
+            10),
+            'titre' => 'Liste des paiements à régulariser',            
+            'form' =>$form->createView(),
         ]);
     }
 

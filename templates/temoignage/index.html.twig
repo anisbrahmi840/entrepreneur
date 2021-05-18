@@ -2,12 +2,26 @@
 
 {% block title %}Temoignage index{% endblock %}
 
+{% block search %}
+{{ form_start(form) }}
+<div class="input-group">
+    {{ form_widget(form.text) }}
+    <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search fa-sm"></i>
+        </button>
+    </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
+
 {% block body %}
 <div class="text-center">
     <h1>Liste des Temoignages</h1>
 </div>
+{% if  (temoignages is  defined  and not temoignages is empty) or temoignagess is defined %}
 
-<table class="table">
+<table class="table table-striped table-bordered shadow ">
     <thead>
         <tr>
             <th>Ref</th>
@@ -18,25 +32,56 @@
         </tr>
     </thead>
     <tbody>
-        {% for temoignage in temoignages %}
+        {% if temoignagess is defined %}{% set tem = temoignagess %}{% else %}{% set tem = temoignages %}{% endif %}
+
+        {% for temoignage in tem %}
         <tr>
             <td>{{ temoignage.ref }}</td>
             <td>{{ temoignage.entrepreneur.getFullName }}</td>
             <td>{{ temoignage.title }}</td>
             <td>{{ temoignage.createdAt ? temoignage.createdAt|date('d-m-Y') : '' }}</td>
             <td class="text-center">
-                <a href="{{ path('temoignage_show', {'ref': temoignage.ref}) }}"><i class="fa fa-eye"></i></a>
+                <a href="{{ path('temoignage_show', {'ref': temoignage.ref}) }}"><i
+                        class="fa fa-eye text-success"></i></a>
+                <button style="border-style: none; background-color:transparent;" data-toggle="modal"
+                    data-target="#exampleModalLong{{ temoignage.id }}">
+                    <span class="fa fa-trash text-danger" />
+                </button>
+
+                <div class="modal fade" id="exampleModalLong{{ temoignage.id }}" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Êtes vous sûrs?</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row d-flex justify-content-center">
+                                    <!-- Contact Form -->
+                                    <div class="col-md-8 col-sm-6 col-xs-12 shadow">
+                                        <a href="{{ path('temoignage_delete', {'id': temoignage.id}) }}"><i
+                                                class="fa fa-trash"></i></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         {% else %}
         <tr>
-            <td colspan="4">Aucun enregistrement trouvé</td>
+            <td colspan="5">Aucun enregistrement trouvé</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+{% endif %}
+
+{% if  temoignages is  defined  and not temoignages is empty %}
 <div class="navigation d-flex justify-content-center">
     {{ knp_pagination_render(temoignages) }}
 </div>
-<a class="btn btn-primary" href="{{ path('temoignage_new') }}">Ajouter témoignage</a>
+{% endif %}
 {% endblock %}

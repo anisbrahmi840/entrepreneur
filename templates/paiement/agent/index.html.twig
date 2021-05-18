@@ -2,12 +2,26 @@
 
 {% block title %}Paiement index{% endblock %}
 
+{% block search %}
+{{ form_start(form) }}
+<div class="input-group">
+    {{ form_widget(form.text) }}
+    <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search fa-sm"></i>
+        </button>
+    </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
+
 {% block body %}
 <div class="text-center">
     <h1>{{titre}}</h1>
 </div>
-{% if not paiements is empty %}
-<table class="table table-striped table-bordered">
+
+{% if  (paiements is  defined  and not paiements is empty) or paiementss is defined %}
+<table class="table table-striped table-bordered shadow p-2">
     <thead>
         <tr>
             <th>réf declaration</th>
@@ -20,7 +34,8 @@
         </tr>
     </thead>
     <tbody>
-        {% for paiement in paiements %}
+    {% if paiementss is defined %}{% set pai = paiementss %}{% else %}{% set pai = paiements %}{% endif %}
+        {% for paiement in pai %}
         <tr>
             <td><strong>{{ paiement.declaration.ref }}</strong></td>
             <td><strong>{{ paiement.ref }}</strong></td>
@@ -39,5 +54,10 @@
 <tr>
     <td colspan="7">Aucun enregistrement trouvé</td>
 </tr>
+{% endif %}
+{% if  paiements is  defined  and not paiements is empty %}
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(paiements) }}
+</div>
 {% endif %}
 {% endblock %}

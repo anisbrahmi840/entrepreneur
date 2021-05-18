@@ -43,4 +43,15 @@ class ActualiteRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function search($text)
+    {
+        $dd = $this->createQueryBuilder('a')
+        ->andWhere('a.ref like :text OR a.title like :text')
+        ->setParameter('text', "%$text%")
+        ;
+        return $dd
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

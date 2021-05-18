@@ -55,8 +55,8 @@ class HomeController extends AbstractController
     /**
      * @Route("temoignage" , name="temoignage_index_entrepreneur")
      */
-    public function showTemoignage(TemoignageRepository $temoignageRepository, PaginatorInterface $paginator, Request $request){
-
+    public function showTemoignage(TemoignageRepository $temoignageRepository, PaginatorInterface $paginator, Request $request)
+    {
         return $this->render('home/temoignage/show.html.twig', [
             'temoignages' => $paginator->paginate($temoignageRepository->findAll(), $request->query->getInt('page',1),4)
         ]);

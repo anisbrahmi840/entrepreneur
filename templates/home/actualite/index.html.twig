@@ -35,7 +35,9 @@
 										</div>
 										<p>{{ actualite.description|u.truncate(100, '...') }}</p>
 										<div class="text-center">
-											<a href="{{path('actualite_show_entrepreneur', {ref: actualite.ref})}}" class="btn primary btn-lg">Voir Plus</a>
+											<a href="{{path('actualite_show_entrepreneur', {ref: actualite.ref})}}">
+												<i class="fa fa-angle-double-right fa-lg text-danger"> Voir plus
+												</i></a>
 										</div>
 									</div>
 								</div>

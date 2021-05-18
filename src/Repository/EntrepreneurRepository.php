@@ -64,4 +64,16 @@ class EntrepreneurRepository extends ServiceEntityRepository implements Password
         ;
     }
     */
+
+    public function search($text)
+    {
+        $dd = $this->createQueryBuilder('e')
+        ->andWhere('e.nom like :text OR e.prenom like :text OR e.cin like :text OR e.email like :text')
+        ->setParameter('text', "%$text%")
+        ;
+        return $dd
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

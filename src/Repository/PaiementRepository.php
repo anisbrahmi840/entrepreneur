@@ -47,4 +47,15 @@ class PaiementRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function search($text)
+    {
+        $dd = $this->createQueryBuilder('p')
+        ->andWhere('p.ref like :text')
+        ->setParameter('text', "%$text%")
+        ;
+        return $dd
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

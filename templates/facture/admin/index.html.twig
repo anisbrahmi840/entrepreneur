@@ -14,29 +14,29 @@
             </div>
         </div>
         {{form_start(form)}}
-        <div class="row justify-content-center text-center mt-2  table table-bordered">
-            <div class="col-3">
+        <div class="row justify-content-center text-center mt-2  table table-bordered shadow">
+            <div class="col-4">
                 {{form_label(form.nom)}}
                 {{form_widget(form.nom)}}
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 {{form_label(form.dateStart)}}
                 {{form_widget(form.dateStart)}}
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 {{form_label(form.dateEnd)}}
                 {{form_widget(form.dateEnd)}}
             </div>
-            <div class="col-3 align-middle my-auto d-none">
+            <div class="col-4 align-middle my-auto d-none">
                 {{form_label(form.etat)}}
                 {{form_widget(form.etat)}}
             </div>
-            <div class="col-3 mt-4">
+            <div class="col-3 mt-2">
                 {{form_widget(form.filter)}}
             </div>
         </div>
         {{form_end(form)}}
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered shadow">
             <thead class="text-center">
                 <tr>
                     <th>Réf</th>

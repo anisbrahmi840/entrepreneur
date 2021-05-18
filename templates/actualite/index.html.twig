@@ -2,12 +2,27 @@
 
 {% block title %}Actualite index{% endblock %}
 
+{% block search %}
+{{ form_start(form) }}
+<div class="input-group">
+    {{ form_widget(form.text) }}
+    <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search fa-sm"></i>
+        </button>
+    </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
+
 {% block body %}
 <div class="text-center">
     <h1>Liste des actualités</h1>
 </div>
 
-<table class="table table-bordered table-striped">
+{% if  (actualites is  defined  and not actualites is empty) or actualitess is defined %}
+
+<table class="table table-bordered table-striped shadow">
     <thead>
         <tr>
             <th>ref</th>
@@ -17,13 +32,41 @@
         </tr>
     </thead>
     <tbody>
-        {% for actualite in actualites %}
+        {% if actualitess is defined %}{% set act = actualitess %}{% else %}{% set act = actualites %}{% endif %}
+
+        {% for actualite in act %}
         <tr>
             <td>{{ actualite.ref }}</td>
             <td>{{ actualite.title }}</td>
             <td>{{ actualite.createdAt ? actualite.createdAt|date('d-m-Y H:i:s') : '' }}</td>
             <td class="text-center">
-                <a href="{{ path('actualite_show', {'ref': actualite.ref}) }}"><i class="fas fa-eye"></i></a>
+                <a href="{{ path('actualite_show', {'ref': actualite.ref}) }}"><i
+                        class="fas fa-eye text-success"></i></a>
+
+                <button style="border-style: none; background-color:transparent;" data-toggle="modal"
+                    data-target="#exampleModalLong{{ actualite.id }}">
+                    <span class="fa fa-trash text-danger" />
+                </button>
+
+                <div class="modal fade" id="exampleModalLong{{ actualite.id }}" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Êtes vous sûrs?</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row d-flex justify-content-center">
+                                    <!-- Contact Form -->
+                                    <div class="col-md-8 col-sm-6 col-xs-12 shadow">
+                                        <a href="{{ path('actualite_delete', {'id': actualite.id}) }}"><i
+                                                class="fas fa-trash"></i></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         {% else %}
@@ -33,9 +76,10 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
+{% if  actualites is  defined  and not actualites is empty %}
 <div class="navigation d-flex justify-content-center">
     {{ knp_pagination_render(actualites) }}
 </div>
-
-<a class="btn btn-primary" href="{{ path('actualite_new') }}">Ajouter actualité</a>
+{% endif %}
 {% endblock %}

@@ -14,12 +14,12 @@
         </div>
         {% if not rendezvous is empty %}
 
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered shadow">
             <thead>
                 <tr>
                     <th>Date de rendez-vous</th>
                     <th>Objet</th>
-                    <th>Action</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,9 +27,9 @@
                 <tr>
                     <td>{{ rendezvou.daterendezvous ? rendezvou.daterendezvous|date('Y-m-d H:i') : '' }}</td>
                     <td>{{ rendezvou.objet }}</td>
-                    <td>
+                    <td class="text-center">
                         <a href="{{ path('agent_rendezvous_edit', {'slug': rendezvou.slug}) }}">
-                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-edit text-info"></i>
                         </a>
                     </td>
                 </tr>

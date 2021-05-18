@@ -12,6 +12,7 @@ use App\Form\DeclarationAdminType;
 use App\Form\AdminEditPasswordType;
 use App\Form\EntrepreneurAdminType;
 use App\Form\FilterSearchType;
+use App\Form\SearchBarType;
 use App\Repository\AdminRepository;
 use App\Repository\AgentRepository;
 use Symfony\Component\Form\FormError;
@@ -27,6 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Date;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/admin")
@@ -157,12 +160,22 @@ class AdminController extends AbstractController
      */
     public function indexEntrepreneur(Request $request, EntrepreneurRepository $entrepreneurRepository, PaginatorInterface $paginator): Response
     {
+        $form = $this->createForm(SearchBarType::class, null, ['attr' => ['class' => 'd-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search']]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form-> isValid()){
+            $EntrepreneurSearched = $entrepreneurRepository->search($request->request->get('search_bar')['text']);
+            return $this->render('entrepreneur/admin/index.html.twig', [
+                'entrepreneurss' => $EntrepreneurSearched,
+                'form' =>$form->createView()
+            ]);
+        }
         
         $entrepreneurs = $paginator->paginate($entrepreneurRepository->findAll(),
         $request->query->getInt('page', 1),
         10);
         return $this->render('entrepreneur/admin/index.html.twig', [
-            'entrepreneurs' => $entrepreneurs
+            'entrepreneurs' => $entrepreneurs,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -262,6 +275,8 @@ class AdminController extends AbstractController
      * @param EntrepreneurRepository $entrepreneurRepository
      * @return void
      * @Route("/declaration/new", name="admin_declaration_new")
+     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function newDeclaratiolAll(Request $request, EntrepreneurRepository $entrepreneurRepository){
         $entrepreneurs = $entrepreneurRepository->findAll();
@@ -293,20 +308,31 @@ class AdminController extends AbstractController
 // -----------------------------Controle Agnet --------------------------------------------------------------
 
     /**
-     * @Route("/agents/liste", name="agent_index_admin", methods={"GET"})
+     * @Route("/agents/liste", name="agent_index_admin", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function indexAgent( Request $request, PaginatorInterface $paginator, AgentRepository $agentRepository): Response
     {
-        $agents = $paginator->paginate($agentRepository->findAll(),
-        $request->query->getInt('page', 1),
-        10);
+        $form = $this->createForm(SearchBarType::class, null, ['attr' => ['class' => 'd-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search']]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form-> isValid()){
+            $agentSearched = $agentRepository->search($request->request->get('search_bar')['text']);
+            return $this->render('agent/admin/index.html.twig', [
+                'agentss' => $agentSearched,
+                'form' =>$form->createView()
+            ]);
+        }
         return $this->render('agent/admin/index.html.twig', [
-            'agents' => $agents,
+            'agents' => $paginator->paginate($agentRepository->findAll(),
+            $request->query->getInt('page', 1),
+            10),
+            'form' =>$form->createView()
         ]);
     }
 
     /**
      * @Route("/agent/new", name="agent_new_admin", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function newAgent(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
@@ -332,6 +358,7 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/agent/{slug}/verif", name="agent_verif_admin", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function verifAgent(Agent $agent)
     {
@@ -343,6 +370,7 @@ class AdminController extends AbstractController
 
      /**
      * @Route("/agent/{slug}", name="agent_show_admin", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function showAgent(Agent $agent): Response
     {
@@ -353,6 +381,7 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/agent/{slug}/edit", name="agent_edit_admin", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function editAgent(Request $request, Agent $agent): Response
     {

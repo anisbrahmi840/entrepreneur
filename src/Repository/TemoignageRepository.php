@@ -47,4 +47,16 @@ class TemoignageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function search($text)
+    {
+        $dd = $this->createQueryBuilder('t')
+        ->andWhere('t.ref like :text OR t.title like :text')
+        ->setParameter('text', "%$text%")
+        ;
+        return $dd
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

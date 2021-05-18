@@ -119,6 +119,20 @@
 			</li>
 			{% if is_granted("ROLE_ADMIN") %}
 			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoActivite"
+					aria-expanded="true" aria-controls="collapseTwoActivite">
+					<i class="fas fa-fw fa-atom text-dark"></i>
+					<span>Activités</span>
+				</a>
+				<div id="collapseTwoActivite" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="{{ path('activite_index') }}">Liste des Activités</a>
+						<a class="collapse-item" href="{{ path('activite_new') }}">Ajouter Activité</a>
+					</div>
+				</div>
+			</li>
+			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoActualite"
 					aria-expanded="true" aria-controls="collapseTwoActualite">
 					<i class="fas fa-fw fa-sticky-note text-dark"></i>
@@ -153,6 +167,7 @@
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+					{% block search %}{% endblock %}
 					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>

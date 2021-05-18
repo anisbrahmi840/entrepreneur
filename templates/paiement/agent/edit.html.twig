@@ -12,7 +12,7 @@
     </div>
     <div class="row d-flex justify-content-center">
         <!-- Contact Form -->
-        <div class="col-md-8 col-sm-6 col-xs-12">
+        <div class="col-md-8 col-sm-6 col-xs-12 shadow p-2">
             <h1>Modifier le Paiement</h1>
 
             <table class="table">
@@ -20,7 +20,8 @@
                     <tr>
                         <th>Réf de paiement</th>
                         <td>{{ paiement.ref }}</td>
-                    </tr>                    <tr>
+                    </tr>
+                    <tr>
                         <th>Réf de déclaration</th>
                         <td>{{ paiement.declaration.ref }}</td>
                     </tr>
@@ -41,13 +42,16 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td><img width="600" height="400" src="{{ vich_uploader_asset(paiement) }}" alt="{{ paiement.image }}" /></td>
+                        <td><img width="600" height="400" src="{{ vich_uploader_asset(paiement) }}"
+                                alt="{{ paiement.image }}" /></td>
                     </tr>
                 </tbody>
             </table>
             {{ form_start(form) }}
-                 {{ form_widget(form) }}
+            {{ form_widget(form) }}
+            <div class="text-center">
                 <button class="btn btn-primary">{{ button_label|default('Vérifier le versement') }}</button>
+            </div>
             {{ form_end(form) }}
 
         </div>

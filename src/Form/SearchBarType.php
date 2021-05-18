@@ -2,27 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\Activite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActiviteType extends AbstractType
+class SearchBarType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('taux', NumberType::class)
+            ->add('text', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Rechercher ...',
+                    'class' => 'form-control bg-light border-0 small',
+                ]
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Activite::class,
+            // Configure your form options here
         ]);
     }
 }

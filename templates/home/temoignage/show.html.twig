@@ -21,17 +21,14 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
                         {% for temoignage in temoignages %}
-                        <div class="col-md-6 col-sm-4 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <!-- Single Post -->
                             <div class="single-blog slider">
                                 <div class="blog-post">
                                     <div class="blog-head">
                                         <div class="">
                                             <div class="single-slide">
-                                                <iframe width="700" height="400" src="{{temoignage.url}}"
-                                                    title="YouTube video player" frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
+                                                {{temoignage.url|raw}}
                                             </div>
                                         </div>
                                     </div>
@@ -58,5 +55,6 @@
 </div>
 </section>
 <!--/ End Project -->
+
 
 {% endblock %}

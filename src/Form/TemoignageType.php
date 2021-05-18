@@ -8,9 +8,11 @@ use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -26,7 +28,7 @@ class TemoignageType extends AbstractType
                 ],
                 'label' => 'Titre'
             ])
-            ->add('url', UrlType::class,[
+            ->add('url', TextType::class,[
                 'required' => false,
                 'constraints' => [
                     new NotBlank(["message" => "Saisir url de la video"])

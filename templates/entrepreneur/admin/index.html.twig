@@ -2,27 +2,39 @@
 
 {% block title %}Liste des entrepreneurs{% endblock %}
 
+{% block search %}
+{{ form_start(form) }}
+<div class="input-group">
+    {{ form_widget(form.text) }}
+    <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search fa-sm"></i>
+        </button>
+    </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
+
 {% block body %}
 <div class="text-center">
     <h1>Liste des entrepreneurs</h1>
 </div>
-{% if not entrepreneurs is empty %}
-    <table class="table table-bordered">
+{% if  (entrepreneurs is  defined  and not entrepreneurs is empty) or entrepreneurss is defined %}
+    <table class="table table-bordered table-striped shadow">
         <thead>
             <tr>
                 <th>Email</th>
                 <th>Nom</th>
-                <th>Prenom</th>
                 <th class="text-center">Etat</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for entrepreneur in entrepreneurs %}
+        {% if entrepreneurss is defined %}{% set ent = entrepreneurss %}{% else %}{% set ent = entrepreneurs %}{% endif %}
+            {% for entrepreneur in ent %}
             <tr>
                 <td>{{ entrepreneur.email }}</td>
-                <td>{{ entrepreneur.nom }}</td>
-                <td>{{ entrepreneur.prenom }}</td>
+                <td>{{ entrepreneur.prenom }} {{ entrepreneur.nom }}</td>
                 <td class="text-center"><a href=" {{ path('entrepreneur_verif_admin', {slug: entrepreneur.slug}) }} ">{% if entrepreneur.etat %}<span class="fa fa-check-square text-success"></span> {% else %} <span
                         class="fa fa-user-times text-danger"></span> {% endif %} <a/></td>
                 <td class="text-center">
@@ -39,9 +51,10 @@
         </tbody>
     </table>
 {% endif %}
+{% if  entrepreneurs is  defined  and not entrepreneurs is empty %}
 <div class="navigation d-flex justify-content-center">
     {{ knp_pagination_render(entrepreneurs) }}
 </div>
-
+{% endif %}
 
 {% endblock %}

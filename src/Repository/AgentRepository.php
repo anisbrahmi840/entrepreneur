@@ -64,4 +64,16 @@ class AgentRepository extends ServiceEntityRepository implements PasswordUpgrade
         ;
     }
     */
+
+    public function search($text)
+    {
+        $dd = $this->createQueryBuilder('a')
+        ->andWhere('a.nom like :text OR a.prenom like :text OR a.cin like :text OR a.email like :text')
+        ->setParameter('text', "%$text%")
+        ;
+        return $dd
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

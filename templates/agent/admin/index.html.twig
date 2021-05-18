@@ -2,14 +2,27 @@
 
 {% block title %}Liste des agents{% endblock %}
 
+{% block search %}
+{{ form_start(form) }}
+<div class="input-group">
+    {{ form_widget(form.text) }}
+    <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search fa-sm"></i>
+        </button>
+    </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
+
 {% block body %}
 <div class="text-center mb-2">
     <h1>Liste des agents</h1>
     <a href="{{ path('agent_new_admin') }}" class="btn btn-primary">Ajouter agent</a>
 </div>
 
-{% if not agents is  empty %}
-<table class="table table-bordered table-striped">
+{% if  (agents is  defined  and not agents is empty) or agentss is defined %}
+<table class="table table-bordered table-striped shadow">
     <thead>
         <tr>
             <th>Email</th>
@@ -19,7 +32,8 @@
         </tr>
     </thead>
     <tbody>
-        {% for agent in agents %}
+        {% if agentss is defined %}{% set age = agentss %}{% else %}{% set age = agents %}{% endif %}
+        {% for agent in age %}
         <tr>
             <td>{{ agent.email }}</td>
             <td>{{ agent.prenom }} {{ agent.nom }}</td>
@@ -35,11 +49,20 @@
             </td>
         </tr>
         {% endfor %}
+
+        {% if agentss is defined and agentss is empty %}
+        <tr>
+            <td colspan=3>
+                <p> aucun enregistrement trouvé </p>
+            <td>
+        </tr>
+        {% endif %}
     </tbody>
 </table>
 {% endif %}
-
+{% if  agents is  defined  and not agents is empty %}
 <div class="navigation d-flex justify-content-center">
     {{ knp_pagination_render(agents) }}
 </div>
+{% endif %}
 {% endblock %}
