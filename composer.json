@@ -25,7 +25,6 @@
         "symfony/framework-bundle": "4.4.*",
         "symfony/google-mailer": "4.4.*",
         "symfony/http-client": "4.4.*",
-        "symfony/inflector": "4.4.*",
         "symfony/intl": "4.4.*",
         "symfony/mailer": "4.4.*",
         "symfony/monolog-bundle": "^3.1",
@@ -41,6 +40,7 @@
         "symfony/twig-bundle": "^4.4",
         "symfony/validator": "4.4.*",
         "symfony/web-link": "4.4.*",
+        "symfony/web-profiler-bundle": "4.4.*",
         "symfony/yaml": "4.4.*",
         "symfonycasts/reset-password-bundle": "^1.8",
         "twig/extra-bundle": "^3.3",
@@ -56,8 +56,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^4.4",
-        "symfony/var-dumper": "^4.4",
-        "symfony/web-profiler-bundle": "^4.4"
+        "symfony/var-dumper": "^4.4"
     },
     "config": {
         "preferred-install": {
